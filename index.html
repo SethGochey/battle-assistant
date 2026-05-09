@@ -1459,6 +1459,18 @@ function buildProfileRow(p, pi, di, isMelee) {
 function updateDS(di, field, val) {
   tempUnit.datasheets[di][field] = val;
 }
+
+function refreshProfileTable(di, isMelee) {
+  const ds = tempUnit.datasheets[di];
+  const tbody = document.getElementById(isMelee ? `melee-rows-${di}` : `shoot-rows-${di}`);
+  if (!tbody) return;
+  const profiles = isMelee ? (ds.meleeProfiles || []) : (ds.shootingProfiles || []);
+  const cols = isMelee ? 7 : 8;
+  tbody.innerHTML = profiles.length
+    ? profiles.map((p, pi) => buildProfileRow(p, pi, di, isMelee)).join('')
+    : `<tr><td colspan="${cols}" style="color:var(--text-muted);font-size:0.8rem;text-align:center">No profiles</td></tr>`;
+}
+
 function addProfile(di, isMelee) {
   const ds = tempUnit.datasheets[di];
   if (isMelee) {
@@ -1468,13 +1480,13 @@ function addProfile(di, isMelee) {
     if (!ds.shootingProfiles) ds.shootingProfiles = [];
     ds.shootingProfiles.push({ id: uuid(), name: '', attacks: 1, attacksDisplay: '1', range: 24, ballisticSkill: 3, strength: 4, armorPenetration: 0, damage: 1, damageDisplay: '1' });
   }
-  renderDatasheetsList();
+  refreshProfileTable(di, isMelee);
 }
 function removeProfile(di, pi, isMelee) {
   const ds = tempUnit.datasheets[di];
   if (isMelee) ds.meleeProfiles.splice(pi, 1);
   else ds.shootingProfiles.splice(pi, 1);
-  renderDatasheetsList();
+  refreshProfileTable(di, isMelee);
 }
 function updateProfile(di, pi, isMelee, field, val) {
   const ds = tempUnit.datasheets[di];
@@ -1495,6 +1507,11 @@ document.getElementById('btn-add-datasheet').addEventListener('click', () => {
     shootingProfiles: [], meleeProfiles: []
   });
   renderDatasheetsList();
+  // Auto-expand the newly added datasheet
+  const items = document.querySelectorAll('#unit-datasheets-list .ds-item');
+  if (items.length) {
+    items[items.length - 1].querySelector('.ds-item-body').style.display = '';
+  }
 });
 
 document.getElementById('btn-save-unit').addEventListener('click', () => {
