@@ -1,0 +1,2244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Battle Assistant — 40k</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  /* ── CSS Variables ─────────────────────────────────────────── */
+  :root {
+    --gold:         #c9a84c;
+    --gold-dim:     #8a6f2e;
+    --gold-glow:    rgba(201,168,76,0.25);
+    --blood:        #8b1a1a;
+    --blood-bright: #c02020;
+    --blood-dim:    #5a1010;
+    --surface:      #0d0b09;
+    --surface2:     #141210;
+    --surface3:     #1c1916;
+    --surface4:     #26221e;
+    --surface5:     #312c27;
+    --text:         #e8dcc8;
+    --text-dim:     #9a8870;
+    --text-muted:   #5c5040;
+    --border-gold:  rgba(201,168,76,0.3);
+    --border-dim:   rgba(201,168,76,0.12);
+    --shadow:       rgba(0,0,0,0.6);
+    --radius:       4px;
+    --radius-lg:    8px;
+    --transition:   0.2s ease;
+  }
+
+  /* ── Reset & Base ──────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body {
+    font-family: 'Crimson Pro', Georgia, serif;
+    background: var(--surface);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-image:
+      radial-gradient(ellipse 80% 40% at 50% 0%, rgba(139,26,26,0.08) 0%, transparent 60%),
+      url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a84c' fill-opacity='0.025'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  /* ── Typography ────────────────────────────────────────────── */
+  h1, h2, h3, h4, .cinzel { font-family: 'Cinzel', serif; letter-spacing: 0.05em; }
+  h1 { font-size: 1.6rem; font-weight: 900; color: var(--gold); }
+  h2 { font-size: 1.2rem; font-weight: 700; color: var(--gold); }
+  h3 { font-size: 1rem; font-weight: 600; color: var(--text); }
+  p  { font-size: 1rem; line-height: 1.6; }
+  small { font-size: 0.8rem; color: var(--text-dim); }
+
+  /* ── Ornaments ──────────────────────────────────────────────── */
+  .ornament { color: var(--gold-dim); font-size: 0.75rem; letter-spacing: 0.2em; }
+  .skull-icon { color: var(--blood); font-size: 1.1em; }
+  .divider {
+    display: flex; align-items: center; gap: 0.75rem;
+    color: var(--gold-dim); font-size: 0.65rem; letter-spacing: 0.3em;
+    margin: 0.75rem 0;
+  }
+  .divider::before, .divider::after {
+    content: ''; flex: 1;
+    height: 1px; background: var(--border-gold);
+  }
+
+  /* ── Scrollbar ──────────────────────────────────────────────── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--surface2); }
+  ::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 3px; }
+
+  /* ── Header / Nav ───────────────────────────────────────────── */
+  #app-header {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border-gold);
+    box-shadow: 0 2px 20px var(--shadow);
+  }
+  .header-inner {
+    display: flex; align-items: center;
+    max-width: 1400px; margin: 0 auto;
+    padding: 0.6rem 1rem; gap: 1rem;
+  }
+  .app-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem; font-weight: 900;
+    color: var(--gold);
+    white-space: nowrap;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .app-title span.sub {
+    font-size: 0.65rem; font-weight: 400;
+    color: var(--text-dim); letter-spacing: 0.15em;
+    display: block; line-height: 1;
+  }
+  .nav-tabs {
+    display: flex; gap: 0.25rem; flex: 1;
+    justify-content: center; list-style: none;
+  }
+  .nav-tab {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em;
+    padding: 0.5rem 1rem;
+    color: var(--text-dim);
+    border: 1px solid transparent;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all var(--transition);
+    background: none;
+    white-space: nowrap;
+    display: flex; align-items: center; gap: 0.4rem;
+  }
+  .nav-tab:hover { color: var(--gold); border-color: var(--border-gold); background: var(--surface3); }
+  .nav-tab.active {
+    color: var(--gold); background: var(--surface3);
+    border-color: var(--border-gold);
+    box-shadow: 0 0 12px var(--gold-glow), inset 0 1px 0 var(--border-gold);
+  }
+  .hamburger {
+    display: none; background: none; border: 1px solid var(--border-gold);
+    color: var(--gold); padding: 0.4rem 0.6rem; border-radius: var(--radius);
+    cursor: pointer; font-size: 1rem;
+  }
+  .mobile-drawer {
+    display: none; position: fixed; inset: 0; z-index: 200;
+    background: rgba(0,0,0,0.7);
+  }
+  .mobile-drawer.open { display: flex; }
+  .drawer-panel {
+    background: var(--surface2); border-right: 1px solid var(--border-gold);
+    width: 260px; padding: 1.5rem 1rem;
+    display: flex; flex-direction: column; gap: 0.5rem;
+  }
+  .drawer-header {
+    font-family: 'Cinzel', serif; font-size: 1rem; color: var(--gold);
+    margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center;
+  }
+  .drawer-close {
+    background: none; border: none; color: var(--text-dim);
+    font-size: 1.2rem; cursor: pointer;
+  }
+  .drawer-nav-tab {
+    font-family: 'Cinzel', serif; font-size: 0.9rem; font-weight: 600;
+    padding: 0.75rem 1rem; color: var(--text-dim);
+    border: 1px solid transparent; border-radius: var(--radius);
+    cursor: pointer; background: none; text-align: left;
+    display: flex; align-items: center; gap: 0.6rem;
+    transition: all var(--transition);
+  }
+  .drawer-nav-tab:hover { color: var(--gold); border-color: var(--border-gold); background: var(--surface3); }
+  .drawer-nav-tab.active { color: var(--gold); background: var(--surface3); border-color: var(--border-gold); }
+
+  /* ── Main Layout ────────────────────────────────────────────── */
+  #app-main {
+    max-width: 1400px; margin: 0 auto;
+    padding: 1.5rem 1rem;
+  }
+  .view { display: none; }
+  .view.active { display: block; }
+
+  /* ── Cards ──────────────────────────────────────────────────── */
+  .card {
+    background: var(--surface2);
+    border: 1px solid var(--border-dim);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    transition: border-color var(--transition), box-shadow var(--transition);
+  }
+  .card:hover { border-color: var(--border-gold); }
+  .card-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 0.75rem;
+  }
+  .card-title {
+    font-family: 'Cinzel', serif; font-size: 0.95rem; font-weight: 700;
+    color: var(--gold);
+  }
+  .card-meta { font-size: 0.8rem; color: var(--text-dim); }
+
+  /* ── Buttons ────────────────────────────────────────────────── */
+  .btn {
+    font-family: 'Cinzel', serif; font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 0.08em; padding: 0.45rem 1rem;
+    border-radius: var(--radius); cursor: pointer;
+    transition: all var(--transition); border: 1px solid transparent;
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    white-space: nowrap;
+  }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn-gold {
+    background: linear-gradient(135deg, var(--gold-dim), var(--gold));
+    color: var(--surface); border-color: var(--gold);
+  }
+  .btn-gold:hover:not(:disabled) {
+    background: linear-gradient(135deg, var(--gold), #e8c060);
+    box-shadow: 0 0 16px var(--gold-glow);
+  }
+  .btn-blood {
+    background: linear-gradient(135deg, var(--blood-dim), var(--blood));
+    color: var(--text); border-color: var(--blood);
+  }
+  .btn-blood:hover:not(:disabled) {
+    background: linear-gradient(135deg, var(--blood), var(--blood-bright));
+    box-shadow: 0 0 16px rgba(139,26,26,0.4);
+  }
+  .btn-ghost {
+    background: none; color: var(--text-dim);
+    border-color: var(--border-dim);
+  }
+  .btn-ghost:hover:not(:disabled) {
+    color: var(--gold); border-color: var(--border-gold);
+    background: var(--surface3);
+  }
+  .btn-danger {
+    background: none; color: var(--blood-bright);
+    border-color: rgba(192,32,32,0.3);
+  }
+  .btn-danger:hover:not(:disabled) {
+    background: rgba(192,32,32,0.1); border-color: var(--blood-bright);
+  }
+  .btn-sm { font-size: 0.65rem; padding: 0.3rem 0.65rem; }
+  .btn-lg { font-size: 0.9rem; padding: 0.65rem 1.5rem; }
+  .btn-icon { padding: 0.35rem 0.5rem; font-size: 0.85rem; }
+
+  /* ── Forms ──────────────────────────────────────────────────── */
+  .form-group { display: flex; flex-direction: column; gap: 0.35rem; }
+  .form-label {
+    font-family: 'Cinzel', serif; font-size: 0.7rem; font-weight: 600;
+    letter-spacing: 0.1em; color: var(--text-dim);
+  }
+  .form-input, .form-select, .form-textarea {
+    background: var(--surface3); color: var(--text);
+    border: 1px solid var(--border-dim); border-radius: var(--radius);
+    padding: 0.45rem 0.75rem; font-family: 'Crimson Pro', serif; font-size: 0.95rem;
+    transition: border-color var(--transition), box-shadow var(--transition);
+    outline: none; width: 100%;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    border-color: var(--gold); box-shadow: 0 0 0 2px var(--gold-glow);
+  }
+  .form-select option { background: var(--surface3); }
+  .form-textarea { resize: vertical; min-height: 80px; }
+  .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 0.75rem; }
+
+  /* ── Stat Box ───────────────────────────────────────────────── */
+  .stat-box {
+    background: var(--surface3); border: 1px solid var(--border-dim);
+    border-radius: var(--radius); padding: 0.5rem 0.75rem; text-align: center;
+  }
+  .stat-value {
+    font-family: 'Cinzel', serif; font-size: 1.4rem; font-weight: 700;
+    color: var(--gold); line-height: 1;
+  }
+  .stat-label {
+    font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.12em;
+    color: var(--text-dim); margin-top: 0.2rem;
+  }
+
+  /* ── Counter Control ────────────────────────────────────────── */
+  .counter {
+    display: inline-flex; align-items: center; gap: 0; border: 1px solid var(--border-dim);
+    border-radius: var(--radius); overflow: hidden;
+  }
+  .counter-btn {
+    background: var(--surface3); color: var(--gold);
+    border: none; cursor: pointer;
+    min-width: 44px; min-height: 44px;
+    font-size: 1.1rem; font-weight: 700;
+    transition: background var(--transition);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .counter-btn:hover { background: var(--surface4); }
+  .counter-val {
+    font-family: 'Cinzel', serif; font-size: 0.95rem; font-weight: 700;
+    color: var(--text); background: var(--surface2);
+    padding: 0 0.75rem; min-width: 60px; text-align: center;
+    line-height: 44px;
+  }
+  .counter-label {
+    font-size: 0.7rem; color: var(--text-dim);
+    padding: 0 0.5rem; font-family: 'Cinzel', serif;
+    letter-spacing: 0.08em;
+  }
+
+  /* ── Badge ──────────────────────────────────────────────────── */
+  .badge {
+    display: inline-block; font-family: 'Cinzel', serif;
+    font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em;
+    padding: 0.15rem 0.5rem; border-radius: 2px;
+  }
+  .badge-gold { background: rgba(201,168,76,0.15); color: var(--gold); border: 1px solid var(--border-gold); }
+  .badge-blood { background: rgba(139,26,26,0.2); color: #e05050; border: 1px solid rgba(139,26,26,0.4); }
+  .badge-dim { background: var(--surface3); color: var(--text-dim); border: 1px solid var(--border-dim); }
+
+  /* ── Toast ──────────────────────────────────────────────────── */
+  #toast-container {
+    position: fixed; bottom: 1.5rem; right: 1.5rem;
+    z-index: 500; display: flex; flex-direction: column; gap: 0.5rem;
+  }
+  .toast {
+    font-family: 'Cinzel', serif; font-size: 0.75rem;
+    padding: 0.65rem 1rem; border-radius: var(--radius);
+    background: var(--surface4); border: 1px solid var(--border-gold);
+    color: var(--text); box-shadow: 0 4px 20px var(--shadow);
+    animation: toast-in 0.3s ease;
+  }
+  .toast.error { border-color: var(--blood-bright); color: #e05050; }
+  @keyframes toast-in { from { opacity:0; transform: translateY(12px); } to { opacity:1; transform: none; } }
+
+  /* ── Modal ──────────────────────────────────────────────────── */
+  .modal-backdrop {
+    display: none; position: fixed; inset: 0; z-index: 300;
+    background: rgba(0,0,0,0.75); align-items: center; justify-content: center;
+    padding: 1rem;
+  }
+  .modal-backdrop.open { display: flex; }
+  .modal {
+    background: var(--surface2); border: 1px solid var(--border-gold);
+    border-radius: var(--radius-lg); box-shadow: 0 8px 40px var(--shadow);
+    width: 100%; max-width: 680px; max-height: 90vh;
+    display: flex; flex-direction: column;
+    animation: modal-in 0.25s ease;
+  }
+  .modal.modal-lg { max-width: 900px; }
+  .modal.modal-xl { max-width: 1100px; }
+  @keyframes modal-in { from { opacity:0; transform: scale(0.96) translateY(-12px); } to { opacity:1; transform: none; } }
+  .modal-header {
+    padding: 1rem 1.25rem; border-bottom: 1px solid var(--border-gold);
+    display: flex; align-items: center; justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .modal-title { font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 700; color: var(--gold); }
+  .modal-close {
+    background: none; border: none; color: var(--text-dim);
+    font-size: 1.2rem; cursor: pointer; padding: 0.25rem;
+    transition: color var(--transition);
+  }
+  .modal-close:hover { color: var(--gold); }
+  .modal-body { padding: 1.25rem; overflow-y: auto; flex: 1; }
+  .modal-footer {
+    padding: 1rem 1.25rem; border-top: 1px solid var(--border-dim);
+    display: flex; justify-content: flex-end; gap: 0.5rem; flex-shrink: 0;
+  }
+
+  /* ── Section Header ─────────────────────────────────────────── */
+  .section-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Cinzel', serif; font-size: 0.8rem; font-weight: 700;
+    letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase;
+  }
+
+  /* ── Table ──────────────────────────────────────────────────── */
+  .data-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+  .data-table th {
+    font-family: 'Cinzel', serif; font-size: 0.65rem; font-weight: 700;
+    letter-spacing: 0.12em; color: var(--text-dim); text-align: left;
+    padding: 0.4rem 0.6rem; border-bottom: 1px solid var(--border-gold);
+  }
+  .data-table td {
+    padding: 0.4rem 0.6rem; border-bottom: 1px solid var(--border-dim);
+    vertical-align: middle;
+  }
+  .data-table tr:hover td { background: var(--surface3); }
+  .data-table input {
+    background: transparent; border: none; color: var(--text);
+    font-family: 'Crimson Pro', serif; font-size: 0.88rem;
+    width: 100%; outline: none; padding: 0;
+  }
+  .data-table input:focus { border-bottom: 1px solid var(--gold); }
+
+  /* ── Empty State ────────────────────────────────────────────── */
+  .empty-state {
+    text-align: center; padding: 3rem 1rem;
+    color: var(--text-muted);
+  }
+  .empty-state .empty-icon { font-size: 2.5rem; margin-bottom: 0.75rem; opacity: 0.4; }
+  .empty-state p { font-size: 0.9rem; }
+
+  /* ── Grid Layouts ───────────────────────────────────────────── */
+  .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+  .grid-auto { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+  .flex-row { display: flex; align-items: center; gap: 0.5rem; }
+  .flex-wrap { flex-wrap: wrap; }
+  .flex-1 { flex: 1; }
+  .gap-sm { gap: 0.25rem; }
+  .gap-md { gap: 0.75rem; }
+  .mt-1 { margin-top: 0.5rem; }
+  .mt-2 { margin-top: 1rem; }
+  .mt-3 { margin-top: 1.5rem; }
+  .mb-1 { margin-bottom: 0.5rem; }
+  .mb-2 { margin-bottom: 1rem; }
+
+  /* ══════════════════════════════════════════════════════════════
+     FACTIONS VIEW
+  ══════════════════════════════════════════════════════════════ */
+  .faction-card {
+    cursor: pointer;
+  }
+  .faction-card .card-header { cursor: pointer; }
+  .faction-units { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.75rem; }
+  .unit-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.4rem 0.6rem; background: var(--surface3);
+    border: 1px solid var(--border-dim); border-radius: var(--radius);
+  }
+  .unit-row:hover { border-color: var(--border-gold); }
+  .unit-info { font-size: 0.9rem; }
+  .unit-info small { display: block; color: var(--text-dim); font-size: 0.72rem; }
+  .unit-actions { display: flex; gap: 0.35rem; }
+
+  /* Unit Editor Modal sub-sections */
+  .ds-list { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 0.75rem; }
+  .ds-item {
+    border: 1px solid var(--border-dim); border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .ds-item-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.5rem 0.75rem; background: var(--surface3); cursor: pointer;
+  }
+  .ds-item-header:hover { background: var(--surface4); }
+  .ds-item-body { padding: 0.75rem; background: var(--surface2); }
+  .profile-section { margin-top: 0.75rem; }
+  .profile-section-title {
+    font-family: 'Cinzel', serif; font-size: 0.7rem; font-weight: 700;
+    letter-spacing: 0.12em; color: var(--gold-dim); margin-bottom: 0.5rem;
+  }
+  .table-wrap { overflow-x: auto; border: 1px solid var(--border-dim); border-radius: var(--radius); }
+
+  /* ══════════════════════════════════════════════════════════════
+     ARMIES VIEW
+  ══════════════════════════════════════════════════════════════ */
+  .army-stats {
+    display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;
+  }
+  .entry-item {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.35rem 0.6rem; background: var(--surface3);
+    border: 1px solid var(--border-dim); border-radius: var(--radius);
+    margin-top: 0.35rem; font-size: 0.88rem;
+  }
+
+  /* ══════════════════════════════════════════════════════════════
+     BATTLE VIEW
+  ══════════════════════════════════════════════════════════════ */
+  .resource-bar {
+    display: flex; align-items: center; gap: 0.75rem;
+    flex-wrap: wrap; padding: 0.5rem 0; margin-bottom: 1rem;
+  }
+  .resource-item {
+    display: flex; align-items: center; gap: 0.4rem;
+    background: var(--surface3); border: 1px solid var(--border-dim);
+    border-radius: var(--radius); padding: 0.25rem 0.5rem;
+  }
+  .resource-name {
+    font-family: 'Cinzel', serif; font-size: 0.65rem; color: var(--text-dim);
+    letter-spacing: 0.1em;
+  }
+  .resource-value {
+    font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 700; color: var(--gold);
+    min-width: 2ch; text-align: center;
+  }
+  .resource-btn {
+    background: none; border: none; color: var(--gold);
+    cursor: pointer; font-size: 1rem; line-height: 1;
+    width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;
+    border-radius: 2px; transition: background var(--transition);
+  }
+  .resource-btn:hover { background: var(--surface4); }
+  .resource-delete {
+    background: none; border: none; color: var(--text-muted); cursor: pointer;
+    font-size: 0.75rem; padding: 0.1rem;
+  }
+  .resource-delete:hover { color: var(--blood-bright); }
+
+  /* Battle panels */
+  .battle-panels {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; align-items: start;
+  }
+  .battle-panel {
+    background: var(--surface2); border: 1px solid var(--border-dim);
+    border-radius: var(--radius-lg); overflow: hidden;
+  }
+  .battle-panel-header {
+    padding: 0.75rem 1rem; background: var(--surface3);
+    border-bottom: 1px solid var(--border-gold);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .battle-panel-title {
+    font-family: 'Cinzel', serif; font-size: 0.95rem; font-weight: 700; color: var(--gold);
+  }
+  .battle-panel-body { padding: 0.75rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  .battle-unit-card {
+    background: var(--surface3); border: 1px solid var(--border-dim);
+    border-radius: var(--radius); padding: 0.6rem 0.75rem;
+    transition: all var(--transition);
+  }
+  .battle-unit-card.activated {
+    opacity: 0.45; border-style: dashed;
+  }
+  .battle-unit-card.destroyed {
+    display: none;
+  }
+  .battle-unit-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 0.4rem;
+  }
+  .battle-unit-name {
+    font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: 700; color: var(--text);
+  }
+  .battle-unit-actions { display: flex; gap: 0.35rem; align-items: center; }
+  .ds-tracker {
+    display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap;
+    padding: 0.35rem 0; border-top: 1px solid var(--border-dim); margin-top: 0.4rem;
+  }
+  .ds-tracker-label { font-size: 0.75rem; color: var(--text-dim); min-width: 90px; }
+  .ds-tracker-models {
+    display: flex; align-items: center; gap: 0.25rem; font-size: 0.8rem;
+  }
+  .tracker-btn {
+    background: var(--surface4); border: 1px solid var(--border-dim);
+    color: var(--gold); cursor: pointer;
+    width: 28px; height: 28px;
+    border-radius: var(--radius); font-size: 0.85rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    transition: background var(--transition);
+  }
+  .tracker-btn:hover { background: var(--surface5); }
+  .tracker-val {
+    font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: 700;
+    color: var(--text); min-width: 32px; text-align: center;
+  }
+  .tracker-sep { color: var(--text-muted); font-size: 0.75rem; }
+  .activated-toggle {
+    display: flex; align-items: center; gap: 0.35rem; cursor: pointer;
+    font-size: 0.72rem; color: var(--text-dim); font-family: 'Cinzel', serif;
+    letter-spacing: 0.08em;
+  }
+  .activated-toggle input { accent-color: var(--gold); cursor: pointer; }
+
+  /* Analysis Panel */
+  .analysis-panel-backdrop {
+    display: none; position: fixed; inset: 0; z-index: 400;
+    background: rgba(0,0,0,0.6); align-items: flex-end; justify-content: flex-end;
+  }
+  .analysis-panel-backdrop.open { display: flex; }
+  .analysis-panel {
+    background: var(--surface2); border-left: 1px solid var(--border-gold);
+    border-top: 1px solid var(--border-gold);
+    width: 420px; height: 100vh; overflow-y: auto;
+    padding: 1.25rem; display: flex; flex-direction: column; gap: 1rem;
+    animation: slide-in 0.3s ease;
+  }
+  @keyframes slide-in { from { transform: translateX(100%); } to { transform: none; } }
+  .analysis-header {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .analysis-title { font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 700; color: var(--gold); }
+  .analysis-mode-badge {
+    font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.12em;
+    padding: 0.2rem 0.6rem; border-radius: 2px;
+    background: rgba(201,168,76,0.1); border: 1px solid var(--border-gold); color: var(--gold);
+  }
+  .analysis-step {
+    background: var(--surface3); border: 1px solid var(--border-dim);
+    border-radius: var(--radius); padding: 0.75rem;
+    border-left: 3px solid var(--gold);
+  }
+  .analysis-step-num {
+    font-family: 'Cinzel', serif; font-size: 0.65rem; color: var(--gold-dim);
+    letter-spacing: 0.15em; margin-bottom: 0.4rem;
+  }
+  .analysis-step-main { font-size: 0.95rem; margin-bottom: 0.35rem; }
+  .analysis-step-detail { font-size: 0.8rem; color: var(--text-dim); }
+  .analysis-summary {
+    background: var(--surface3); border: 1px solid var(--border-gold);
+    border-radius: var(--radius); padding: 0.75rem;
+  }
+  .analysis-summary-title {
+    font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.12em;
+    color: var(--text-dim); margin-bottom: 0.6rem;
+  }
+  .analysis-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+
+  /* Battle setup */
+  .battle-setup {
+    max-width: 600px; margin: 3rem auto; text-align: center;
+  }
+  .battle-setup h2 { margin-bottom: 0.5rem; }
+  .battle-setup .ornament { margin-bottom: 2rem; display: block; }
+  .setup-form { display: flex; flex-direction: column; gap: 1rem; text-align: left; }
+  .vs-label {
+    font-family: 'Cinzel', serif; font-size: 2rem; font-weight: 900; color: var(--blood);
+    text-align: center; line-height: 1; align-self: center; margin-top: 0.5rem;
+  }
+
+  /* Simulate button */
+  .simulate-row {
+    display: flex; justify-content: center; margin: 1rem 0;
+  }
+
+  /* Battle report modal */
+  .report-round {
+    margin-bottom: 1rem; border: 1px solid var(--border-dim);
+    border-radius: var(--radius); overflow: hidden;
+  }
+  .report-round-header {
+    padding: 0.5rem 0.75rem; background: var(--surface3);
+    font-family: 'Cinzel', serif; font-size: 0.8rem; color: var(--gold);
+    border-bottom: 1px solid var(--border-dim);
+  }
+  .report-round-body { padding: 0.75rem; font-size: 0.88rem; line-height: 1.7; }
+  .report-outcome {
+    text-align: center; padding: 1.5rem;
+    font-family: 'Cinzel', serif; font-size: 1.2rem; font-weight: 700;
+    color: var(--gold);
+  }
+
+  /* ══════════════════════════════════════════════════════════════
+     DATA VIEW
+  ══════════════════════════════════════════════════════════════ */
+  .data-sections { display: flex; flex-direction: column; gap: 1.5rem; max-width: 600px; }
+  .data-card { padding: 1.25rem; }
+  .data-card h3 { margin-bottom: 0.75rem; }
+  .data-card p { font-size: 0.9rem; color: var(--text-dim); margin-bottom: 1rem; }
+  .danger-zone { border-color: rgba(192,32,32,0.3); }
+  .danger-zone h3 { color: var(--blood-bright); }
+  .rules-ref-table { font-size: 0.85rem; margin-top: 0.75rem; }
+  .rules-ref-table th { color: var(--gold); }
+
+  /* ══════════════════════════════════════════════════════════════
+     RESPONSIVE
+  ══════════════════════════════════════════════════════════════ */
+  @media (max-width: 768px) {
+    .nav-tabs { display: none; }
+    .hamburger { display: flex; align-items: center; justify-content: center; }
+    .battle-panels { grid-template-columns: 1fr; }
+    .analysis-panel { width: 100%; height: 90vh; border-left: none; border-top: 1px solid var(--border-gold); }
+    .analysis-panel-backdrop { align-items: flex-end; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    #app-main { padding: 1rem 0.75rem; }
+    .modal { max-width: 100%; margin: 0; border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+    .modal-backdrop { align-items: flex-end; padding: 0; }
+    .modal { max-height: 95vh; }
+  }
+  @media (max-width: 500px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════ HEADER ══════════ -->
+<header id="app-header">
+  <div class="header-inner">
+    <div class="app-title">
+      <span>☩</span>
+      <div>
+        BATTLE ASSISTANT
+        <span class="sub">40K COMBAT CALCULATOR</span>
+      </div>
+    </div>
+    <nav>
+      <ul class="nav-tabs" id="nav-tabs">
+        <li><button class="nav-tab active" data-view="factions">⚔ Factions</button></li>
+        <li><button class="nav-tab" data-view="armies">🛡 Armies</button></li>
+        <li><button class="nav-tab" data-view="battle">☩ Battle</button></li>
+        <li><button class="nav-tab" data-view="data">⬡ Data</button></li>
+      </ul>
+    </nav>
+    <button class="hamburger" id="hamburger-btn" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<!-- ══════════ MOBILE DRAWER ══════════ -->
+<div class="mobile-drawer" id="mobile-drawer">
+  <div class="drawer-panel">
+    <div class="drawer-header">
+      <span>Navigation</span>
+      <button class="drawer-close" id="drawer-close">✕</button>
+    </div>
+    <div class="divider">✦ ✦ ✦</div>
+    <button class="drawer-nav-tab active" data-view="factions">⚔ &nbsp; Factions</button>
+    <button class="drawer-nav-tab" data-view="armies">🛡 &nbsp; Armies</button>
+    <button class="drawer-nav-tab" data-view="battle">☩ &nbsp; Battle</button>
+    <button class="drawer-nav-tab" data-view="data">⬡ &nbsp; Data</button>
+  </div>
+  <div style="flex:1" id="drawer-backdrop"></div>
+</div>
+
+<!-- ══════════ MAIN ══════════ -->
+<main id="app-main">
+
+  <!-- ═══ FACTIONS VIEW ═══ -->
+  <div class="view active" id="view-factions">
+    <div class="section-header mb-2">
+      <div>
+        <h2>Factions</h2>
+        <small class="ornament">✦ Unit Templates &amp; Datasheets ✦</small>
+      </div>
+      <button class="btn btn-gold" id="btn-add-faction">+ Add Faction</button>
+    </div>
+    <div class="grid-auto" id="factions-list">
+      <!-- Faction cards rendered here -->
+    </div>
+    <div class="empty-state" id="factions-empty" style="display:none">
+      <div class="empty-icon">⚔</div>
+      <p>No factions yet. Add your first faction to define unit templates.</p>
+    </div>
+  </div>
+
+  <!-- ═══ ARMIES VIEW ═══ -->
+  <div class="view" id="view-armies">
+    <div class="section-header mb-2">
+      <div>
+        <h2>Armies</h2>
+        <small class="ornament">✦ Compose Your Forces ✦</small>
+      </div>
+      <button class="btn btn-gold" id="btn-add-army">+ Add Army</button>
+    </div>
+    <div class="grid-auto" id="armies-list">
+      <!-- Army cards rendered here -->
+    </div>
+    <div class="empty-state" id="armies-empty" style="display:none">
+      <div class="empty-icon">🛡</div>
+      <p>No armies yet. Create a faction first, then compose your army.</p>
+    </div>
+  </div>
+
+  <!-- ═══ BATTLE VIEW ═══ -->
+  <div class="view" id="view-battle">
+
+    <!-- Setup state -->
+    <div id="battle-setup-panel">
+      <div class="battle-setup">
+        <h2>Battle Setup</h2>
+        <span class="ornament">✦ THE EMPEROR PROTECTS ✦</span>
+        <div class="setup-form card">
+          <div class="form-group">
+            <label class="form-label">Battle Name (Optional)</label>
+            <input type="text" class="form-input" id="battle-name-input" placeholder="The Siege of Cadia…">
+          </div>
+          <div class="grid-2">
+            <div class="form-group">
+              <label class="form-label">Army A</label>
+              <select class="form-select" id="battle-army-a"></select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Army B</label>
+              <select class="form-select" id="battle-army-b"></select>
+            </div>
+          </div>
+          <button class="btn btn-gold btn-lg" id="btn-begin-battle" style="align-self:center">
+            ☩ Begin Battle
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Active state -->
+    <div id="battle-active-panel" style="display:none">
+      <!-- Battle header -->
+      <div class="card mb-2" style="padding:0.75rem 1rem">
+        <div class="flex-row">
+          <div style="flex:1">
+            <div class="flex-row">
+              <span class="cinzel" style="font-size:1rem;color:var(--gold);font-weight:700" id="battle-header-name">Battle</span>
+            </div>
+            <div class="flex-row mt-1">
+              <span id="battle-header-a" style="font-size:0.85rem;font-weight:600;font-family:Cinzel,serif"></span>
+              <span style="color:var(--blood);font-family:Cinzel,serif;font-weight:900;margin:0 0.5rem">VS</span>
+              <span id="battle-header-b" style="font-size:0.85rem;font-weight:600;font-family:Cinzel,serif"></span>
+            </div>
+          </div>
+          <button class="btn btn-danger" id="btn-end-battle">End Battle</button>
+        </div>
+        <!-- Resource bar -->
+        <div class="divider mt-1">RESOURCES</div>
+        <div class="resource-bar" id="resource-bar">
+          <!-- Rendered by JS -->
+        </div>
+        <button class="btn btn-ghost btn-sm" id="btn-add-resource">+ Add Resource</button>
+      </div>
+
+      <!-- Battle panels -->
+      <div class="battle-panels" id="battle-panels">
+        <!-- Panel A -->
+        <div class="battle-panel" id="panel-a">
+          <div class="battle-panel-header">
+            <span class="battle-panel-title" id="panel-a-title">Army A</span>
+            <button class="btn btn-gold btn-sm" id="btn-destroy-anything-a">⬡ Destroy Anything</button>
+          </div>
+          <div class="battle-panel-body" id="panel-a-units"></div>
+          <div style="padding:0.5rem 0.75rem;border-top:1px solid var(--border-dim)">
+            <button class="btn btn-ghost btn-sm" id="btn-reset-a">↺ Reset Activations</button>
+          </div>
+        </div>
+        <!-- Panel B -->
+        <div class="battle-panel" id="panel-b">
+          <div class="battle-panel-header">
+            <span class="battle-panel-title" id="panel-b-title">Army B</span>
+            <button class="btn btn-gold btn-sm" id="btn-destroy-anything-b">⬡ Destroy Anything</button>
+          </div>
+          <div class="battle-panel-body" id="panel-b-units"></div>
+          <div style="padding:0.5rem 0.75rem;border-top:1px solid var(--border-dim)">
+            <button class="btn btn-ghost btn-sm" id="btn-reset-b">↺ Reset Activations</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="simulate-row">
+        <button class="btn btn-gold btn-lg" id="btn-simulate">⬡ Simulate Battle (5 Rounds)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ DATA VIEW ═══ -->
+  <div class="view" id="view-data">
+    <div class="section-header mb-2">
+      <div>
+        <h2>Data Management</h2>
+        <small class="ornament">✦ Import · Export · Reference ✦</small>
+      </div>
+    </div>
+    <div class="data-sections">
+      <div class="card data-card">
+        <h3>Export Data</h3>
+        <p>Download all factions and armies as a JSON file for backup or sharing.</p>
+        <button class="btn btn-gold" id="btn-export">⬇ Export JSON</button>
+      </div>
+      <div class="card data-card">
+        <h3>Import Data</h3>
+        <p>Load factions and armies from a previously exported JSON file. Choose whether to merge with existing data or replace it.</p>
+        <div class="flex-row gap-md">
+          <input type="file" id="import-file" accept=".json" style="display:none">
+          <button class="btn btn-ghost" id="btn-import-merge">⬆ Import &amp; Merge</button>
+          <button class="btn btn-ghost" id="btn-import-replace">⬆ Import &amp; Replace</button>
+        </div>
+      </div>
+      <div class="card data-card danger-zone">
+        <h3>⚠ Danger Zone</h3>
+        <p>Permanently delete all factions and armies. This cannot be undone.</p>
+        <button class="btn btn-danger" id="btn-clear-all">✕ Clear All Data</button>
+      </div>
+      <div class="card data-card">
+        <h3>Rules Reference</h3>
+        <p>Quick lookup for the hit / wound / save sequence at the table.</p>
+        <div class="divider">WOUND CHART</div>
+        <table class="data-table rules-ref-table">
+          <thead><tr><th>Condition</th><th>Wound Roll</th></tr></thead>
+          <tbody>
+            <tr><td>S ≥ T×2</td><td>2+</td></tr>
+            <tr><td>S &gt; T</td><td>3+</td></tr>
+            <tr><td>S = T</td><td>4+</td></tr>
+            <tr><td>S &lt; T</td><td>5+</td></tr>
+            <tr><td>S×2 ≤ T</td><td>6+</td></tr>
+          </tbody>
+        </table>
+        <div class="divider mt-2">SAVE MODIFIERS</div>
+        <p style="font-size:0.85rem;color:var(--text-dim)">Modified save = Armor Save − AP. Invuln save ignores AP. Best (lowest number) save applies. Natural 1 always fails.</p>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- ══════════ TOAST CONTAINER ══════════ -->
+<div id="toast-container"></div>
+
+<!-- ══════════ ANALYSIS PANEL ══════════ -->
+<div class="analysis-panel-backdrop" id="analysis-backdrop">
+  <div class="analysis-panel" id="analysis-panel">
+    <div class="analysis-header">
+      <div>
+        <div class="analysis-title" id="analysis-title">Analysis</div>
+        <span class="analysis-mode-badge" id="analysis-mode-badge">ATTACK</span>
+      </div>
+      <button class="btn btn-ghost btn-sm" id="analysis-close">✕ Close</button>
+    </div>
+    <div class="divider">✦ ✦ ✦</div>
+    <div id="analysis-content">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ MODAL: FACTION EDITOR ══════════ -->
+<div class="modal-backdrop" id="modal-faction">
+  <div class="modal modal-xl">
+    <div class="modal-header">
+      <span class="modal-title" id="modal-faction-title">Add Faction</span>
+      <button class="modal-close" data-close="modal-faction">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group mb-2">
+        <label class="form-label">Faction Name</label>
+        <input type="text" class="form-input" id="faction-name-input" placeholder="Space Marines, Orks, Necrons…">
+      </div>
+      <div class="divider">UNITS</div>
+      <div class="section-header">
+        <span class="section-title">Unit Roster</span>
+        <button class="btn btn-ghost btn-sm" id="btn-add-unit">+ Add Unit</button>
+      </div>
+      <div id="faction-units-list" class="ds-list">
+        <!-- Units rendered here -->
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" data-close="modal-faction">Cancel</button>
+      <button class="btn btn-gold" id="btn-save-faction">Save Faction</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ MODAL: UNIT EDITOR ══════════ -->
+<div class="modal-backdrop" id="modal-unit">
+  <div class="modal modal-xl">
+    <div class="modal-header">
+      <span class="modal-title" id="modal-unit-title">Edit Unit</span>
+      <button class="modal-close" data-close="modal-unit">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group mb-2">
+        <label class="form-label">Unit Name</label>
+        <input type="text" class="form-input" id="unit-name-input" placeholder="Intercessor Squad…">
+      </div>
+      <div class="divider">DATASHEETS</div>
+      <div class="section-header">
+        <span class="section-title">Datasheet Models</span>
+        <button class="btn btn-ghost btn-sm" id="btn-add-datasheet">+ Add Datasheet</button>
+      </div>
+      <div id="unit-datasheets-list" class="ds-list">
+        <!-- Datasheets rendered here -->
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" data-close="modal-unit">Cancel</button>
+      <button class="btn btn-gold" id="btn-save-unit">Save Unit</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ MODAL: ARMY EDITOR ══════════ -->
+<div class="modal-backdrop" id="modal-army">
+  <div class="modal modal-lg">
+    <div class="modal-header">
+      <span class="modal-title" id="modal-army-title">Add Army</span>
+      <button class="modal-close" data-close="modal-army">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row mb-2">
+        <div class="form-group">
+          <label class="form-label">Army Name</label>
+          <input type="text" class="form-input" id="army-name-input" placeholder="1st Company…">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Faction</label>
+          <select class="form-select" id="army-faction-select"></select>
+        </div>
+      </div>
+      <div class="divider">UNIT ROSTER</div>
+      <div class="grid-2" style="align-items:start;gap:1rem">
+        <div>
+          <div class="section-title mb-1">Available Units</div>
+          <div id="army-available-units" style="display:flex;flex-direction:column;gap:0.35rem;max-height:300px;overflow-y:auto">
+            <!-- Available units from faction -->
+          </div>
+        </div>
+        <div>
+          <div class="section-title mb-1">Added to Army</div>
+          <div id="army-selected-units" style="display:flex;flex-direction:column;gap:0.35rem;max-height:300px;overflow-y:auto">
+            <!-- Selected entries -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" data-close="modal-army">Cancel</button>
+      <button class="btn btn-gold" id="btn-save-army">Save Army</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ MODAL: CONFIRM ══════════ -->
+<div class="modal-backdrop" id="modal-confirm">
+  <div class="modal" style="max-width:400px">
+    <div class="modal-header">
+      <span class="modal-title" id="confirm-title">Confirm</span>
+      <button class="modal-close" data-close="modal-confirm">✕</button>
+    </div>
+    <div class="modal-body">
+      <p id="confirm-message"></p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" data-close="modal-confirm">Cancel</button>
+      <button class="btn btn-danger" id="btn-confirm-ok">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ MODAL: RESOURCE ADD ══════════ -->
+<div class="modal-backdrop" id="modal-resource">
+  <div class="modal" style="max-width:360px">
+    <div class="modal-header">
+      <span class="modal-title">Add Resource</span>
+      <button class="modal-close" data-close="modal-resource">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group mb-2">
+        <label class="form-label">Resource Name</label>
+        <input type="text" class="form-input" id="resource-name-input" placeholder="Command Points, Fate Points…">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Starting Value</label>
+        <input type="number" class="form-input" id="resource-value-input" value="0" min="0">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" data-close="modal-resource">Cancel</button>
+      <button class="btn btn-gold" id="btn-save-resource">Add Resource</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ MODAL: BATTLE REPORT ══════════ -->
+<div class="modal-backdrop" id="modal-report">
+  <div class="modal modal-lg">
+    <div class="modal-header">
+      <span class="modal-title">⚔ Battle Simulation Report</span>
+      <button class="modal-close" data-close="modal-report">✕</button>
+    </div>
+    <div class="modal-body" id="report-body">
+      <!-- Generated report -->
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-gold" data-close="modal-report">Close Report</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   WAR ENGINE — 40K BATTLE ASSISTANT
+   Scaffold v1.0 — Full implementation
+═══════════════════════════════════════════════════════════════ */
+
+// ── Utilities ────────────────────────────────────────────────
+const uuid = () => crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2);
+
+function showToast(msg, type = 'ok') {
+  const c = document.getElementById('toast-container');
+  const t = document.createElement('div');
+  t.className = 'toast' + (type === 'error' ? ' error' : '');
+  t.textContent = msg;
+  c.appendChild(t);
+  setTimeout(() => { t.style.opacity = '0'; t.style.transition = 'opacity 0.3s'; setTimeout(() => t.remove(), 300); }, 3000);
+}
+
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+function openAnalysis() { document.getElementById('analysis-backdrop').classList.add('open'); }
+function closeAnalysis() { document.getElementById('analysis-backdrop').classList.remove('open'); }
+
+// Close modals on backdrop click
+document.querySelectorAll('.modal-backdrop').forEach(b => {
+  b.addEventListener('click', e => { if (e.target === b) b.classList.remove('open'); });
+});
+document.querySelectorAll('[data-close]').forEach(btn => {
+  btn.addEventListener('click', () => closeModal(btn.dataset.close));
+});
+document.getElementById('analysis-close').addEventListener('click', closeAnalysis);
+
+// ── Dice Parser ───────────────────────────────────────────────
+function parseDice(str) {
+  if (!str) return { value: 0, display: '0' };
+  const s = str.toString().trim().toUpperCase();
+  const m = s.match(/^(\d+)?D(\d+)([+-]\d+)?$|^(\d+(?:\.\d+)?)$/);
+  if (!m) return { value: parseFloat(s) || 0, display: s };
+  if (m[4] !== undefined) return { value: parseFloat(m[4]), display: s };
+  const coeff = m[1] ? parseInt(m[1]) : 1;
+  const die   = parseInt(m[2]);
+  const mod   = m[3] ? parseInt(m[3]) : 0;
+  return { value: coeff * (die + 1) / 2 + mod, display: s };
+}
+
+// ── Combat Math ───────────────────────────────────────────────
+const MATH = {
+  pHit(skill) {
+    const s = Math.min(6, Math.max(2, skill));
+    return (7 - s) / 6;
+  },
+  pWound(S, T) {
+    if (S * 2 <= T) return 1/6;
+    if (S < T)      return 2/6;
+    if (S === T)    return 3/6;
+    if (S > T)      return 4/6;
+    if (S >= T * 2) return 5/6;
+    return 3/6;
+  },
+  pFailSave(armorSave, ap, invulnSave) {
+    const modSave  = armorSave - ap;
+    const bestSave = Math.min(modSave, invulnSave);
+    if (bestSave > 6) return 1.0;
+    return (bestSave - 1) / 6;
+  },
+  pSurviveFNP(fnp) {
+    if (fnp >= 7) return 0;
+    return (7 - fnp) / 6;
+  },
+  expectedWounds(profile, targetDS, isMelee) {
+    const models = targetDS.currentModels || 1;
+    const attacks = profile.attacks * models;
+    const skill   = isMelee ? profile.weaponSkill : profile.ballisticSkill;
+    const hit     = this.pHit(skill);
+    const wound   = this.pWound(profile.strength, targetDS.toughness);
+    const fail    = this.pFailSave(targetDS.armorSave, profile.armorPenetration, targetDS.invulnSave);
+    const fnpSurv = this.pSurviveFNP(targetDS.feelNoPain || 7);
+    const fnpLoss = 1 - fnpSurv;
+    const effDmg  = Math.min(profile.damage, targetDS.wounds);
+    return attacks * hit * wound * fail * fnpLoss * effDmg;
+  },
+  totalHP(bds) {
+    const full = (bds.currentModels - 1) * bds.wounds;
+    const last = bds.wounds - (bds.partialWounds || 0);
+    return full + last;
+  }
+};
+
+// ── Save / Load (localStorage) ────────────────────────────────
+const LS = {
+  get(key, def) {
+    try { return JSON.parse(localStorage.getItem(key)) ?? def; } catch { return def; }
+  },
+  set(key, val) {
+    localStorage.setItem(key, JSON.stringify(val));
+  }
+};
+
+// ── App State ─────────────────────────────────────────────────
+let factions = LS.get('w40k_factions', []);
+let armies   = LS.get('w40k_armies', []);
+
+// Battle state (ephemeral)
+let battleState = null;
+
+function saveFactions() { LS.set('w40k_factions', factions); }
+function saveArmies()   { LS.set('w40k_armies', armies); }
+
+// ── Navigation ────────────────────────────────────────────────
+function switchView(name) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-' + name).classList.add('active');
+  document.querySelectorAll('.nav-tab, .drawer-nav-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.view === name);
+  });
+  if (name === 'battle') renderBattleSetup();
+  if (name === 'factions') renderFactions();
+  if (name === 'armies') renderArmies();
+}
+document.querySelectorAll('.nav-tab, .drawer-nav-tab').forEach(t => {
+  t.addEventListener('click', () => {
+    switchView(t.dataset.view);
+    closeMobileDrawer();
+  });
+});
+
+// Hamburger
+document.getElementById('hamburger-btn').addEventListener('click', () => {
+  document.getElementById('mobile-drawer').classList.add('open');
+});
+function closeMobileDrawer() { document.getElementById('mobile-drawer').classList.remove('open'); }
+document.getElementById('drawer-close').addEventListener('click', closeMobileDrawer);
+document.getElementById('drawer-backdrop').addEventListener('click', closeMobileDrawer);
+
+/* ═══════════════════════════════════════════════════════════════
+   FACTIONS VIEW
+═══════════════════════════════════════════════════════════════ */
+
+let editingFactionId = null;
+
+function renderFactions() {
+  const list  = document.getElementById('factions-list');
+  const empty = document.getElementById('factions-empty');
+  list.innerHTML = '';
+  if (!factions.length) { empty.style.display = ''; return; }
+  empty.style.display = 'none';
+  factions.forEach(f => {
+    const card = document.createElement('div');
+    card.className = 'card faction-card';
+    card.innerHTML = `
+      <div class="card-header">
+        <div>
+          <div class="card-title">⚔ ${f.name}</div>
+          <div class="card-meta">${f.units.length} unit${f.units.length !== 1 ? 's' : ''}</div>
+        </div>
+        <div class="flex-row">
+          <button class="btn btn-ghost btn-sm" onclick="editFaction('${f.id}')">Edit</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteFaction('${f.id}')">✕</button>
+        </div>
+      </div>
+      <div class="faction-units">
+        ${f.units.map(u => `
+          <div class="unit-row">
+            <div class="unit-info">
+              ${u.name}
+              <small>${u.datasheets.length} datasheet${u.datasheets.length !== 1 ? 's' : ''} · ${u.datasheets.reduce((a,d) => a + d.modelCount, 0)} models</small>
+            </div>
+            <div class="unit-actions">
+              <button class="btn btn-ghost btn-sm" onclick="editUnit('${f.id}','${u.id}')">Edit</button>
+              <button class="btn btn-danger btn-sm btn-icon" onclick="deleteUnit('${f.id}','${u.id}')">✕</button>
+            </div>
+          </div>
+        `).join('')}
+        ${!f.units.length ? '<div style="font-size:0.8rem;color:var(--text-muted);padding:0.25rem 0">No units — click Edit to add</div>' : ''}
+      </div>
+    `;
+    list.appendChild(card);
+  });
+}
+
+document.getElementById('btn-add-faction').addEventListener('click', () => {
+  editingFactionId = null;
+  document.getElementById('modal-faction-title').textContent = 'Add Faction';
+  document.getElementById('faction-name-input').value = '';
+  document.getElementById('faction-units-list').innerHTML = `<div class="empty-state" style="padding:1.5rem"><p>Save faction first, then add units.</p></div>`;
+  openModal('modal-faction');
+});
+
+function editFaction(id) {
+  editingFactionId = id;
+  const f = factions.find(x => x.id === id);
+  document.getElementById('modal-faction-title').textContent = 'Edit Faction';
+  document.getElementById('faction-name-input').value = f.name;
+  renderFactionUnitsList(f);
+  openModal('modal-faction');
+}
+
+function renderFactionUnitsList(faction) {
+  const list = document.getElementById('faction-units-list');
+  list.innerHTML = '';
+  if (!faction.units.length) {
+    list.innerHTML = `<div class="empty-state" style="padding:1rem"><p>No units yet. Click "+ Add Unit" to begin.</p></div>`;
+    return;
+  }
+  faction.units.forEach(u => {
+    const row = document.createElement('div');
+    row.className = 'unit-row';
+    row.innerHTML = `
+      <div class="unit-info">
+        ${u.name}
+        <small>${u.datasheets.length} datasheet(s)</small>
+      </div>
+      <div class="unit-actions">
+        <button class="btn btn-ghost btn-sm" onclick="editUnit('${faction.id}','${u.id}')">Edit</button>
+        <button class="btn btn-danger btn-sm btn-icon" onclick="deleteUnit('${faction.id}','${u.id}');renderFactionUnitsList(factions.find(x=>x.id==='${faction.id}'))">✕</button>
+      </div>
+    `;
+    list.appendChild(row);
+  });
+}
+
+document.getElementById('btn-add-unit').addEventListener('click', () => {
+  if (!editingFactionId) {
+    showToast('Save faction first before adding units.', 'error'); return;
+  }
+  openUnitEditor(editingFactionId, null);
+});
+
+document.getElementById('btn-save-faction').addEventListener('click', () => {
+  const name = document.getElementById('faction-name-input').value.trim();
+  if (!name) { showToast('Enter a faction name.', 'error'); return; }
+  if (editingFactionId) {
+    const f = factions.find(x => x.id === editingFactionId);
+    f.name = name;
+  } else {
+    const f = { id: uuid(), name, units: [] };
+    factions.push(f);
+    editingFactionId = f.id;
+  }
+  saveFactions(); renderFactions(); showToast('Faction saved.');
+});
+
+function deleteFaction(id) {
+  showConfirm('Delete this faction and all its units?', () => {
+    factions = factions.filter(f => f.id !== id);
+    armies   = armies.filter(a => a.factionId !== id);
+    saveFactions(); saveArmies(); renderFactions();
+    showToast('Faction deleted.');
+  });
+}
+
+function deleteUnit(factionId, unitId) {
+  const f = factions.find(x => x.id === factionId);
+  if (!f) return;
+  f.units = f.units.filter(u => u.id !== unitId);
+  saveFactions(); renderFactions();
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   UNIT EDITOR MODAL
+═══════════════════════════════════════════════════════════════ */
+
+let editingUnitContext = { factionId: null, unitId: null };
+let tempUnit = null; // working copy
+
+function openUnitEditor(factionId, unitId) {
+  editingUnitContext = { factionId, unitId };
+  const faction = factions.find(f => f.id === factionId);
+  if (unitId) {
+    const u = faction.units.find(u => u.id === unitId);
+    tempUnit = JSON.parse(JSON.stringify(u));
+    document.getElementById('modal-unit-title').textContent = 'Edit Unit';
+  } else {
+    tempUnit = { id: uuid(), name: '', datasheets: [] };
+    document.getElementById('modal-unit-title').textContent = 'Add Unit';
+  }
+  document.getElementById('unit-name-input').value = tempUnit.name;
+  renderDatasheetsList();
+  openModal('modal-unit');
+}
+window.editUnit = openUnitEditor;
+
+function renderDatasheetsList() {
+  const list = document.getElementById('unit-datasheets-list');
+  list.innerHTML = '';
+  if (!tempUnit.datasheets.length) {
+    list.innerHTML = `<div class="empty-state" style="padding:1rem"><p>No datasheets. Click "+ Add Datasheet".</p></div>`;
+    return;
+  }
+  tempUnit.datasheets.forEach((ds, di) => {
+    const item = document.createElement('div');
+    item.className = 'ds-item';
+    item.innerHTML = `
+      <div class="ds-item-header" onclick="toggleDS(this)">
+        <span style="font-family:Cinzel,serif;font-size:0.85rem;color:var(--text)">${ds.name || 'Unnamed Datasheet'}</span>
+        <div class="flex-row">
+          <span class="badge badge-dim">${ds.modelCount} models · ${ds.wounds}W · T${ds.toughness} · ${ds.armorSave}+</span>
+          <button class="btn btn-danger btn-sm btn-icon" onclick="event.stopPropagation();removeDatasheet(${di})">✕</button>
+        </div>
+      </div>
+      <div class="ds-item-body" style="display:none">
+        ${buildDSEditor(ds, di)}
+      </div>
+    `;
+    list.appendChild(item);
+  });
+}
+
+function toggleDS(header) {
+  const body = header.nextElementSibling;
+  body.style.display = body.style.display === 'none' ? '' : 'none';
+}
+
+function buildDSEditor(ds, di) {
+  const saveOptions = [2,3,4,5,6,7].map(n => `<option value="${n}" ${ds.armorSave===n?'selected':''}>${n === 7 ? 'None' : n+'+'}</option>`).join('');
+  const invOptions  = [3,4,5,6,7].map(n => `<option value="${n}" ${ds.invulnSave===n?'selected':''}>${n === 7 ? 'None' : n+'+'}</option>`).join('');
+  const fnpOptions  = [4,5,6,7].map(n => `<option value="${n}" ${(ds.feelNoPain||7)===n?'selected':''}>${n === 7 ? 'None' : n+'+'}</option>`).join('');
+
+  const shootRows = (ds.shootingProfiles || []).map((p,pi) => buildProfileRow(p, pi, di, false)).join('');
+  const meleeRows = (ds.meleeProfiles || []).map((p,pi) => buildProfileRow(p, pi, di, true)).join('');
+
+  return `
+    <div class="form-row mb-2">
+      <div class="form-group">
+        <label class="form-label">Name</label>
+        <input class="form-input" value="${ds.name}" onchange="updateDS(${di},'name',this.value)" placeholder="Intercessor">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Model Count</label>
+        <input type="number" class="form-input" value="${ds.modelCount}" min="1" onchange="updateDS(${di},'modelCount',+this.value)">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Wounds (W)</label>
+        <input type="number" class="form-input" value="${ds.wounds}" min="1" onchange="updateDS(${di},'wounds',+this.value)">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Toughness (T)</label>
+        <input type="number" class="form-input" value="${ds.toughness}" min="1" onchange="updateDS(${di},'toughness',+this.value)">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Armor Save</label>
+        <select class="form-select" onchange="updateDS(${di},'armorSave',+this.value)">${saveOptions}</select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Invuln Save</label>
+        <select class="form-select" onchange="updateDS(${di},'invulnSave',+this.value)">${invOptions}</select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Feel No Pain</label>
+        <select class="form-select" onchange="updateDS(${di},'feelNoPain',+this.value)">${fnpOptions}</select>
+      </div>
+    </div>
+
+    <div class="profile-section">
+      <div class="flex-row mb-1">
+        <div class="profile-section-title" style="flex:1">☩ SHOOTING PROFILES</div>
+        <button class="btn btn-ghost btn-sm" onclick="addProfile(${di},false)">+ Add</button>
+      </div>
+      <div class="table-wrap" id="shoot-table-${di}">
+        <table class="data-table">
+          <thead><tr>
+            <th>Name</th><th>Atk</th><th>Rng</th><th>BS</th><th>S</th><th>AP</th><th>D</th><th></th>
+          </tr></thead>
+          <tbody id="shoot-rows-${di}">${shootRows || '<tr><td colspan="8" style="color:var(--text-muted);font-size:0.8rem;text-align:center">No profiles</td></tr>'}</tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="profile-section mt-2">
+      <div class="flex-row mb-1">
+        <div class="profile-section-title" style="flex:1">⚔ MELEE PROFILES</div>
+        <button class="btn btn-ghost btn-sm" onclick="addProfile(${di},true)">+ Add</button>
+      </div>
+      <div class="table-wrap" id="melee-table-${di}">
+        <table class="data-table">
+          <thead><tr>
+            <th>Name</th><th>Atk</th><th>WS</th><th>S</th><th>AP</th><th>D</th><th></th>
+          </tr></thead>
+          <tbody id="melee-rows-${di}">${meleeRows || '<tr><td colspan="7" style="color:var(--text-muted);font-size:0.8rem;text-align:center">No profiles</td></tr>'}</tbody>
+        </table>
+      </div>
+    </div>
+  `;
+}
+
+function buildProfileRow(p, pi, di, isMelee) {
+  if (isMelee) {
+    return `<tr>
+      <td><input value="${p.name}" onchange="updateProfile(${di},${pi},true,'name',this.value)" placeholder="Power Sword"></td>
+      <td><input value="${p.attacksDisplay}" onchange="updateProfile(${di},${pi},true,'attacksDisplay',this.value)" style="width:50px"></td>
+      <td><input type="number" value="${p.weaponSkill}" onchange="updateProfile(${di},${pi},true,'weaponSkill',+this.value)" style="width:40px" min="2" max="6"></td>
+      <td><input type="number" value="${p.strength}" onchange="updateProfile(${di},${pi},true,'strength',+this.value)" style="width:40px"></td>
+      <td><input type="number" value="${p.armorPenetration}" onchange="updateProfile(${di},${pi},true,'armorPenetration',+this.value)" style="width:45px"></td>
+      <td><input value="${p.damageDisplay}" onchange="updateProfile(${di},${pi},true,'damageDisplay',this.value)" style="width:50px"></td>
+      <td><button class="btn btn-danger btn-sm btn-icon" onclick="removeProfile(${di},${pi},true)">✕</button></td>
+    </tr>`;
+  } else {
+    return `<tr>
+      <td><input value="${p.name}" onchange="updateProfile(${di},${pi},false,'name',this.value)" placeholder="Bolt Rifle"></td>
+      <td><input value="${p.attacksDisplay}" onchange="updateProfile(${di},${pi},false,'attacksDisplay',this.value)" style="width:50px"></td>
+      <td><input type="number" value="${p.range}" onchange="updateProfile(${di},${pi},false,'range',+this.value)" style="width:40px"></td>
+      <td><input type="number" value="${p.ballisticSkill}" onchange="updateProfile(${di},${pi},false,'ballisticSkill',+this.value)" style="width:40px" min="2" max="6"></td>
+      <td><input type="number" value="${p.strength}" onchange="updateProfile(${di},${pi},false,'strength',+this.value)" style="width:40px"></td>
+      <td><input type="number" value="${p.armorPenetration}" onchange="updateProfile(${di},${pi},false,'armorPenetration',+this.value)" style="width:45px"></td>
+      <td><input value="${p.damageDisplay}" onchange="updateProfile(${di},${pi},false,'damageDisplay',this.value)" style="width:50px"></td>
+      <td><button class="btn btn-danger btn-sm btn-icon" onclick="removeProfile(${di},${pi},false)">✕</button></td>
+    </tr>`;
+  }
+}
+
+function updateDS(di, field, val) {
+  tempUnit.datasheets[di][field] = val;
+}
+function addProfile(di, isMelee) {
+  const ds = tempUnit.datasheets[di];
+  if (isMelee) {
+    if (!ds.meleeProfiles) ds.meleeProfiles = [];
+    ds.meleeProfiles.push({ id: uuid(), name: '', attacks: 1, attacksDisplay: '1', weaponSkill: 3, strength: 4, armorPenetration: 0, damage: 1, damageDisplay: '1' });
+  } else {
+    if (!ds.shootingProfiles) ds.shootingProfiles = [];
+    ds.shootingProfiles.push({ id: uuid(), name: '', attacks: 1, attacksDisplay: '1', range: 24, ballisticSkill: 3, strength: 4, armorPenetration: 0, damage: 1, damageDisplay: '1' });
+  }
+  renderDatasheetsList();
+}
+function removeProfile(di, pi, isMelee) {
+  const ds = tempUnit.datasheets[di];
+  if (isMelee) ds.meleeProfiles.splice(pi, 1);
+  else ds.shootingProfiles.splice(pi, 1);
+  renderDatasheetsList();
+}
+function updateProfile(di, pi, isMelee, field, val) {
+  const ds = tempUnit.datasheets[di];
+  const arr = isMelee ? ds.meleeProfiles : ds.shootingProfiles;
+  arr[pi][field] = val;
+  if (field === 'attacksDisplay') arr[pi].attacks = parseDice(val).value;
+  if (field === 'damageDisplay')  arr[pi].damage  = parseDice(val).value;
+}
+function removeDatasheet(di) {
+  tempUnit.datasheets.splice(di, 1);
+  renderDatasheetsList();
+}
+
+document.getElementById('btn-add-datasheet').addEventListener('click', () => {
+  tempUnit.datasheets.push({
+    id: uuid(), name: '', modelCount: 5, wounds: 2, toughness: 4, armorSave: 3,
+    invulnSave: 7, feelNoPain: 7,
+    shootingProfiles: [], meleeProfiles: []
+  });
+  renderDatasheetsList();
+});
+
+document.getElementById('btn-save-unit').addEventListener('click', () => {
+  tempUnit.name = document.getElementById('unit-name-input').value.trim();
+  if (!tempUnit.name) { showToast('Enter a unit name.', 'error'); return; }
+  const faction = factions.find(f => f.id === editingUnitContext.factionId);
+  const idx = faction.units.findIndex(u => u.id === tempUnit.id);
+  if (idx >= 0) faction.units[idx] = tempUnit;
+  else faction.units.push(tempUnit);
+  saveFactions();
+  renderFactions();
+  if (editingFactionId) renderFactionUnitsList(faction);
+  closeModal('modal-unit');
+  showToast('Unit saved.');
+});
+
+/* ═══════════════════════════════════════════════════════════════
+   ARMIES VIEW
+═══════════════════════════════════════════════════════════════ */
+
+let editingArmyId   = null;
+let tempArmyEntries = [];
+
+function renderArmies() {
+  const list  = document.getElementById('armies-list');
+  const empty = document.getElementById('armies-empty');
+  list.innerHTML = '';
+  if (!armies.length) { empty.style.display = ''; return; }
+  empty.style.display = 'none';
+  armies.forEach(a => {
+    const faction = factions.find(f => f.id === a.factionId);
+    const card = document.createElement('div');
+    card.className = 'card';
+    const totalModels = a.entries.reduce((sum, e) => {
+      const u = faction?.units.find(u => u.id === e.unitId);
+      return sum + (u ? u.datasheets.reduce((s, d) => s + d.modelCount, 0) : 0);
+    }, 0);
+    card.innerHTML = `
+      <div class="card-header">
+        <div>
+          <div class="card-title">🛡 ${a.name}</div>
+          <div class="card-meta">${faction ? faction.name : 'Unknown Faction'}</div>
+        </div>
+        <div class="flex-row">
+          <button class="btn btn-ghost btn-sm" onclick="editArmy('${a.id}')">Edit</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteArmy('${a.id}')">✕</button>
+        </div>
+      </div>
+      <div class="army-stats">
+        <span class="badge badge-gold">${a.entries.length} units</span>
+        <span class="badge badge-dim">${totalModels} models</span>
+      </div>
+      <div style="margin-top:0.5rem">
+        ${a.entries.slice(0,5).map(e => {
+          const u = faction?.units.find(u => u.id === e.unitId);
+          return `<div class="entry-item"><span style="font-size:0.85rem">${u ? u.name : 'Unknown'}</span></div>`;
+        }).join('')}
+        ${a.entries.length > 5 ? `<div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.35rem">+${a.entries.length - 5} more…</div>` : ''}
+      </div>
+    `;
+    list.appendChild(card);
+  });
+}
+
+document.getElementById('btn-add-army').addEventListener('click', () => {
+  if (!factions.length) { showToast('Add at least one faction first.', 'error'); return; }
+  editingArmyId = null;
+  tempArmyEntries = [];
+  document.getElementById('modal-army-title').textContent = 'Add Army';
+  document.getElementById('army-name-input').value = '';
+  populateFactionSelect();
+  renderArmyEditor();
+  openModal('modal-army');
+});
+
+function editArmy(id) {
+  editingArmyId = id;
+  const a = armies.find(x => x.id === id);
+  tempArmyEntries = JSON.parse(JSON.stringify(a.entries));
+  document.getElementById('modal-army-title').textContent = 'Edit Army';
+  document.getElementById('army-name-input').value = a.name;
+  populateFactionSelect(a.factionId);
+  renderArmyEditor();
+  openModal('modal-army');
+}
+
+function populateFactionSelect(selectedId) {
+  const sel = document.getElementById('army-faction-select');
+  sel.innerHTML = factions.map(f => `<option value="${f.id}" ${f.id === selectedId ? 'selected' : ''}>${f.name}</option>`).join('');
+  sel.onchange = renderArmyEditor;
+}
+
+function renderArmyEditor() {
+  const factionId = document.getElementById('army-faction-select').value;
+  const faction   = factions.find(f => f.id === factionId);
+  if (!faction) return;
+
+  const avail = document.getElementById('army-available-units');
+  const sel   = document.getElementById('army-selected-units');
+
+  avail.innerHTML = faction.units.map(u => `
+    <div class="unit-row" style="cursor:pointer" onclick="addArmyEntry('${u.id}')">
+      <div class="unit-info">
+        ${u.name}
+        <small>${u.datasheets.reduce((a,d)=>a+d.modelCount,0)} models</small>
+      </div>
+      <button class="btn btn-ghost btn-sm">+ Add</button>
+    </div>
+  `).join('') || '<div style="color:var(--text-muted);font-size:0.8rem;padding:0.5rem">No units in faction</div>';
+
+  sel.innerHTML = tempArmyEntries.map((e, i) => {
+    const u = faction.units.find(u => u.id === e.unitId);
+    return `<div class="entry-item">
+      <span style="font-size:0.85rem">${u ? u.name : 'Unknown'}</span>
+      <button class="btn btn-danger btn-sm btn-icon" onclick="removeArmyEntry(${i})">✕</button>
+    </div>`;
+  }).join('') || '<div style="color:var(--text-muted);font-size:0.8rem;padding:0.5rem">No units added yet</div>';
+}
+
+function addArmyEntry(unitId) {
+  tempArmyEntries.push({ entryId: uuid(), unitId });
+  renderArmyEditor();
+}
+function removeArmyEntry(idx) {
+  tempArmyEntries.splice(idx, 1);
+  renderArmyEditor();
+}
+
+document.getElementById('btn-save-army').addEventListener('click', () => {
+  const name      = document.getElementById('army-name-input').value.trim();
+  const factionId = document.getElementById('army-faction-select').value;
+  if (!name) { showToast('Enter an army name.', 'error'); return; }
+  if (!tempArmyEntries.length) { showToast('Add at least one unit.', 'error'); return; }
+  if (editingArmyId) {
+    const a = armies.find(x => x.id === editingArmyId);
+    a.name = name; a.factionId = factionId; a.entries = tempArmyEntries;
+  } else {
+    armies.push({ id: uuid(), name, factionId, entries: tempArmyEntries });
+  }
+  saveArmies(); renderArmies(); closeModal('modal-army'); showToast('Army saved.');
+});
+
+function deleteArmy(id) {
+  showConfirm('Delete this army?', () => {
+    armies = armies.filter(a => a.id !== id);
+    saveArmies(); renderArmies(); showToast('Army deleted.');
+  });
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BATTLE VIEW
+═══════════════════════════════════════════════════════════════ */
+
+function renderBattleSetup() {
+  if (battleState) {
+    document.getElementById('battle-setup-panel').style.display = 'none';
+    document.getElementById('battle-active-panel').style.display = '';
+    return;
+  }
+  document.getElementById('battle-setup-panel').style.display = '';
+  document.getElementById('battle-active-panel').style.display = 'none';
+
+  const selA = document.getElementById('battle-army-a');
+  const selB = document.getElementById('battle-army-b');
+  const opts  = armies.map(a => {
+    const f = factions.find(x => x.id === a.factionId);
+    return `<option value="${a.id}">${a.name} (${f ? f.name : '?'})</option>`;
+  }).join('');
+  selA.innerHTML = opts || '<option value="">No armies</option>';
+  selB.innerHTML = opts || '<option value="">No armies</option>';
+  if (armies.length > 1) selB.selectedIndex = 1;
+}
+
+document.getElementById('btn-begin-battle').addEventListener('click', () => {
+  const idA = document.getElementById('battle-army-a').value;
+  const idB = document.getElementById('battle-army-b').value;
+  if (!idA || !idB)     { showToast('Select two armies.', 'error'); return; }
+  if (idA === idB)       { showToast('Select two different armies.', 'error'); return; }
+  const name = document.getElementById('battle-name-input').value.trim() || 'Unnamed Battle';
+  initBattle(idA, idB, name);
+});
+
+function buildBattleArmy(army) {
+  const faction = factions.find(f => f.id === army.factionId);
+  const entries = army.entries.map(e => {
+    const unit = faction?.units.find(u => u.id === e.unitId);
+    return {
+      entryId: e.entryId,
+      unitId:  e.unitId,
+      unitName: unit ? unit.name : 'Unknown',
+      datasheets: (unit?.datasheets || []).map(ds => ({
+        datasheetId: ds.id,
+        name: ds.name,
+        wounds: ds.wounds,
+        toughness: ds.toughness,
+        armorSave: ds.armorSave,
+        invulnSave: ds.invulnSave || 7,
+        feelNoPain: ds.feelNoPain || 7,
+        shootingProfiles: ds.shootingProfiles || [],
+        meleeProfiles: ds.meleeProfiles || [],
+        currentModels: ds.modelCount,
+        maxModels: ds.modelCount,
+        partialWounds: 0,
+      })),
+      activated: false,
+      destroyed: false,
+    };
+  });
+  return { armyId: army.id, label: army.name, entries };
+}
+
+function initBattle(idA, idB, name) {
+  const armyA = armies.find(a => a.id === idA);
+  const armyB = armies.find(a => a.id === idB);
+  battleState = {
+    name,
+    armyA: buildBattleArmy(armyA),
+    armyB: buildBattleArmy(armyB),
+    resources: [
+      { id: uuid(), name: 'Command Points', value: 0 },
+      { id: uuid(), name: 'Round', value: 1 },
+    ],
+    phase: 'active'
+  };
+  renderBattleActive();
+}
+
+function renderBattleActive() {
+  document.getElementById('battle-setup-panel').style.display = 'none';
+  document.getElementById('battle-active-panel').style.display = '';
+  document.getElementById('battle-header-name').textContent = battleState.name;
+  document.getElementById('battle-header-a').textContent    = battleState.armyA.label;
+  document.getElementById('battle-header-b').textContent    = battleState.armyB.label;
+  document.getElementById('panel-a-title').textContent      = battleState.armyA.label;
+  document.getElementById('panel-b-title').textContent      = battleState.armyB.label;
+  renderResources();
+  renderBattleUnits('a');
+  renderBattleUnits('b');
+}
+
+function renderResources() {
+  const bar = document.getElementById('resource-bar');
+  bar.innerHTML = battleState.resources.map(r => `
+    <div class="resource-item">
+      <button class="resource-btn" onclick="changeResource('${r.id}',-1)">−</button>
+      <div>
+        <div class="resource-name">${r.name}</div>
+        <div class="resource-value">${r.value}</div>
+      </div>
+      <button class="resource-btn" onclick="changeResource('${r.id}',+1)">+</button>
+      <button class="resource-delete" onclick="deleteResource('${r.id}')" title="Remove">✕</button>
+    </div>
+  `).join('');
+}
+
+function changeResource(id, delta) {
+  const r = battleState.resources.find(x => x.id === id);
+  if (!r) return;
+  // If incrementing Round, reset activations
+  if (r.name === 'Round' && delta > 0) {
+    battleState.armyA.entries.forEach(e => e.activated = false);
+    battleState.armyB.entries.forEach(e => e.activated = false);
+    renderBattleUnits('a'); renderBattleUnits('b');
+    showToast('New round — activations reset.');
+  }
+  r.value = Math.max(0, r.value + delta);
+  renderResources();
+}
+function deleteResource(id) {
+  battleState.resources = battleState.resources.filter(r => r.id !== id);
+  renderResources();
+}
+document.getElementById('btn-add-resource').addEventListener('click', () => {
+  document.getElementById('resource-name-input').value = '';
+  document.getElementById('resource-value-input').value = '0';
+  openModal('modal-resource');
+});
+document.getElementById('btn-save-resource').addEventListener('click', () => {
+  const name = document.getElementById('resource-name-input').value.trim();
+  const val  = parseInt(document.getElementById('resource-value-input').value) || 0;
+  if (!name) { showToast('Enter a resource name.', 'error'); return; }
+  battleState.resources.push({ id: uuid(), name, value: val });
+  renderResources(); closeModal('modal-resource');
+});
+
+function renderBattleUnits(side) {
+  const ba   = side === 'a' ? battleState.armyA : battleState.armyB;
+  const cont = document.getElementById('panel-' + side + '-units');
+  cont.innerHTML = '';
+  const active = ba.entries.filter(e => !e.destroyed);
+  if (!active.length) {
+    cont.innerHTML = `<div class="empty-state" style="padding:1.5rem"><p>All units destroyed.</p></div>`;
+    return;
+  }
+  active.forEach(entry => {
+    const card = document.createElement('div');
+    card.className = 'battle-unit-card' + (entry.activated ? ' activated' : '');
+    card.id = 'buc-' + entry.entryId;
+    const dsTrackers = entry.datasheets.map((ds, di) => `
+      <div class="ds-tracker">
+        <div class="ds-tracker-label">${ds.name || 'Models'}</div>
+        <div class="ds-tracker-models">
+          <button class="tracker-btn" onclick="adjustModels('${side}','${entry.entryId}',${di},-1)">−</button>
+          <div class="tracker-val">${ds.currentModels}/${ds.maxModels}</div>
+          <button class="tracker-btn" onclick="adjustModels('${side}','${entry.entryId}',${di},+1)">+</button>
+          <span class="tracker-sep" style="margin:0 0.3rem">·</span>
+          <span style="font-size:0.7rem;color:var(--text-dim)">W:</span>
+          <button class="tracker-btn" onclick="adjustWounds('${side}','${entry.entryId}',${di},-1)">−</button>
+          <div class="tracker-val">${ds.wounds - ds.partialWounds}/${ds.wounds}</div>
+          <button class="tracker-btn" onclick="adjustWounds('${side}','${entry.entryId}',${di},+1)">+</button>
+        </div>
+      </div>
+    `).join('');
+
+    const oppSide = side === 'a' ? 'b' : 'a';
+    card.innerHTML = `
+      <div class="battle-unit-header">
+        <div class="battle-unit-name">${entry.unitName}</div>
+        <div class="battle-unit-actions">
+          <label class="activated-toggle">
+            <input type="checkbox" ${entry.activated ? 'checked' : ''} onchange="toggleActivated('${side}','${entry.entryId}',this.checked)">
+            Activated
+          </label>
+        </div>
+      </div>
+      ${dsTrackers}
+      <div class="flex-row flex-wrap gap-sm mt-1">
+        <button class="btn btn-blood btn-sm" onclick="runAttack('${side}','${entry.entryId}')">⚔ Attack</button>
+        <button class="btn btn-ghost btn-sm" onclick="runDestroy('${oppSide}','${entry.entryId}','${side}')">☩ Destroy…</button>
+        <button class="btn btn-danger btn-sm" onclick="removeFromBattle('${side}','${entry.entryId}')">✕ Remove</button>
+      </div>
+    `;
+    cont.appendChild(card);
+  });
+}
+
+function toggleActivated(side, entryId, val) {
+  const ba = side === 'a' ? battleState.armyA : battleState.armyB;
+  const e  = ba.entries.find(x => x.entryId === entryId);
+  if (e) { e.activated = val; renderBattleUnits(side); }
+}
+
+function adjustModels(side, entryId, di, delta) {
+  const ba = side === 'a' ? battleState.armyA : battleState.armyB;
+  const e  = ba.entries.find(x => x.entryId === entryId);
+  if (!e) return;
+  const ds = e.datasheets[di];
+  ds.currentModels = Math.max(0, Math.min(ds.maxModels, ds.currentModels + delta));
+  if (ds.currentModels === 0) ds.partialWounds = 0;
+  renderBattleUnits(side);
+}
+
+function adjustWounds(side, entryId, di, delta) {
+  const ba = side === 'a' ? battleState.armyA : battleState.armyB;
+  const e  = ba.entries.find(x => x.entryId === entryId);
+  if (!e) return;
+  const ds = e.datasheets[di];
+  ds.partialWounds = Math.max(0, Math.min(ds.wounds - 1, ds.partialWounds + delta));
+  renderBattleUnits(side);
+}
+
+function removeFromBattle(side, entryId) {
+  const ba = side === 'a' ? battleState.armyA : battleState.armyB;
+  const e  = ba.entries.find(x => x.entryId === entryId);
+  if (e) { e.destroyed = true; renderBattleUnits(side); }
+}
+
+document.getElementById('btn-reset-a').addEventListener('click', () => {
+  battleState.armyA.entries.forEach(e => e.activated = false);
+  renderBattleUnits('a'); showToast('Army A activations reset.');
+});
+document.getElementById('btn-reset-b').addEventListener('click', () => {
+  battleState.armyB.entries.forEach(e => e.activated = false);
+  renderBattleUnits('b'); showToast('Army B activations reset.');
+});
+
+document.getElementById('btn-end-battle').addEventListener('click', () => {
+  showConfirm('End the current battle? All battle progress will be lost.', () => {
+    battleState = null;
+    renderBattleSetup();
+  });
+});
+
+/* ═══════════════════════════════════════════════════════════════
+   RECOMMENDATION ENGINE
+═══════════════════════════════════════════════════════════════ */
+
+function calcEntryWoundsVsTarget(attackEntry, targetEntry) {
+  let total = 0;
+  attackEntry.datasheets.forEach(atkDS => {
+    targetEntry.datasheets.forEach(tgtDS => {
+      if (tgtDS.currentModels <= 0) return;
+      // Shooting
+      atkDS.shootingProfiles.forEach(p => {
+        total += MATH.expectedWounds(p, tgtDS, false);
+      });
+      // Melee — best profile per model
+      if (atkDS.meleeProfiles.length) {
+        const best = atkDS.meleeProfiles.reduce((b, p) => {
+          const w = MATH.expectedWounds({...p, attacks: 1}, tgtDS, true);
+          return w > b.w ? { p, w } : b;
+        }, { p: null, w: -1 });
+        if (best.p) total += MATH.expectedWounds(best.p, tgtDS, true);
+      }
+    });
+  });
+  return total;
+}
+
+function calcTargetTotalHP(entry) {
+  return entry.datasheets.reduce((sum, ds) => sum + MATH.totalHP(ds), 0);
+}
+
+function runAttack(attackSide, entryId) {
+  const atkArmy = attackSide === 'a' ? battleState.armyA : battleState.armyB;
+  const defArmy = attackSide === 'a' ? battleState.armyB : battleState.armyA;
+  const atkEntry = atkArmy.entries.find(e => e.entryId === entryId);
+  if (!atkEntry) return;
+
+  const targets = defArmy.entries.filter(e => !e.destroyed);
+  if (!targets.length) { showToast('No enemy units to attack!', 'error'); return; }
+
+  // For each enemy, calc expected wounds and expected models killed
+  const results = targets.map(t => {
+    const wounds    = calcEntryWoundsVsTarget(atkEntry, t);
+    const avgWounds = t.datasheets[0]?.wounds || 1;
+    const kills     = Math.floor(wounds / avgWounds);
+    const hp        = calcTargetTotalHP(t);
+    return { target: t, wounds, kills, hp, eff: wounds / hp };
+  }).sort((a,b) => b.kills - a.kills || b.eff - a.eff);
+
+  // Show analysis
+  document.getElementById('analysis-title').textContent  = atkEntry.unitName + ' — Attack';
+  document.getElementById('analysis-mode-badge').textContent = 'ATTACK MODE';
+  const content = document.getElementById('analysis-content');
+  content.innerHTML = `
+    <div style="margin-bottom:0.5rem;font-size:0.88rem;color:var(--text-dim)">
+      Best targets ranked by expected model kills:
+    </div>
+    ${results.map((r,i) => `
+      <div class="analysis-step" style="${i===0?'border-left-color:var(--gold)':''}">
+        <div class="analysis-step-num">TARGET ${i+1}</div>
+        <div class="analysis-step-main"><strong>${r.target.unitName}</strong></div>
+        <div class="analysis-step-detail">
+          Expected wounds: <strong>${r.wounds.toFixed(1)}</strong> · 
+          Expected kills: <strong>~${r.kills}</strong> · 
+          Target HP: ${r.hp.toFixed(0)} · 
+          Efficiency: ${(r.eff * 100).toFixed(0)}%
+        </div>
+      </div>
+    `).join('')}
+    <div class="analysis-summary mt-2">
+      <div class="analysis-summary-title">BEST RECOMMENDATION</div>
+      <p style="font-size:0.9rem">
+        Prioritize <strong>${results[0].target.unitName}</strong> — 
+        expected ~${results[0].kills} model(s) killed (${results[0].wounds.toFixed(1)} wounds).
+      </p>
+    </div>
+  `;
+  openAnalysis();
+}
+
+function runDestroy(targetSide, entryId, attackSide) {
+  // "Destroy" button on an attacking unit: find best friendly sequence to destroy a chosen enemy
+  // Here entryId is the ATTACKING unit; we find the best enemy to destroy
+  const atkArmy  = attackSide === 'a' ? battleState.armyA : battleState.armyB;
+  const defArmy  = targetSide === 'a' ? battleState.armyA : battleState.armyB;
+  const defTargets = defArmy.entries.filter(e => !e.destroyed);
+
+  if (!defTargets.length) { showToast('No enemy targets.', 'error'); return; }
+
+  const atkEntry = atkArmy.entries.find(e => e.entryId === entryId);
+  const results  = defTargets.map(t => {
+    const wounds = calcEntryWoundsVsTarget(atkEntry, t);
+    const hp     = calcTargetTotalHP(t);
+    return { target: t, wounds, hp, canDestroy: wounds >= hp };
+  }).sort((a,b) => (b.wounds/b.hp) - (a.wounds/a.hp));
+
+  document.getElementById('analysis-title').textContent  = atkEntry.unitName + ' — Destroy';
+  document.getElementById('analysis-mode-badge').textContent = 'DESTROY MODE';
+  const content = document.getElementById('analysis-content');
+  content.innerHTML = `
+    <div style="margin-bottom:0.5rem;font-size:0.88rem;color:var(--text-dim)">
+      Expected performance vs enemy units:
+    </div>
+    ${results.map((r,i) => `
+      <div class="analysis-step" style="border-left-color:${r.canDestroy ? 'var(--blood-bright)' : 'var(--gold-dim)'}">
+        <div class="analysis-step-num">OPTION ${i+1} ${r.canDestroy ? '— ☩ CAN DESTROY' : ''}</div>
+        <div class="analysis-step-main"><strong>${r.target.unitName}</strong></div>
+        <div class="analysis-step-detail">
+          Expected wounds: <strong>${r.wounds.toFixed(1)}</strong> / ${r.hp.toFixed(0)} HP · 
+          ${r.canDestroy ? '<span style="color:var(--blood-bright)">Likely destroyed</span>' : `Shortfall: ${(r.hp - r.wounds).toFixed(1)} wounds`}
+        </div>
+      </div>
+    `).join('')}
+  `;
+  openAnalysis();
+}
+
+function runDestroyAnything(side) {
+  const atkArmy = side === 'a' ? battleState.armyA : battleState.armyB;
+  const defArmy = side === 'a' ? battleState.armyB : battleState.armyA;
+
+  const atkUnits = atkArmy.entries.filter(e => !e.destroyed);
+  const defUnits = defArmy.entries.filter(e => !e.destroyed);
+
+  if (!atkUnits.length || !defUnits.length) {
+    showToast('Not enough units for analysis.', 'error'); return;
+  }
+
+  // For each enemy, find cheapest friendly activation sequence to destroy it
+  const targetAnalysis = defUnits.map(t => {
+    const hp = calcTargetTotalHP(t);
+    const sorted = atkUnits.map(a => ({
+      entry: a,
+      wounds: calcEntryWoundsVsTarget(a, t)
+    })).sort((a,b) => b.wounds - a.wounds);
+
+    let cumulative = 0;
+    const sequence = [];
+    for (const s of sorted) {
+      if (cumulative >= hp) break;
+      cumulative += s.wounds;
+      sequence.push(s);
+    }
+    return { target: t, hp, sequence, cumulative, achievable: cumulative >= hp };
+  }).sort((a,b) => a.sequence.length - b.sequence.length || (b.achievable ? 1 : -1));
+
+  document.getElementById('analysis-title').textContent = atkArmy.label + ' — Destroy Anything';
+  document.getElementById('analysis-mode-badge').textContent = 'DESTROY ANYTHING';
+  const content = document.getElementById('analysis-content');
+  content.innerHTML = `
+    <div style="margin-bottom:0.5rem;font-size:0.88rem;color:var(--text-dim)">
+      Easiest enemy units to destroy, ranked by activation cost:
+    </div>
+    ${targetAnalysis.map((ta, i) => `
+      <div class="analysis-step" style="border-left-color:${ta.achievable ? 'var(--blood-bright)' : 'var(--gold-dim)'}">
+        <div class="analysis-step-num">TARGET ${i+1} — ${ta.sequence.length} activation(s) needed</div>
+        <div class="analysis-step-main"><strong>${ta.target.unitName}</strong> — ${ta.hp.toFixed(0)} HP</div>
+        <div class="analysis-step-detail">
+          ${ta.sequence.map((s,si) => `${si+1}. ${s.entry.unitName} (${s.wounds.toFixed(1)}W)`).join(' → ')}<br>
+          Cumulative: ${ta.cumulative.toFixed(1)}W vs ${ta.hp.toFixed(0)} HP
+          ${ta.achievable ? ' — <span style="color:var(--blood-bright)">☩ Destroy expected</span>' : ' — <span style="color:var(--gold-dim)">May not destroy</span>'}
+        </div>
+      </div>
+    `).join('')}
+  `;
+  openAnalysis();
+}
+
+document.getElementById('btn-destroy-anything-a').addEventListener('click', () => runDestroyAnything('a'));
+document.getElementById('btn-destroy-anything-b').addEventListener('click', () => runDestroyAnything('b'));
+
+/* ═══════════════════════════════════════════════════════════════
+   BATTLE SIMULATION
+═══════════════════════════════════════════════════════════════ */
+
+document.getElementById('btn-simulate').addEventListener('click', () => {
+  const report = simulateBattle();
+  document.getElementById('report-body').innerHTML = report;
+  openModal('modal-report');
+});
+
+function simulateBattle() {
+  // Deep copy state for simulation
+  const simA = JSON.parse(JSON.stringify(battleState.armyA));
+  const simB = JSON.parse(JSON.stringify(battleState.armyB));
+
+  let html = '';
+  let winner = null;
+
+  for (let round = 1; round <= 5; round++) {
+    const aUnits = simA.entries.filter(e => !e.destroyed);
+    const bUnits = simB.entries.filter(e => !e.destroyed);
+    if (!aUnits.length || !bUnits.length) break;
+
+    let roundLog = '';
+
+    // Army A attacks
+    roundLog += '<strong>' + simA.label + ' attacks:</strong><br>';
+    aUnits.forEach(atkUnit => {
+      if (!bUnits.length) return;
+      // Find best target
+      const best = bUnits.map(t => ({
+        t, wounds: calcEntryWoundsVsTarget(atkUnit, t), hp: calcTargetTotalHP(t)
+      })).sort((a,b) => (b.wounds/b.hp) - (a.wounds/a.hp))[0];
+
+      if (!best) return;
+      const hp = best.hp;
+      applySimWounds(best.t, best.wounds);
+      roundLog += `&nbsp;&nbsp;${atkUnit.unitName} → ${best.t.unitName}: ${best.wounds.toFixed(1)}W`;
+      if (MATH.totalHP(best.t.datasheets[0] || {wounds:1, currentModels:0, partialWounds:0}) <= 0 || best.t.datasheets.every(d => d.currentModels === 0)) {
+        best.t.destroyed = true;
+        roundLog += ' — <span style="color:var(--blood-bright)">☩ DESTROYED</span>';
+      }
+      roundLog += '<br>';
+    });
+
+    const bUnits2 = simB.entries.filter(e => !e.destroyed);
+
+    // Army B attacks
+    roundLog += '<strong>' + simB.label + ' attacks:</strong><br>';
+    bUnits2.forEach(atkUnit => {
+      const aAlive = simA.entries.filter(e => !e.destroyed);
+      if (!aAlive.length) return;
+      const best = aAlive.map(t => ({
+        t, wounds: calcEntryWoundsVsTarget(atkUnit, t), hp: calcTargetTotalHP(t)
+      })).sort((a,b) => (b.wounds/b.hp) - (a.wounds/a.hp))[0];
+
+      if (!best) return;
+      applySimWounds(best.t, best.wounds);
+      roundLog += `&nbsp;&nbsp;${atkUnit.unitName} → ${best.t.unitName}: ${best.wounds.toFixed(1)}W`;
+      if (best.t.datasheets.every(d => d.currentModels === 0)) {
+        best.t.destroyed = true;
+        roundLog += ' — <span style="color:var(--blood-bright)">☩ DESTROYED</span>';
+      }
+      roundLog += '<br>';
+    });
+
+    html += `
+      <div class="report-round">
+        <div class="report-round-header">Round ${round}</div>
+        <div class="report-round-body">${roundLog}</div>
+      </div>
+    `;
+
+    const aAlive = simA.entries.filter(e => !e.destroyed).length;
+    const bAlive = simB.entries.filter(e => !e.destroyed).length;
+    if (!aAlive && !bAlive) { winner = 'Draw'; break; }
+    if (!aAlive) { winner = simB.label; break; }
+    if (!bAlive) { winner = simA.label; break; }
+  }
+
+  const aFinal = simA.entries.filter(e => !e.destroyed).length;
+  const bFinal = simB.entries.filter(e => !e.destroyed).length;
+  if (!winner) {
+    winner = aFinal > bFinal ? simA.label : bFinal > aFinal ? simB.label : 'Draw';
+  }
+
+  html += `<div class="report-outcome">⚔ Outcome: <span style="color:var(--blood-bright)">${winner}</span> wins — ${simA.label}: ${aFinal} units · ${simB.label}: ${bFinal} units</div>`;
+  return html;
+}
+
+function applySimWounds(entry, wounds) {
+  // Distribute wounds across datasheets proportionally
+  let remaining = wounds;
+  for (const ds of entry.datasheets) {
+    if (ds.currentModels <= 0) continue;
+    const hp = MATH.totalHP(ds);
+    const taken = Math.min(remaining, hp);
+    remaining -= taken;
+    // Kill models
+    let woundPool = taken;
+    while (woundPool > 0 && ds.currentModels > 0) {
+      const lastHP = ds.wounds - ds.partialWounds;
+      if (woundPool >= lastHP) {
+        woundPool -= lastHP;
+        ds.currentModels--;
+        ds.partialWounds = 0;
+      } else {
+        ds.partialWounds += woundPool;
+        woundPool = 0;
+      }
+    }
+    if (remaining <= 0) break;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   DATA VIEW
+═══════════════════════════════════════════════════════════════ */
+
+document.getElementById('btn-export').addEventListener('click', () => {
+  const data = JSON.stringify({ factions, armies }, null, 2);
+  const blob = new Blob([data], { type: 'application/json' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url; a.download = 'war-engine-data.json'; a.click();
+  URL.revokeObjectURL(url);
+  showToast('Data exported.');
+});
+
+function handleImport(replace) {
+  const input = document.getElementById('import-file');
+  input.onchange = () => {
+    const file = input.files[0]; if (!file) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      try {
+        const data = JSON.parse(e.target.result);
+        if (replace) {
+          factions = data.factions || [];
+          armies   = data.armies   || [];
+        } else {
+          // Merge — avoid duplicate IDs
+          const existFIds = new Set(factions.map(f => f.id));
+          const existAIds = new Set(armies.map(a => a.id));
+          (data.factions || []).forEach(f => { if (!existFIds.has(f.id)) factions.push(f); });
+          (data.armies   || []).forEach(a => { if (!existAIds.has(a.id)) armies.push(a); });
+        }
+        saveFactions(); saveArmies();
+        renderFactions(); renderArmies();
+        showToast(`Import ${replace ? 'replace' : 'merge'} complete.`);
+      } catch { showToast('Invalid JSON file.', 'error'); }
+    };
+    reader.readAsText(file);
+    input.value = '';
+  };
+  input.click();
+}
+
+document.getElementById('btn-import-merge').addEventListener('click', () => handleImport(false));
+document.getElementById('btn-import-replace').addEventListener('click', () => handleImport(true));
+
+document.getElementById('btn-clear-all').addEventListener('click', () => {
+  showConfirm('⚠ Delete ALL factions and armies? This cannot be undone.', () => {
+    factions = []; armies = [];
+    saveFactions(); saveArmies();
+    renderFactions(); renderArmies();
+    showToast('All data cleared.');
+  });
+});
+
+/* ═══════════════════════════════════════════════════════════════
+   CONFIRM MODAL
+═══════════════════════════════════════════════════════════════ */
+
+let confirmCallback = null;
+function showConfirm(msg, cb) {
+  document.getElementById('confirm-message').textContent = msg;
+  confirmCallback = cb;
+  openModal('modal-confirm');
+}
+document.getElementById('btn-confirm-ok').addEventListener('click', () => {
+  closeModal('modal-confirm');
+  if (confirmCallback) { confirmCallback(); confirmCallback = null; }
+});
+
+/* ═══════════════════════════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════════════════════════ */
+renderFactions();
+renderArmies();
+
+</script>
+</body>
+</html>
