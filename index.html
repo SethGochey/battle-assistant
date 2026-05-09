@@ -1378,16 +1378,16 @@ function buildDSEditor(ds, di) {
         <input type="number" class="form-input" value="${ds.modelCount}" min="1" onchange="updateDS(${di},'modelCount',+this.value)">
       </div>
       <div class="form-group">
-        <label class="form-label">Wounds (W)</label>
-        <input type="number" class="form-input" value="${ds.wounds}" min="1" onchange="updateDS(${di},'wounds',+this.value)">
-      </div>
-      <div class="form-group">
         <label class="form-label">Toughness (T)</label>
         <input type="number" class="form-input" value="${ds.toughness}" min="1" onchange="updateDS(${di},'toughness',+this.value)">
       </div>
       <div class="form-group">
         <label class="form-label">Armor Save</label>
         <select class="form-select" onchange="updateDS(${di},'armorSave',+this.value)">${saveOptions}</select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Wounds (W)</label>
+        <input type="number" class="form-input" value="${ds.wounds}" min="1" onchange="updateDS(${di},'wounds',+this.value)">
       </div>
       <div class="form-group">
         <label class="form-label">Invuln Save</label>
@@ -1407,7 +1407,7 @@ function buildDSEditor(ds, di) {
       <div class="table-wrap" id="shoot-table-${di}">
         <table class="data-table">
           <thead><tr>
-            <th>Name</th><th>Atk</th><th>Rng</th><th>BS</th><th>S</th><th>AP</th><th>D</th><th></th>
+            <th>Name</th><th>Rng</th><th>A</th><th>BS</th><th>S</th><th>AP</th><th>D</th><th></th>
           </tr></thead>
           <tbody id="shoot-rows-${di}">${shootRows || '<tr><td colspan="8" style="color:var(--text-muted);font-size:0.8rem;text-align:center">No profiles</td></tr>'}</tbody>
         </table>
@@ -1422,7 +1422,7 @@ function buildDSEditor(ds, di) {
       <div class="table-wrap" id="melee-table-${di}">
         <table class="data-table">
           <thead><tr>
-            <th>Name</th><th>Atk</th><th>WS</th><th>S</th><th>AP</th><th>D</th><th></th>
+            <th>Name</th><th>A</th><th>WS</th><th>S</th><th>AP</th><th>D</th><th></th>
           </tr></thead>
           <tbody id="melee-rows-${di}">${meleeRows || '<tr><td colspan="7" style="color:var(--text-muted);font-size:0.8rem;text-align:center">No profiles</td></tr>'}</tbody>
         </table>
@@ -1445,8 +1445,8 @@ function buildProfileRow(p, pi, di, isMelee) {
   } else {
     return `<tr>
       <td><input value="${p.name}" onchange="updateProfile(${di},${pi},false,'name',this.value)" placeholder="Bolt Rifle"></td>
-      <td><input value="${p.attacksDisplay}" onchange="updateProfile(${di},${pi},false,'attacksDisplay',this.value)" style="width:50px"></td>
       <td><input type="number" value="${p.range}" onchange="updateProfile(${di},${pi},false,'range',+this.value)" style="width:40px"></td>
+      <td><input value="${p.attacksDisplay}" onchange="updateProfile(${di},${pi},false,'attacksDisplay',this.value)" style="width:50px"></td>
       <td><input type="number" value="${p.ballisticSkill}" onchange="updateProfile(${di},${pi},false,'ballisticSkill',+this.value)" style="width:40px" min="2" max="6"></td>
       <td><input type="number" value="${p.strength}" onchange="updateProfile(${di},${pi},false,'strength',+this.value)" style="width:40px"></td>
       <td><input type="number" value="${p.armorPenetration}" onchange="updateProfile(${di},${pi},false,'armorPenetration',+this.value)" style="width:45px"></td>
