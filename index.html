@@ -7,7 +7,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
 <style>
-  /* ── CSS Variables ─────────────────────────────────────────── */
   :root {
     --gold:         #c9a84c;
     --gold-dim:     #8a6f2e;
@@ -30,8 +29,6 @@
     --radius-lg:    8px;
     --transition:   0.2s ease;
   }
-
-  /* ── Reset & Base ──────────────────────────────────────────── */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { font-size: 16px; scroll-behavior: smooth; }
   body {
@@ -44,16 +41,12 @@
       radial-gradient(ellipse 80% 40% at 50% 0%, rgba(139,26,26,0.08) 0%, transparent 60%),
       url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a84c' fill-opacity='0.025'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   }
-
-  /* ── Typography ────────────────────────────────────────────── */
   h1, h2, h3, h4, .cinzel { font-family: 'Cinzel', serif; letter-spacing: 0.05em; }
   h1 { font-size: 1.6rem; font-weight: 900; color: var(--gold); }
   h2 { font-size: 1.2rem; font-weight: 700; color: var(--gold); }
   h3 { font-size: 1rem; font-weight: 600; color: var(--text); }
   p  { font-size: 1rem; line-height: 1.6; }
   small { font-size: 0.8rem; color: var(--text-dim); }
-
-  /* ── Ornaments ──────────────────────────────────────────────── */
   .ornament { color: var(--gold-dim); font-size: 0.75rem; letter-spacing: 0.2em; }
   .skull-icon { color: var(--blood); font-size: 1.1em; }
   .divider {
@@ -62,16 +55,13 @@
     margin: 0.75rem 0;
   }
   .divider::before, .divider::after {
-    content: ''; flex: 1;
-    height: 1px; background: var(--border-gold);
+    content: ''; flex: 1; height: 1px; background: var(--border-gold);
   }
-
-  /* ── Scrollbar ──────────────────────────────────────────────── */
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: var(--surface2); }
   ::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 3px; }
 
-  /* ── Header / Nav ───────────────────────────────────────────── */
+  /* ── Header / Nav ── */
   #app-header {
     position: sticky; top: 0; z-index: 100;
     background: var(--surface2);
@@ -84,38 +74,25 @@
     padding: 0.6rem 1rem; gap: 1rem;
   }
   .app-title {
-    font-family: 'Cinzel', serif;
-    font-size: 1.1rem; font-weight: 900;
-    color: var(--gold);
-    white-space: nowrap;
+    font-family: 'Cinzel', serif; font-size: 1.1rem; font-weight: 900;
+    color: var(--gold); white-space: nowrap;
     display: flex; align-items: center; gap: 0.5rem;
   }
   .app-title span.sub {
-    font-size: 0.65rem; font-weight: 400;
-    color: var(--text-dim); letter-spacing: 0.15em;
-    display: block; line-height: 1;
+    font-size: 0.65rem; font-weight: 400; color: var(--text-dim);
+    letter-spacing: 0.15em; display: block; line-height: 1;
   }
-  .nav-tabs {
-    display: flex; gap: 0.25rem; flex: 1;
-    justify-content: center; list-style: none;
-  }
+  .nav-tabs { display: flex; gap: 0.25rem; flex: 1; justify-content: center; list-style: none; }
   .nav-tab {
-    font-family: 'Cinzel', serif;
-    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em;
-    padding: 0.5rem 1rem;
-    color: var(--text-dim);
-    border: 1px solid transparent;
-    border-radius: var(--radius);
-    cursor: pointer;
-    transition: all var(--transition);
-    background: none;
-    white-space: nowrap;
-    display: flex; align-items: center; gap: 0.4rem;
+    font-family: 'Cinzel', serif; font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 0.1em; padding: 0.5rem 1rem; color: var(--text-dim);
+    border: 1px solid transparent; border-radius: var(--radius);
+    cursor: pointer; transition: all var(--transition); background: none;
+    white-space: nowrap; display: flex; align-items: center; gap: 0.4rem;
   }
   .nav-tab:hover { color: var(--gold); border-color: var(--border-gold); background: var(--surface3); }
   .nav-tab.active {
-    color: var(--gold); background: var(--surface3);
-    border-color: var(--border-gold);
+    color: var(--gold); background: var(--surface3); border-color: var(--border-gold);
     box-shadow: 0 0 12px var(--gold-glow), inset 0 1px 0 var(--border-gold);
   }
   .hamburger {
@@ -123,10 +100,7 @@
     color: var(--gold); padding: 0.4rem 0.6rem; border-radius: var(--radius);
     cursor: pointer; font-size: 1rem;
   }
-  .mobile-drawer {
-    display: none; position: fixed; inset: 0; z-index: 200;
-    background: rgba(0,0,0,0.7);
-  }
+  .mobile-drawer { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.7); }
   .mobile-drawer.open { display: flex; }
   .drawer-panel {
     background: var(--surface2); border-right: 1px solid var(--border-gold);
@@ -137,56 +111,40 @@
     font-family: 'Cinzel', serif; font-size: 1rem; color: var(--gold);
     margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center;
   }
-  .drawer-close {
-    background: none; border: none; color: var(--text-dim);
-    font-size: 1.2rem; cursor: pointer;
-  }
+  .drawer-close { background: none; border: none; color: var(--text-dim); font-size: 1.2rem; cursor: pointer; }
   .drawer-nav-tab {
     font-family: 'Cinzel', serif; font-size: 0.9rem; font-weight: 600;
     padding: 0.75rem 1rem; color: var(--text-dim);
     border: 1px solid transparent; border-radius: var(--radius);
     cursor: pointer; background: none; text-align: left;
-    display: flex; align-items: center; gap: 0.6rem;
-    transition: all var(--transition);
+    display: flex; align-items: center; gap: 0.6rem; transition: all var(--transition);
   }
   .drawer-nav-tab:hover { color: var(--gold); border-color: var(--border-gold); background: var(--surface3); }
   .drawer-nav-tab.active { color: var(--gold); background: var(--surface3); border-color: var(--border-gold); }
 
-  /* ── Main Layout ────────────────────────────────────────────── */
-  #app-main {
-    max-width: 1400px; margin: 0 auto;
-    padding: 1.5rem 1rem;
-  }
+  /* ── Main Layout ── */
+  #app-main { max-width: 1400px; margin: 0 auto; padding: 1.5rem 1rem; }
   .view { display: none; }
   .view.active { display: block; }
 
-  /* ── Cards ──────────────────────────────────────────────────── */
+  /* ── Cards ── */
   .card {
-    background: var(--surface2);
-    border: 1px solid var(--border-dim);
-    border-radius: var(--radius-lg);
-    padding: 1rem 1.25rem;
+    background: var(--surface2); border: 1px solid var(--border-dim);
+    border-radius: var(--radius-lg); padding: 1rem 1.25rem;
     transition: border-color var(--transition), box-shadow var(--transition);
   }
   .card:hover { border-color: var(--border-gold); }
-  .card-header {
-    display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: 0.75rem;
-  }
-  .card-title {
-    font-family: 'Cinzel', serif; font-size: 0.95rem; font-weight: 700;
-    color: var(--gold);
-  }
+  .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; }
+  .card-title { font-family: 'Cinzel', serif; font-size: 0.95rem; font-weight: 700; color: var(--gold); }
   .card-meta { font-size: 0.8rem; color: var(--text-dim); }
 
-  /* ── Buttons ────────────────────────────────────────────────── */
+  /* ── Buttons ── */
   .btn {
     font-family: 'Cinzel', serif; font-size: 0.75rem; font-weight: 600;
     letter-spacing: 0.08em; padding: 0.45rem 1rem;
     border-radius: var(--radius); cursor: pointer;
     transition: all var(--transition); border: 1px solid transparent;
-    display: inline-flex; align-items: center; gap: 0.35rem;
-    white-space: nowrap;
+    display: inline-flex; align-items: center; gap: 0.35rem; white-space: nowrap;
   }
   .btn:disabled { opacity: 0.4; cursor: not-allowed; }
   .btn-gold {
@@ -205,26 +163,21 @@
     background: linear-gradient(135deg, var(--blood), var(--blood-bright));
     box-shadow: 0 0 16px rgba(139,26,26,0.4);
   }
-  .btn-ghost {
-    background: none; color: var(--text-dim);
-    border-color: var(--border-dim);
+  .btn-ghost { background: none; color: var(--text-dim); border-color: var(--border-dim); }
+  .btn-ghost:hover:not(:disabled) { color: var(--gold); border-color: var(--border-gold); background: var(--surface3); }
+  .btn-danger { background: none; color: var(--blood-bright); border-color: rgba(192,32,32,0.3); }
+  .btn-danger:hover:not(:disabled) { background: rgba(192,32,32,0.1); border-color: var(--blood-bright); }
+  /* Clone button — distinctive teal-ish accent so it reads differently from Edit/Delete */
+  .btn-clone {
+    background: none; color: #6aadbb; border-color: rgba(106,173,187,0.35);
+    font-size: 0.65rem;
   }
-  .btn-ghost:hover:not(:disabled) {
-    color: var(--gold); border-color: var(--border-gold);
-    background: var(--surface3);
-  }
-  .btn-danger {
-    background: none; color: var(--blood-bright);
-    border-color: rgba(192,32,32,0.3);
-  }
-  .btn-danger:hover:not(:disabled) {
-    background: rgba(192,32,32,0.1); border-color: var(--blood-bright);
-  }
+  .btn-clone:hover:not(:disabled) { background: rgba(106,173,187,0.1); border-color: #6aadbb; }
   .btn-sm { font-size: 0.65rem; padding: 0.3rem 0.65rem; }
   .btn-lg { font-size: 0.9rem; padding: 0.65rem 1.5rem; }
   .btn-icon { padding: 0.35rem 0.5rem; font-size: 0.85rem; }
 
-  /* ── Forms ──────────────────────────────────────────────────── */
+  /* ── Forms ── */
   .form-group { display: flex; flex-direction: column; gap: 0.35rem; }
   .form-label {
     font-family: 'Cinzel', serif; font-size: 0.7rem; font-weight: 600;
@@ -241,147 +194,80 @@
     border-color: var(--gold); box-shadow: 0 0 0 2px var(--gold-glow);
   }
   .form-select option { background: var(--surface3); }
-  .form-textarea { resize: vertical; min-height: 80px; }
   .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 0.75rem; }
 
-  /* ── Stat Box ───────────────────────────────────────────────── */
-  .stat-box {
-    background: var(--surface3); border: 1px solid var(--border-dim);
-    border-radius: var(--radius); padding: 0.5rem 0.75rem; text-align: center;
-  }
-  .stat-value {
-    font-family: 'Cinzel', serif; font-size: 1.4rem; font-weight: 700;
-    color: var(--gold); line-height: 1;
-  }
-  .stat-label {
-    font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.12em;
-    color: var(--text-dim); margin-top: 0.2rem;
-  }
+  /* ── Stat Box ── */
+  .stat-box { background: var(--surface3); border: 1px solid var(--border-dim); border-radius: var(--radius); padding: 0.5rem 0.75rem; text-align: center; }
+  .stat-value { font-family: 'Cinzel', serif; font-size: 1.4rem; font-weight: 700; color: var(--gold); line-height: 1; }
+  .stat-label { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.12em; color: var(--text-dim); margin-top: 0.2rem; }
 
-  /* ── Counter Control ────────────────────────────────────────── */
-  .counter {
-    display: inline-flex; align-items: center; gap: 0; border: 1px solid var(--border-dim);
-    border-radius: var(--radius); overflow: hidden;
-  }
+  /* ── Counter ── */
+  .counter { display: inline-flex; align-items: center; gap: 0; border: 1px solid var(--border-dim); border-radius: var(--radius); overflow: hidden; }
   .counter-btn {
-    background: var(--surface3); color: var(--gold);
-    border: none; cursor: pointer;
-    min-width: 44px; min-height: 44px;
-    font-size: 1.1rem; font-weight: 700;
-    transition: background var(--transition);
-    display: flex; align-items: center; justify-content: center;
+    background: var(--surface3); color: var(--gold); border: none; cursor: pointer;
+    min-width: 44px; min-height: 44px; font-size: 1.1rem; font-weight: 700;
+    transition: background var(--transition); display: flex; align-items: center; justify-content: center;
   }
   .counter-btn:hover { background: var(--surface4); }
   .counter-val {
-    font-family: 'Cinzel', serif; font-size: 0.95rem; font-weight: 700;
-    color: var(--text); background: var(--surface2);
-    padding: 0 0.75rem; min-width: 60px; text-align: center;
-    line-height: 44px;
-  }
-  .counter-label {
-    font-size: 0.7rem; color: var(--text-dim);
-    padding: 0 0.5rem; font-family: 'Cinzel', serif;
-    letter-spacing: 0.08em;
+    font-family: 'Cinzel', serif; font-size: 0.95rem; font-weight: 700; color: var(--text);
+    background: var(--surface2); padding: 0 0.75rem; min-width: 60px; text-align: center; line-height: 44px;
   }
 
-  /* ── Badge ──────────────────────────────────────────────────── */
-  .badge {
-    display: inline-block; font-family: 'Cinzel', serif;
-    font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em;
-    padding: 0.15rem 0.5rem; border-radius: 2px;
-  }
+  /* ── Badge ── */
+  .badge { display: inline-block; font-family: 'Cinzel', serif; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; padding: 0.15rem 0.5rem; border-radius: 2px; }
   .badge-gold { background: rgba(201,168,76,0.15); color: var(--gold); border: 1px solid var(--border-gold); }
   .badge-blood { background: rgba(139,26,26,0.2); color: #e05050; border: 1px solid rgba(139,26,26,0.4); }
   .badge-dim { background: var(--surface3); color: var(--text-dim); border: 1px solid var(--border-dim); }
+  .badge-teal { background: rgba(106,173,187,0.1); color: #6aadbb; border: 1px solid rgba(106,173,187,0.3); }
 
-  /* ── Toast ──────────────────────────────────────────────────── */
-  #toast-container {
-    position: fixed; bottom: 1.5rem; right: 1.5rem;
-    z-index: 500; display: flex; flex-direction: column; gap: 0.5rem;
-  }
+  /* ── Toast ── */
+  #toast-container { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 500; display: flex; flex-direction: column; gap: 0.5rem; }
   .toast {
-    font-family: 'Cinzel', serif; font-size: 0.75rem;
-    padding: 0.65rem 1rem; border-radius: var(--radius);
-    background: var(--surface4); border: 1px solid var(--border-gold);
-    color: var(--text); box-shadow: 0 4px 20px var(--shadow);
-    animation: toast-in 0.3s ease;
+    font-family: 'Cinzel', serif; font-size: 0.75rem; padding: 0.65rem 1rem; border-radius: var(--radius);
+    background: var(--surface4); border: 1px solid var(--border-gold); color: var(--text);
+    box-shadow: 0 4px 20px var(--shadow); animation: toast-in 0.3s ease;
   }
   .toast.error { border-color: var(--blood-bright); color: #e05050; }
   @keyframes toast-in { from { opacity:0; transform: translateY(12px); } to { opacity:1; transform: none; } }
 
-  /* ── Modal ──────────────────────────────────────────────────── */
-  .modal-backdrop {
-    display: none; position: fixed; inset: 0; z-index: 300;
-    background: rgba(0,0,0,0.75); align-items: center; justify-content: center;
-    padding: 1rem;
-  }
+  /* ── Modal ── */
+  .modal-backdrop { display: none; position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,0.75); align-items: center; justify-content: center; padding: 1rem; }
   .modal-backdrop.open { display: flex; }
   .modal {
     background: var(--surface2); border: 1px solid var(--border-gold);
     border-radius: var(--radius-lg); box-shadow: 0 8px 40px var(--shadow);
     width: 100%; max-width: 680px; max-height: 90vh;
-    display: flex; flex-direction: column;
-    animation: modal-in 0.25s ease;
+    display: flex; flex-direction: column; animation: modal-in 0.25s ease;
   }
   .modal.modal-lg { max-width: 900px; }
   .modal.modal-xl { max-width: 1100px; }
   @keyframes modal-in { from { opacity:0; transform: scale(0.96) translateY(-12px); } to { opacity:1; transform: none; } }
-  .modal-header {
-    padding: 1rem 1.25rem; border-bottom: 1px solid var(--border-gold);
-    display: flex; align-items: center; justify-content: space-between;
-    flex-shrink: 0;
-  }
+  .modal-header { padding: 1rem 1.25rem; border-bottom: 1px solid var(--border-gold); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
   .modal-title { font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 700; color: var(--gold); }
-  .modal-close {
-    background: none; border: none; color: var(--text-dim);
-    font-size: 1.2rem; cursor: pointer; padding: 0.25rem;
-    transition: color var(--transition);
-  }
+  .modal-close { background: none; border: none; color: var(--text-dim); font-size: 1.2rem; cursor: pointer; padding: 0.25rem; transition: color var(--transition); }
   .modal-close:hover { color: var(--gold); }
   .modal-body { padding: 1.25rem; overflow-y: auto; flex: 1; }
-  .modal-footer {
-    padding: 1rem 1.25rem; border-top: 1px solid var(--border-dim);
-    display: flex; justify-content: flex-end; gap: 0.5rem; flex-shrink: 0;
-  }
+  .modal-footer { padding: 1rem 1.25rem; border-top: 1px solid var(--border-dim); display: flex; justify-content: flex-end; gap: 0.5rem; flex-shrink: 0; }
 
-  /* ── Section Header ─────────────────────────────────────────── */
-  .section-header {
-    display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: 1rem;
-  }
-  .section-title {
-    font-family: 'Cinzel', serif; font-size: 0.8rem; font-weight: 700;
-    letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase;
-  }
+  /* ── Section Header ── */
+  .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+  .section-title { font-family: 'Cinzel', serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.15em; color: var(--text-dim); text-transform: uppercase; }
 
-  /* ── Table ──────────────────────────────────────────────────── */
+  /* ── Table ── */
   .data-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
-  .data-table th {
-    font-family: 'Cinzel', serif; font-size: 0.65rem; font-weight: 700;
-    letter-spacing: 0.12em; color: var(--text-dim); text-align: left;
-    padding: 0.4rem 0.6rem; border-bottom: 1px solid var(--border-gold);
-  }
-  .data-table td {
-    padding: 0.4rem 0.6rem; border-bottom: 1px solid var(--border-dim);
-    vertical-align: middle;
-  }
+  .data-table th { font-family: 'Cinzel', serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; color: var(--text-dim); text-align: left; padding: 0.4rem 0.6rem; border-bottom: 1px solid var(--border-gold); }
+  .data-table td { padding: 0.4rem 0.6rem; border-bottom: 1px solid var(--border-dim); vertical-align: middle; }
   .data-table tr:hover td { background: var(--surface3); }
-  .data-table input {
-    background: transparent; border: none; color: var(--text);
-    font-family: 'Crimson Pro', serif; font-size: 0.88rem;
-    width: 100%; outline: none; padding: 0;
-  }
+  .data-table input { background: transparent; border: none; color: var(--text); font-family: 'Crimson Pro', serif; font-size: 0.88rem; width: 100%; outline: none; padding: 0; }
   .data-table input:focus { border-bottom: 1px solid var(--gold); }
 
-  /* ── Empty State ────────────────────────────────────────────── */
-  .empty-state {
-    text-align: center; padding: 3rem 1rem;
-    color: var(--text-muted);
-  }
+  /* ── Empty State ── */
+  .empty-state { text-align: center; padding: 3rem 1rem; color: var(--text-muted); }
   .empty-state .empty-icon { font-size: 2.5rem; margin-bottom: 0.75rem; opacity: 0.4; }
   .empty-state p { font-size: 0.9rem; }
 
-  /* ── Grid Layouts ───────────────────────────────────────────── */
+  /* ── Grid / Flex ── */
   .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
   .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
   .grid-auto { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
@@ -396,235 +282,92 @@
   .mb-1 { margin-bottom: 0.5rem; }
   .mb-2 { margin-bottom: 1rem; }
 
-  /* ══════════════════════════════════════════════════════════════
-     FACTIONS VIEW
-  ══════════════════════════════════════════════════════════════ */
-  .faction-card {
-    cursor: pointer;
-  }
-  .faction-card .card-header { cursor: pointer; }
+  /* ══ FACTIONS VIEW ══ */
+  .faction-card { cursor: default; }
   .faction-units { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.75rem; }
-  .unit-row {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0.4rem 0.6rem; background: var(--surface3);
-    border: 1px solid var(--border-dim); border-radius: var(--radius);
-  }
+  .unit-row { display: flex; align-items: center; justify-content: space-between; padding: 0.4rem 0.6rem; background: var(--surface3); border: 1px solid var(--border-dim); border-radius: var(--radius); }
   .unit-row:hover { border-color: var(--border-gold); }
   .unit-info { font-size: 0.9rem; }
   .unit-info small { display: block; color: var(--text-dim); font-size: 0.72rem; }
   .unit-actions { display: flex; gap: 0.35rem; }
 
-  /* Unit Editor Modal sub-sections */
+  /* Datasheet editor */
   .ds-list { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 0.75rem; }
-  .ds-item {
-    border: 1px solid var(--border-dim); border-radius: var(--radius);
-    overflow: hidden;
-  }
-  .ds-item-header {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0.5rem 0.75rem; background: var(--surface3); cursor: pointer;
-  }
+  .ds-item { border: 1px solid var(--border-dim); border-radius: var(--radius); overflow: hidden; }
+  .ds-item-header { display: flex; align-items: center; justify-content: space-between; padding: 0.5rem 0.75rem; background: var(--surface3); cursor: pointer; }
   .ds-item-header:hover { background: var(--surface4); }
   .ds-item-body { padding: 0.75rem; background: var(--surface2); }
   .profile-section { margin-top: 0.75rem; }
-  .profile-section-title {
-    font-family: 'Cinzel', serif; font-size: 0.7rem; font-weight: 700;
-    letter-spacing: 0.12em; color: var(--gold-dim); margin-bottom: 0.5rem;
-  }
+  .profile-section-title { font-family: 'Cinzel', serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; color: var(--gold-dim); margin-bottom: 0.5rem; }
   .table-wrap { overflow-x: auto; border: 1px solid var(--border-dim); border-radius: var(--radius); }
 
-  /* ══════════════════════════════════════════════════════════════
-     ARMIES VIEW
-  ══════════════════════════════════════════════════════════════ */
-  .army-stats {
-    display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;
-  }
-  .entry-item {
+  /* Profile library picker rows */
+  .lib-profile-row {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 0.35rem 0.6rem; background: var(--surface3);
+    padding: 0.45rem 0.75rem; background: var(--surface3);
     border: 1px solid var(--border-dim); border-radius: var(--radius);
-    margin-top: 0.35rem; font-size: 0.88rem;
+    margin-bottom: 0.35rem; font-size: 0.85rem;
   }
+  .lib-profile-row:hover { border-color: var(--border-gold); }
+  .lib-profile-stats { font-size: 0.72rem; color: var(--text-dim); margin-top: 0.1rem; }
 
-  /* ══════════════════════════════════════════════════════════════
-     BATTLE VIEW
-  ══════════════════════════════════════════════════════════════ */
-  .resource-bar {
-    display: flex; align-items: center; gap: 0.75rem;
-    flex-wrap: wrap; padding: 0.5rem 0; margin-bottom: 1rem;
-  }
-  .resource-item {
-    display: flex; align-items: center; gap: 0.4rem;
-    background: var(--surface3); border: 1px solid var(--border-dim);
-    border-radius: var(--radius); padding: 0.25rem 0.5rem;
-  }
-  .resource-name {
-    font-family: 'Cinzel', serif; font-size: 0.65rem; color: var(--text-dim);
-    letter-spacing: 0.1em;
-  }
-  .resource-value {
-    font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 700; color: var(--gold);
-    min-width: 2ch; text-align: center;
-  }
-  .resource-btn {
-    background: none; border: none; color: var(--gold);
-    cursor: pointer; font-size: 1rem; line-height: 1;
-    width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;
-    border-radius: 2px; transition: background var(--transition);
-  }
+  /* ══ ARMIES VIEW ══ */
+  .army-stats { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem; }
+  .entry-item { display: flex; align-items: center; justify-content: space-between; padding: 0.35rem 0.6rem; background: var(--surface3); border: 1px solid var(--border-dim); border-radius: var(--radius); margin-top: 0.35rem; font-size: 0.88rem; }
+
+  /* ══ BATTLE VIEW ══ */
+  .resource-bar { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; padding: 0.5rem 0; margin-bottom: 1rem; }
+  .resource-item { display: flex; align-items: center; gap: 0.4rem; background: var(--surface3); border: 1px solid var(--border-dim); border-radius: var(--radius); padding: 0.25rem 0.5rem; }
+  .resource-name { font-family: 'Cinzel', serif; font-size: 0.65rem; color: var(--text-dim); letter-spacing: 0.1em; }
+  .resource-value { font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 700; color: var(--gold); min-width: 2ch; text-align: center; }
+  .resource-btn { background: none; border: none; color: var(--gold); cursor: pointer; font-size: 1rem; line-height: 1; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 2px; transition: background var(--transition); }
   .resource-btn:hover { background: var(--surface4); }
-  .resource-delete {
-    background: none; border: none; color: var(--text-muted); cursor: pointer;
-    font-size: 0.75rem; padding: 0.1rem;
-  }
+  .resource-delete { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 0.75rem; padding: 0.1rem; }
   .resource-delete:hover { color: var(--blood-bright); }
-
-  /* Battle panels */
-  .battle-panels {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; align-items: start;
-  }
-  .battle-panel {
-    background: var(--surface2); border: 1px solid var(--border-dim);
-    border-radius: var(--radius-lg); overflow: hidden;
-  }
-  .battle-panel-header {
-    padding: 0.75rem 1rem; background: var(--surface3);
-    border-bottom: 1px solid var(--border-gold);
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  .battle-panel-title {
-    font-family: 'Cinzel', serif; font-size: 0.95rem; font-weight: 700; color: var(--gold);
-  }
+  .battle-panels { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; align-items: start; }
+  .battle-panel { background: var(--surface2); border: 1px solid var(--border-dim); border-radius: var(--radius-lg); overflow: hidden; }
+  .battle-panel-header { padding: 0.75rem 1rem; background: var(--surface3); border-bottom: 1px solid var(--border-gold); display: flex; align-items: center; justify-content: space-between; }
+  .battle-panel-title { font-family: 'Cinzel', serif; font-size: 0.95rem; font-weight: 700; color: var(--gold); }
   .battle-panel-body { padding: 0.75rem; display: flex; flex-direction: column; gap: 0.5rem; }
-  .battle-unit-card {
-    background: var(--surface3); border: 1px solid var(--border-dim);
-    border-radius: var(--radius); padding: 0.6rem 0.75rem;
-    transition: all var(--transition);
-  }
-  .battle-unit-card.activated {
-    opacity: 0.45; border-style: dashed;
-  }
-  .battle-unit-card.destroyed {
-    display: none;
-  }
-  .battle-unit-header {
-    display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: 0.4rem;
-  }
-  .battle-unit-name {
-    font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: 700; color: var(--text);
-  }
+  .battle-unit-card { background: var(--surface3); border: 1px solid var(--border-dim); border-radius: var(--radius); padding: 0.6rem 0.75rem; transition: all var(--transition); }
+  .battle-unit-card.activated { opacity: 0.45; border-style: dashed; }
+  .battle-unit-card.destroyed { display: none; }
+  .battle-unit-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.4rem; }
+  .battle-unit-name { font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: 700; color: var(--text); }
   .battle-unit-actions { display: flex; gap: 0.35rem; align-items: center; }
-  .ds-tracker {
-    display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap;
-    padding: 0.35rem 0; border-top: 1px solid var(--border-dim); margin-top: 0.4rem;
-  }
+  .ds-tracker { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; padding: 0.35rem 0; border-top: 1px solid var(--border-dim); margin-top: 0.4rem; }
   .ds-tracker-label { font-size: 0.75rem; color: var(--text-dim); min-width: 90px; }
-  .ds-tracker-models {
-    display: flex; align-items: center; gap: 0.25rem; font-size: 0.8rem;
-  }
-  .tracker-btn {
-    background: var(--surface4); border: 1px solid var(--border-dim);
-    color: var(--gold); cursor: pointer;
-    width: 28px; height: 28px;
-    border-radius: var(--radius); font-size: 0.85rem; font-weight: 700;
-    display: flex; align-items: center; justify-content: center;
-    transition: background var(--transition);
-  }
+  .ds-tracker-models { display: flex; align-items: center; gap: 0.25rem; font-size: 0.8rem; }
+  .tracker-btn { background: var(--surface4); border: 1px solid var(--border-dim); color: var(--gold); cursor: pointer; width: 28px; height: 28px; border-radius: var(--radius); font-size: 0.85rem; font-weight: 700; display: flex; align-items: center; justify-content: center; transition: background var(--transition); }
   .tracker-btn:hover { background: var(--surface5); }
-  .tracker-val {
-    font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: 700;
-    color: var(--text); min-width: 32px; text-align: center;
-  }
+  .tracker-val { font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: 700; color: var(--text); min-width: 32px; text-align: center; }
   .tracker-sep { color: var(--text-muted); font-size: 0.75rem; }
-  .activated-toggle {
-    display: flex; align-items: center; gap: 0.35rem; cursor: pointer;
-    font-size: 0.72rem; color: var(--text-dim); font-family: 'Cinzel', serif;
-    letter-spacing: 0.08em;
-  }
+  .activated-toggle { display: flex; align-items: center; gap: 0.35rem; cursor: pointer; font-size: 0.72rem; color: var(--text-dim); font-family: 'Cinzel', serif; letter-spacing: 0.08em; }
   .activated-toggle input { accent-color: var(--gold); cursor: pointer; }
-
-  /* Analysis Panel */
-  .analysis-panel-backdrop {
-    display: none; position: fixed; inset: 0; z-index: 400;
-    background: rgba(0,0,0,0.6); align-items: flex-end; justify-content: flex-end;
-  }
+  .analysis-panel-backdrop { display: none; position: fixed; inset: 0; z-index: 400; background: rgba(0,0,0,0.6); align-items: flex-end; justify-content: flex-end; }
   .analysis-panel-backdrop.open { display: flex; }
-  .analysis-panel {
-    background: var(--surface2); border-left: 1px solid var(--border-gold);
-    border-top: 1px solid var(--border-gold);
-    width: 420px; height: 100vh; overflow-y: auto;
-    padding: 1.25rem; display: flex; flex-direction: column; gap: 1rem;
-    animation: slide-in 0.3s ease;
-  }
+  .analysis-panel { background: var(--surface2); border-left: 1px solid var(--border-gold); border-top: 1px solid var(--border-gold); width: 420px; height: 100vh; overflow-y: auto; padding: 1.25rem; display: flex; flex-direction: column; gap: 1rem; animation: slide-in 0.3s ease; }
   @keyframes slide-in { from { transform: translateX(100%); } to { transform: none; } }
-  .analysis-header {
-    display: flex; align-items: center; justify-content: space-between;
-  }
+  .analysis-header { display: flex; align-items: center; justify-content: space-between; }
   .analysis-title { font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 700; color: var(--gold); }
-  .analysis-mode-badge {
-    font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.12em;
-    padding: 0.2rem 0.6rem; border-radius: 2px;
-    background: rgba(201,168,76,0.1); border: 1px solid var(--border-gold); color: var(--gold);
-  }
-  .analysis-step {
-    background: var(--surface3); border: 1px solid var(--border-dim);
-    border-radius: var(--radius); padding: 0.75rem;
-    border-left: 3px solid var(--gold);
-  }
-  .analysis-step-num {
-    font-family: 'Cinzel', serif; font-size: 0.65rem; color: var(--gold-dim);
-    letter-spacing: 0.15em; margin-bottom: 0.4rem;
-  }
+  .analysis-mode-badge { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.12em; padding: 0.2rem 0.6rem; border-radius: 2px; background: rgba(201,168,76,0.1); border: 1px solid var(--border-gold); color: var(--gold); }
+  .analysis-step { background: var(--surface3); border: 1px solid var(--border-dim); border-radius: var(--radius); padding: 0.75rem; border-left: 3px solid var(--gold); }
+  .analysis-step-num { font-family: 'Cinzel', serif; font-size: 0.65rem; color: var(--gold-dim); letter-spacing: 0.15em; margin-bottom: 0.4rem; }
   .analysis-step-main { font-size: 0.95rem; margin-bottom: 0.35rem; }
   .analysis-step-detail { font-size: 0.8rem; color: var(--text-dim); }
-  .analysis-summary {
-    background: var(--surface3); border: 1px solid var(--border-gold);
-    border-radius: var(--radius); padding: 0.75rem;
-  }
-  .analysis-summary-title {
-    font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.12em;
-    color: var(--text-dim); margin-bottom: 0.6rem;
-  }
-  .analysis-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
-
-  /* Battle setup */
-  .battle-setup {
-    max-width: 600px; margin: 3rem auto; text-align: center;
-  }
+  .analysis-summary { background: var(--surface3); border: 1px solid var(--border-gold); border-radius: var(--radius); padding: 0.75rem; }
+  .analysis-summary-title { font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.12em; color: var(--text-dim); margin-bottom: 0.6rem; }
+  .battle-setup { max-width: 600px; margin: 3rem auto; text-align: center; }
   .battle-setup h2 { margin-bottom: 0.5rem; }
   .battle-setup .ornament { margin-bottom: 2rem; display: block; }
   .setup-form { display: flex; flex-direction: column; gap: 1rem; text-align: left; }
-  .vs-label {
-    font-family: 'Cinzel', serif; font-size: 2rem; font-weight: 900; color: var(--blood);
-    text-align: center; line-height: 1; align-self: center; margin-top: 0.5rem;
-  }
-
-  /* Simulate button */
-  .simulate-row {
-    display: flex; justify-content: center; margin: 1rem 0;
-  }
-
-  /* Battle report modal */
-  .report-round {
-    margin-bottom: 1rem; border: 1px solid var(--border-dim);
-    border-radius: var(--radius); overflow: hidden;
-  }
-  .report-round-header {
-    padding: 0.5rem 0.75rem; background: var(--surface3);
-    font-family: 'Cinzel', serif; font-size: 0.8rem; color: var(--gold);
-    border-bottom: 1px solid var(--border-dim);
-  }
+  .simulate-row { display: flex; justify-content: center; margin: 1rem 0; }
+  .report-round { margin-bottom: 1rem; border: 1px solid var(--border-dim); border-radius: var(--radius); overflow: hidden; }
+  .report-round-header { padding: 0.5rem 0.75rem; background: var(--surface3); font-family: 'Cinzel', serif; font-size: 0.8rem; color: var(--gold); border-bottom: 1px solid var(--border-dim); }
   .report-round-body { padding: 0.75rem; font-size: 0.88rem; line-height: 1.7; }
-  .report-outcome {
-    text-align: center; padding: 1.5rem;
-    font-family: 'Cinzel', serif; font-size: 1.2rem; font-weight: 700;
-    color: var(--gold);
-  }
+  .report-outcome { text-align: center; padding: 1.5rem; font-family: 'Cinzel', serif; font-size: 1.2rem; font-weight: 700; color: var(--gold); }
 
-  /* ══════════════════════════════════════════════════════════════
-     DATA VIEW
-  ══════════════════════════════════════════════════════════════ */
+  /* ══ DATA VIEW ══ */
   .data-sections { display: flex; flex-direction: column; gap: 1.5rem; max-width: 600px; }
   .data-card { padding: 1.25rem; }
   .data-card h3 { margin-bottom: 0.75rem; }
@@ -634,14 +377,31 @@
   .rules-ref-table { font-size: 0.85rem; margin-top: 0.75rem; }
   .rules-ref-table th { color: var(--gold); }
 
-  /* ══════════════════════════════════════════════════════════════
-     RESPONSIVE
-  ══════════════════════════════════════════════════════════════ */
+  /* ══ PROFILE LIBRARY SECTION in faction editor ══ */
+  .lib-section {
+    margin-top: 1.25rem;
+    background: var(--surface3); border: 1px solid var(--border-dim);
+    border-radius: var(--radius); padding: 0.75rem;
+  }
+  .lib-section-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 0.5rem;
+  }
+  .lib-tabs { display: flex; gap: 0.35rem; margin-bottom: 0.75rem; }
+  .lib-tab {
+    font-family: 'Cinzel', serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em;
+    padding: 0.3rem 0.75rem; border-radius: var(--radius); cursor: pointer;
+    background: none; color: var(--text-dim); border: 1px solid var(--border-dim);
+    transition: all var(--transition);
+  }
+  .lib-tab.active { color: var(--gold); border-color: var(--border-gold); background: var(--surface4); }
+  .lib-empty { font-size: 0.8rem; color: var(--text-muted); padding: 0.5rem 0; font-style: italic; }
+
   @media (max-width: 768px) {
     .nav-tabs { display: none; }
     .hamburger { display: flex; align-items: center; justify-content: center; }
     .battle-panels { grid-template-columns: 1fr; }
-    .analysis-panel { width: 100%; height: 90vh; border-left: none; border-top: 1px solid var(--border-gold); }
+    .analysis-panel { width: 100%; height: 90vh; border-left: none; }
     .analysis-panel-backdrop { align-items: flex-end; }
     .grid-2 { grid-template-columns: 1fr; }
     .grid-3 { grid-template-columns: repeat(2, 1fr); }
@@ -658,15 +418,11 @@
 </head>
 <body>
 
-<!-- ══════════ HEADER ══════════ -->
 <header id="app-header">
   <div class="header-inner">
     <div class="app-title">
       <span>☩</span>
-      <div>
-        BATTLE ASSISTANT
-        <span class="sub">40K COMBAT CALCULATOR</span>
-      </div>
+      <div>BATTLE ASSISTANT<span class="sub">40K COMBAT CALCULATOR</span></div>
     </div>
     <nav>
       <ul class="nav-tabs" id="nav-tabs">
@@ -680,7 +436,6 @@
   </div>
 </header>
 
-<!-- ══════════ MOBILE DRAWER ══════════ -->
 <div class="mobile-drawer" id="mobile-drawer">
   <div class="drawer-panel">
     <div class="drawer-header">
@@ -696,10 +451,9 @@
   <div style="flex:1" id="drawer-backdrop"></div>
 </div>
 
-<!-- ══════════ MAIN ══════════ -->
 <main id="app-main">
 
-  <!-- ═══ FACTIONS VIEW ═══ -->
+  <!-- ═══ FACTIONS ═══ -->
   <div class="view active" id="view-factions">
     <div class="section-header mb-2">
       <div>
@@ -708,16 +462,14 @@
       </div>
       <button class="btn btn-gold" id="btn-add-faction">+ Add Faction</button>
     </div>
-    <div class="grid-auto" id="factions-list">
-      <!-- Faction cards rendered here -->
-    </div>
+    <div class="grid-auto" id="factions-list"></div>
     <div class="empty-state" id="factions-empty" style="display:none">
       <div class="empty-icon">⚔</div>
       <p>No factions yet. Add your first faction to define unit templates.</p>
     </div>
   </div>
 
-  <!-- ═══ ARMIES VIEW ═══ -->
+  <!-- ═══ ARMIES ═══ -->
   <div class="view" id="view-armies">
     <div class="section-header mb-2">
       <div>
@@ -726,19 +478,15 @@
       </div>
       <button class="btn btn-gold" id="btn-add-army">+ Add Army</button>
     </div>
-    <div class="grid-auto" id="armies-list">
-      <!-- Army cards rendered here -->
-    </div>
+    <div class="grid-auto" id="armies-list"></div>
     <div class="empty-state" id="armies-empty" style="display:none">
       <div class="empty-icon">🛡</div>
       <p>No armies yet. Create a faction first, then compose your army.</p>
     </div>
   </div>
 
-  <!-- ═══ BATTLE VIEW ═══ -->
+  <!-- ═══ BATTLE ═══ -->
   <div class="view" id="view-battle">
-
-    <!-- Setup state -->
     <div id="battle-setup-panel">
       <div class="battle-setup">
         <h2>Battle Setup</h2>
@@ -758,16 +506,11 @@
               <select class="form-select" id="battle-army-b"></select>
             </div>
           </div>
-          <button class="btn btn-gold btn-lg" id="btn-begin-battle" style="align-self:center">
-            ☩ Begin Battle
-          </button>
+          <button class="btn btn-gold btn-lg" id="btn-begin-battle" style="align-self:center">☩ Begin Battle</button>
         </div>
       </div>
     </div>
-
-    <!-- Active state -->
     <div id="battle-active-panel" style="display:none">
-      <!-- Battle header -->
       <div class="card mb-2" style="padding:0.75rem 1rem">
         <div class="flex-row">
           <div style="flex:1">
@@ -782,17 +525,11 @@
           </div>
           <button class="btn btn-danger" id="btn-end-battle">End Battle</button>
         </div>
-        <!-- Resource bar -->
         <div class="divider mt-1">RESOURCES</div>
-        <div class="resource-bar" id="resource-bar">
-          <!-- Rendered by JS -->
-        </div>
+        <div class="resource-bar" id="resource-bar"></div>
         <button class="btn btn-ghost btn-sm" id="btn-add-resource">+ Add Resource</button>
       </div>
-
-      <!-- Battle panels -->
       <div class="battle-panels" id="battle-panels">
-        <!-- Panel A -->
         <div class="battle-panel" id="panel-a">
           <div class="battle-panel-header">
             <span class="battle-panel-title" id="panel-a-title">Army A</span>
@@ -803,7 +540,6 @@
             <button class="btn btn-ghost btn-sm" id="btn-reset-a">↺ Reset Activations</button>
           </div>
         </div>
-        <!-- Panel B -->
         <div class="battle-panel" id="panel-b">
           <div class="battle-panel-header">
             <span class="battle-panel-title" id="panel-b-title">Army B</span>
@@ -815,14 +551,13 @@
           </div>
         </div>
       </div>
-
       <div class="simulate-row">
         <button class="btn btn-gold btn-lg" id="btn-simulate">⬡ Simulate Battle (5 Rounds)</button>
       </div>
     </div>
   </div>
 
-  <!-- ═══ DATA VIEW ═══ -->
+  <!-- ═══ DATA ═══ -->
   <div class="view" id="view-data">
     <div class="section-header mb-2">
       <div>
@@ -838,7 +573,7 @@
       </div>
       <div class="card data-card">
         <h3>Import Data</h3>
-        <p>Load factions and armies from a previously exported JSON file. Choose whether to merge with existing data or replace it.</p>
+        <p>Load factions and armies from a previously exported JSON file.</p>
         <div class="flex-row gap-md">
           <input type="file" id="import-file" accept=".json" style="display:none">
           <button class="btn btn-ghost" id="btn-import-merge">⬆ Import &amp; Merge</button>
@@ -869,13 +604,11 @@
       </div>
     </div>
   </div>
-
 </main>
 
-<!-- ══════════ TOAST CONTAINER ══════════ -->
 <div id="toast-container"></div>
 
-<!-- ══════════ ANALYSIS PANEL ══════════ -->
+<!-- Analysis Panel -->
 <div class="analysis-panel-backdrop" id="analysis-backdrop">
   <div class="analysis-panel" id="analysis-panel">
     <div class="analysis-header">
@@ -886,13 +619,11 @@
       <button class="btn btn-ghost btn-sm" id="analysis-close">✕ Close</button>
     </div>
     <div class="divider">✦ ✦ ✦</div>
-    <div id="analysis-content">
-      <!-- Rendered by JS -->
-    </div>
+    <div id="analysis-content"></div>
   </div>
 </div>
 
-<!-- ══════════ MODAL: FACTION EDITOR ══════════ -->
+<!-- ══ MODAL: FACTION EDITOR ══ -->
 <div class="modal-backdrop" id="modal-faction">
   <div class="modal modal-xl">
     <div class="modal-header">
@@ -909,8 +640,27 @@
         <span class="section-title">Unit Roster</span>
         <button class="btn btn-ghost btn-sm" id="btn-add-unit">+ Add Unit</button>
       </div>
-      <div id="faction-units-list" class="ds-list">
-        <!-- Units rendered here -->
+      <div id="faction-units-list" class="ds-list"></div>
+
+      <!-- Profile Library -->
+      <div class="lib-section">
+        <div class="lib-section-header">
+          <span class="section-title">Profile Library</span>
+          <span class="badge badge-teal">FACTION-WIDE</span>
+        </div>
+        <p style="font-size:0.8rem;color:var(--text-dim);margin-bottom:0.75rem">
+          Save profiles here once, stamp them into any datasheet via "From Library". Each stamp is an independent copy.
+        </p>
+        <div class="lib-tabs">
+          <button class="lib-tab active" id="lib-tab-shoot" onclick="switchLibTab('shoot')">☩ Shooting</button>
+          <button class="lib-tab" id="lib-tab-melee" onclick="switchLibTab('melee')">⚔ Melee</button>
+        </div>
+        <div id="lib-shoot-list"></div>
+        <div id="lib-melee-list" style="display:none"></div>
+        <div class="flex-row mt-1" style="gap:0.5rem">
+          <button class="btn btn-ghost btn-sm" id="btn-lib-add-shoot" onclick="addLibProfile(false)">+ Add Shooting Profile</button>
+          <button class="btn btn-ghost btn-sm" id="btn-lib-add-melee" onclick="addLibProfile(true)">+ Add Melee Profile</button>
+        </div>
       </div>
     </div>
     <div class="modal-footer">
@@ -920,7 +670,7 @@
   </div>
 </div>
 
-<!-- ══════════ MODAL: UNIT EDITOR ══════════ -->
+<!-- ══ MODAL: UNIT EDITOR ══ -->
 <div class="modal-backdrop" id="modal-unit">
   <div class="modal modal-xl">
     <div class="modal-header">
@@ -937,9 +687,7 @@
         <span class="section-title">Datasheet Models</span>
         <button class="btn btn-ghost btn-sm" id="btn-add-datasheet">+ Add Datasheet</button>
       </div>
-      <div id="unit-datasheets-list" class="ds-list">
-        <!-- Datasheets rendered here -->
-      </div>
+      <div id="unit-datasheets-list" class="ds-list"></div>
     </div>
     <div class="modal-footer">
       <button class="btn btn-ghost" data-close="modal-unit">Cancel</button>
@@ -948,7 +696,26 @@
   </div>
 </div>
 
-<!-- ══════════ MODAL: ARMY EDITOR ══════════ -->
+<!-- ══ MODAL: PROFILE LIBRARY PICKER ══ -->
+<div class="modal-backdrop" id="modal-lib-picker">
+  <div class="modal" style="max-width:520px">
+    <div class="modal-header">
+      <span class="modal-title" id="lib-picker-title">Select from Library</span>
+      <button class="modal-close" data-close="modal-lib-picker">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:0.85rem;color:var(--text-dim);margin-bottom:1rem">
+        Select a profile to stamp a copy into this datasheet. The copy is fully independent — edits won't affect the library original.
+      </p>
+      <div id="lib-picker-list"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" data-close="modal-lib-picker">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL: ARMY EDITOR ══ -->
 <div class="modal-backdrop" id="modal-army">
   <div class="modal modal-lg">
     <div class="modal-header">
@@ -970,15 +737,11 @@
       <div class="grid-2" style="align-items:start;gap:1rem">
         <div>
           <div class="section-title mb-1">Available Units</div>
-          <div id="army-available-units" style="display:flex;flex-direction:column;gap:0.35rem;max-height:300px;overflow-y:auto">
-            <!-- Available units from faction -->
-          </div>
+          <div id="army-available-units" style="display:flex;flex-direction:column;gap:0.35rem;max-height:300px;overflow-y:auto"></div>
         </div>
         <div>
           <div class="section-title mb-1">Added to Army</div>
-          <div id="army-selected-units" style="display:flex;flex-direction:column;gap:0.35rem;max-height:300px;overflow-y:auto">
-            <!-- Selected entries -->
-          </div>
+          <div id="army-selected-units" style="display:flex;flex-direction:column;gap:0.35rem;max-height:300px;overflow-y:auto"></div>
         </div>
       </div>
     </div>
@@ -989,16 +752,14 @@
   </div>
 </div>
 
-<!-- ══════════ MODAL: CONFIRM ══════════ -->
+<!-- ══ MODAL: CONFIRM ══ -->
 <div class="modal-backdrop" id="modal-confirm">
   <div class="modal" style="max-width:400px">
     <div class="modal-header">
       <span class="modal-title" id="confirm-title">Confirm</span>
       <button class="modal-close" data-close="modal-confirm">✕</button>
     </div>
-    <div class="modal-body">
-      <p id="confirm-message"></p>
-    </div>
+    <div class="modal-body"><p id="confirm-message"></p></div>
     <div class="modal-footer">
       <button class="btn btn-ghost" data-close="modal-confirm">Cancel</button>
       <button class="btn btn-danger" id="btn-confirm-ok">Confirm</button>
@@ -1006,7 +767,7 @@
   </div>
 </div>
 
-<!-- ══════════ MODAL: RESOURCE ADD ══════════ -->
+<!-- ══ MODAL: RESOURCE ADD ══ -->
 <div class="modal-backdrop" id="modal-resource">
   <div class="modal" style="max-width:360px">
     <div class="modal-header">
@@ -1030,16 +791,14 @@
   </div>
 </div>
 
-<!-- ══════════ MODAL: BATTLE REPORT ══════════ -->
+<!-- ══ MODAL: BATTLE REPORT ══ -->
 <div class="modal-backdrop" id="modal-report">
   <div class="modal modal-lg">
     <div class="modal-header">
       <span class="modal-title">⚔ Battle Simulation Report</span>
       <button class="modal-close" data-close="modal-report">✕</button>
     </div>
-    <div class="modal-body" id="report-body">
-      <!-- Generated report -->
-    </div>
+    <div class="modal-body" id="report-body"></div>
     <div class="modal-footer">
       <button class="btn btn-gold" data-close="modal-report">Close Report</button>
     </div>
@@ -1048,12 +807,31 @@
 
 <script>
 /* ═══════════════════════════════════════════════════════════════
-   WAR ENGINE — 40K BATTLE ASSISTANT
-   Scaffold v1.0 — Full implementation
+   UTILITIES
 ═══════════════════════════════════════════════════════════════ */
+const uuid = () => crypto.randomUUID ? crypto.randomUUID()
+  : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+      const r = Math.random() * 16 | 0;
+      return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+    });
 
-// ── Utilities ────────────────────────────────────────────────
-const uuid = () => crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2);
+function deepClone(obj) { return JSON.parse(JSON.stringify(obj)); }
+
+// Deep clone and reassign ALL ids at every level so the copy is fully independent
+function cloneWithNewIds(obj) {
+  const clone = deepClone(obj);
+  rewriteIds(clone);
+  return clone;
+}
+
+function rewriteIds(node) {
+  if (!node || typeof node !== 'object') return;
+  if (Array.isArray(node)) { node.forEach(rewriteIds); return; }
+  if ('id' in node) node.id = uuid();
+  if ('entryId' in node) node.entryId = uuid();
+  if ('datasheetId' in node) node.datasheetId = uuid();
+  Object.values(node).forEach(v => { if (v && typeof v === 'object') rewriteIds(v); });
+}
 
 function showToast(msg, type = 'ok') {
   const c = document.getElementById('toast-container');
@@ -1064,12 +842,11 @@ function showToast(msg, type = 'ok') {
   setTimeout(() => { t.style.opacity = '0'; t.style.transition = 'opacity 0.3s'; setTimeout(() => t.remove(), 300); }, 3000);
 }
 
-function openModal(id) { document.getElementById(id).classList.add('open'); }
+function openModal(id)  { document.getElementById(id).classList.add('open'); }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 function openAnalysis() { document.getElementById('analysis-backdrop').classList.add('open'); }
-function closeAnalysis() { document.getElementById('analysis-backdrop').classList.remove('open'); }
+function closeAnalysis(){ document.getElementById('analysis-backdrop').classList.remove('open'); }
 
-// Close modals on backdrop click
 document.querySelectorAll('.modal-backdrop').forEach(b => {
   b.addEventListener('click', e => { if (e.target === b) b.classList.remove('open'); });
 });
@@ -1078,7 +855,9 @@ document.querySelectorAll('[data-close]').forEach(btn => {
 });
 document.getElementById('analysis-close').addEventListener('click', closeAnalysis);
 
-// ── Dice Parser ───────────────────────────────────────────────
+/* ═══════════════════════════════════════════════════════════════
+   DICE PARSER
+═══════════════════════════════════════════════════════════════ */
 function parseDice(str) {
   if (!str) return { value: 0, display: '0' };
   const s = str.toString().trim().toUpperCase();
@@ -1091,19 +870,17 @@ function parseDice(str) {
   return { value: coeff * (die + 1) / 2 + mod, display: s };
 }
 
-// ── Combat Math ───────────────────────────────────────────────
+/* ═══════════════════════════════════════════════════════════════
+   COMBAT MATH
+═══════════════════════════════════════════════════════════════ */
 const MATH = {
-  pHit(skill) {
-    const s = Math.min(6, Math.max(2, skill));
-    return (7 - s) / 6;
-  },
+  pHit(skill) { const s = Math.min(6, Math.max(2, skill)); return (7 - s) / 6; },
   pWound(S, T) {
     if (S * 2 <= T) return 1/6;
     if (S < T)      return 2/6;
     if (S === T)    return 3/6;
     if (S > T)      return 4/6;
-    if (S >= T * 2) return 5/6;
-    return 3/6;
+    return 5/6; // S >= T*2
   },
   pFailSave(armorSave, ap, invulnSave) {
     const modSave  = armorSave - ap;
@@ -1111,19 +888,15 @@ const MATH = {
     if (bestSave > 6) return 1.0;
     return (bestSave - 1) / 6;
   },
-  pSurviveFNP(fnp) {
-    if (fnp >= 7) return 0;
-    return (7 - fnp) / 6;
-  },
+  pSurviveFNP(fnp) { if (fnp >= 7) return 0; return (7 - fnp) / 6; },
   expectedWounds(profile, targetDS, isMelee) {
-    const models = targetDS.currentModels || 1;
+    const models  = targetDS.currentModels || 1;
     const attacks = profile.attacks * models;
     const skill   = isMelee ? profile.weaponSkill : profile.ballisticSkill;
     const hit     = this.pHit(skill);
     const wound   = this.pWound(profile.strength, targetDS.toughness);
     const fail    = this.pFailSave(targetDS.armorSave, profile.armorPenetration, targetDS.invulnSave);
-    const fnpSurv = this.pSurviveFNP(targetDS.feelNoPain || 7);
-    const fnpLoss = 1 - fnpSurv;
+    const fnpLoss = 1 - this.pSurviveFNP(targetDS.feelNoPain || 7);
     const effDmg  = Math.min(profile.damage, targetDS.wounds);
     return attacks * hit * wound * fail * fnpLoss * effDmg;
   },
@@ -1134,45 +907,37 @@ const MATH = {
   }
 };
 
-// ── Save / Load (localStorage) ────────────────────────────────
+/* ═══════════════════════════════════════════════════════════════
+   PERSISTENCE
+═══════════════════════════════════════════════════════════════ */
 const LS = {
-  get(key, def) {
-    try { return JSON.parse(localStorage.getItem(key)) ?? def; } catch { return def; }
-  },
-  set(key, val) {
-    localStorage.setItem(key, JSON.stringify(val));
-  }
+  get(key, def) { try { return JSON.parse(localStorage.getItem(key)) ?? def; } catch { return def; } },
+  set(key, val) { localStorage.setItem(key, JSON.stringify(val)); }
 };
 
-// ── App State ─────────────────────────────────────────────────
 let factions = LS.get('w40k_factions', []);
 let armies   = LS.get('w40k_armies', []);
-
-// Battle state (ephemeral)
 let battleState = null;
 
 function saveFactions() { LS.set('w40k_factions', factions); }
 function saveArmies()   { LS.set('w40k_armies', armies); }
 
-// ── Navigation ────────────────────────────────────────────────
+/* ═══════════════════════════════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════════════════════════════ */
 function switchView(name) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById('view-' + name).classList.add('active');
   document.querySelectorAll('.nav-tab, .drawer-nav-tab').forEach(t => {
     t.classList.toggle('active', t.dataset.view === name);
   });
-  if (name === 'battle') renderBattleSetup();
+  if (name === 'battle')   renderBattleSetup();
   if (name === 'factions') renderFactions();
-  if (name === 'armies') renderArmies();
+  if (name === 'armies')   renderArmies();
 }
 document.querySelectorAll('.nav-tab, .drawer-nav-tab').forEach(t => {
-  t.addEventListener('click', () => {
-    switchView(t.dataset.view);
-    closeMobileDrawer();
-  });
+  t.addEventListener('click', () => { switchView(t.dataset.view); closeMobileDrawer(); });
 });
-
-// Hamburger
 document.getElementById('hamburger-btn').addEventListener('click', () => {
   document.getElementById('mobile-drawer').classList.add('open');
 });
@@ -1183,7 +948,6 @@ document.getElementById('drawer-backdrop').addEventListener('click', closeMobile
 /* ═══════════════════════════════════════════════════════════════
    FACTIONS VIEW
 ═══════════════════════════════════════════════════════════════ */
-
 let editingFactionId = null;
 
 function renderFactions() {
@@ -1199,9 +963,13 @@ function renderFactions() {
       <div class="card-header">
         <div>
           <div class="card-title">⚔ ${f.name}</div>
-          <div class="card-meta">${f.units.length} unit${f.units.length !== 1 ? 's' : ''}</div>
+          <div class="card-meta">${f.units.length} unit${f.units.length !== 1 ? 's' : ''}
+            ${(f.profileLibrary?.shoot?.length || 0) + (f.profileLibrary?.melee?.length || 0) > 0
+              ? ` · <span class="badge badge-teal">${(f.profileLibrary?.shoot?.length||0)+(f.profileLibrary?.melee?.length||0)} library profiles</span>`
+              : ''}</div>
         </div>
         <div class="flex-row">
+          <button class="btn btn-clone btn-sm" onclick="cloneFaction('${f.id}')" title="Clone entire faction">⧉ Clone</button>
           <button class="btn btn-ghost btn-sm" onclick="editFaction('${f.id}')">Edit</button>
           <button class="btn btn-danger btn-sm" onclick="deleteFaction('${f.id}')">✕</button>
         </div>
@@ -1214,6 +982,7 @@ function renderFactions() {
               <small>${u.datasheets.length} datasheet${u.datasheets.length !== 1 ? 's' : ''} · ${u.datasheets.reduce((a,d) => a + d.modelCount, 0)} models</small>
             </div>
             <div class="unit-actions">
+              <button class="btn btn-clone btn-sm" onclick="cloneUnit('${f.id}','${u.id}')" title="Clone unit">⧉</button>
               <button class="btn btn-ghost btn-sm" onclick="editUnit('${f.id}','${u.id}')">Edit</button>
               <button class="btn btn-danger btn-sm btn-icon" onclick="deleteUnit('${f.id}','${u.id}')">✕</button>
             </div>
@@ -1226,11 +995,36 @@ function renderFactions() {
   });
 }
 
+/* ── Clone Faction ── */
+function cloneFaction(id) {
+  const original = factions.find(f => f.id === id);
+  const clone = cloneWithNewIds(original);
+  clone.name = original.name + ' (Copy)';
+  factions.push(clone);
+  saveFactions(); renderFactions();
+  showToast(`"${clone.name}" created.`);
+}
+
+/* ── Clone Unit (within same faction) ── */
+function cloneUnit(factionId, unitId) {
+  const f = factions.find(x => x.id === factionId);
+  const original = f.units.find(u => u.id === unitId);
+  const clone = cloneWithNewIds(original);
+  clone.name = original.name + ' (Copy)';
+  f.units.push(clone);
+  saveFactions(); renderFactions();
+  // If faction editor is open, refresh unit list too
+  if (editingFactionId === factionId) renderFactionUnitsList(f);
+  showToast(`"${clone.name}" created.`);
+}
+
 document.getElementById('btn-add-faction').addEventListener('click', () => {
   editingFactionId = null;
   document.getElementById('modal-faction-title').textContent = 'Add Faction';
   document.getElementById('faction-name-input').value = '';
-  document.getElementById('faction-units-list').innerHTML = `<div class="empty-state" style="padding:1.5rem"><p>Save faction first, then add units.</p></div>`;
+  document.getElementById('faction-units-list').innerHTML =
+    `<div class="empty-state" style="padding:1.5rem"><p>Save faction first, then add units.</p></div>`;
+  renderLibrarySection(null);
   openModal('modal-faction');
 });
 
@@ -1240,6 +1034,7 @@ function editFaction(id) {
   document.getElementById('modal-faction-title').textContent = 'Edit Faction';
   document.getElementById('faction-name-input').value = f.name;
   renderFactionUnitsList(f);
+  renderLibrarySection(f);
   openModal('modal-faction');
 }
 
@@ -1247,7 +1042,7 @@ function renderFactionUnitsList(faction) {
   const list = document.getElementById('faction-units-list');
   list.innerHTML = '';
   if (!faction.units.length) {
-    list.innerHTML = `<div class="empty-state" style="padding:1rem"><p>No units yet. Click "+ Add Unit" to begin.</p></div>`;
+    list.innerHTML = `<div class="empty-state" style="padding:1rem"><p>No units yet. Click "+ Add Unit".</p></div>`;
     return;
   }
   faction.units.forEach(u => {
@@ -1259,6 +1054,7 @@ function renderFactionUnitsList(faction) {
         <small>${u.datasheets.length} datasheet(s)</small>
       </div>
       <div class="unit-actions">
+        <button class="btn btn-clone btn-sm" onclick="cloneUnit('${faction.id}','${u.id}')" title="Clone unit">⧉ Clone</button>
         <button class="btn btn-ghost btn-sm" onclick="editUnit('${faction.id}','${u.id}')">Edit</button>
         <button class="btn btn-danger btn-sm btn-icon" onclick="deleteUnit('${faction.id}','${u.id}');renderFactionUnitsList(factions.find(x=>x.id==='${faction.id}'))">✕</button>
       </div>
@@ -1268,9 +1064,7 @@ function renderFactionUnitsList(faction) {
 }
 
 document.getElementById('btn-add-unit').addEventListener('click', () => {
-  if (!editingFactionId) {
-    showToast('Save faction first before adding units.', 'error'); return;
-  }
+  if (!editingFactionId) { showToast('Save faction first.', 'error'); return; }
   openUnitEditor(editingFactionId, null);
 });
 
@@ -1281,7 +1075,7 @@ document.getElementById('btn-save-faction').addEventListener('click', () => {
     const f = factions.find(x => x.id === editingFactionId);
     f.name = name;
   } else {
-    const f = { id: uuid(), name, units: [] };
+    const f = { id: uuid(), name, units: [], profileLibrary: { shoot: [], melee: [] } };
     factions.push(f);
     editingFactionId = f.id;
   }
@@ -1292,8 +1086,7 @@ function deleteFaction(id) {
   showConfirm('Delete this faction and all its units?', () => {
     factions = factions.filter(f => f.id !== id);
     armies   = armies.filter(a => a.factionId !== id);
-    saveFactions(); saveArmies(); renderFactions();
-    showToast('Faction deleted.');
+    saveFactions(); saveArmies(); renderFactions(); showToast('Faction deleted.');
   });
 }
 
@@ -1305,18 +1098,156 @@ function deleteUnit(factionId, unitId) {
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   PROFILE LIBRARY (faction-level)
+═══════════════════════════════════════════════════════════════ */
+let currentLibTab = 'shoot';
+
+function getFactionLibrary(factionId) {
+  const f = factions.find(x => x.id === factionId);
+  if (!f) return null;
+  if (!f.profileLibrary) f.profileLibrary = { shoot: [], melee: [] };
+  return f.profileLibrary;
+}
+
+function switchLibTab(tab) {
+  currentLibTab = tab;
+  document.getElementById('lib-tab-shoot').classList.toggle('active', tab === 'shoot');
+  document.getElementById('lib-tab-melee').classList.toggle('active', tab === 'melee');
+  document.getElementById('lib-shoot-list').style.display = tab === 'shoot' ? '' : 'none';
+  document.getElementById('lib-melee-list').style.display = tab === 'melee' ? '' : 'none';
+}
+
+function renderLibrarySection(faction) {
+  const shootList = document.getElementById('lib-shoot-list');
+  const meleeList = document.getElementById('lib-melee-list');
+  if (!faction) {
+    shootList.innerHTML = '<div class="lib-empty">Save faction first to manage library.</div>';
+    meleeList.innerHTML = '';
+    return;
+  }
+  const lib = getFactionLibrary(faction.id);
+  renderLibList(shootList, lib.shoot, false, faction.id);
+  renderLibList(meleeList, lib.melee, true, faction.id);
+}
+
+function renderLibList(container, profiles, isMelee, factionId) {
+  if (!profiles.length) {
+    container.innerHTML = `<div class="lib-empty">No ${isMelee ? 'melee' : 'shooting'} profiles in library yet.</div>`;
+    return;
+  }
+  container.innerHTML = profiles.map((p, i) => `
+    <div class="lib-profile-row">
+      <div>
+        <div>${p.name || '(unnamed)'}</div>
+        <div class="lib-profile-stats">
+          ${isMelee
+            ? `A:${p.attacksDisplay} WS:${p.weaponSkill}+ S:${p.strength} AP:${p.armorPenetration} D:${p.damageDisplay}`
+            : `Rng:${p.range}" A:${p.attacksDisplay} BS:${p.ballisticSkill}+ S:${p.strength} AP:${p.armorPenetration} D:${p.damageDisplay}`}
+        </div>
+      </div>
+      <div class="flex-row gap-sm">
+        <button class="btn btn-danger btn-sm btn-icon" onclick="deleteLibProfile('${factionId}',${i},${isMelee})">✕</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function addLibProfile(isMelee) {
+  if (!editingFactionId) { showToast('Save faction first.', 'error'); return; }
+  const lib = getFactionLibrary(editingFactionId);
+  const arr = isMelee ? lib.melee : lib.shoot;
+  if (isMelee) {
+    arr.push({ id: uuid(), name: 'New Melee Profile', attacks: 1, attacksDisplay: '1', weaponSkill: 3, strength: 4, armorPenetration: 0, damage: 1, damageDisplay: '1' });
+  } else {
+    arr.push({ id: uuid(), name: 'New Shooting Profile', attacks: 1, attacksDisplay: '1', range: 24, ballisticSkill: 3, strength: 4, armorPenetration: 0, damage: 1, damageDisplay: '1' });
+  }
+  saveFactions();
+  const f = factions.find(x => x.id === editingFactionId);
+  renderLibrarySection(f);
+  if (isMelee) switchLibTab('melee'); else switchLibTab('shoot');
+  showToast('Profile added to library. Edit it from the datasheet editor to set stats.');
+}
+
+function deleteLibProfile(factionId, idx, isMelee) {
+  const lib = getFactionLibrary(factionId);
+  const arr = isMelee ? lib.melee : lib.shoot;
+  arr.splice(idx, 1);
+  saveFactions();
+  const f = factions.find(x => x.id === factionId);
+  renderLibrarySection(f);
+}
+
+/* ── Library Picker (called from inside datasheet editor) ── */
+let libPickerContext = null; // { di, isMelee }
+
+function openLibPicker(di, isMelee) {
+  if (!editingFactionId) return;
+  const lib = getFactionLibrary(editingFactionId);
+  const profiles = isMelee ? lib.melee : lib.shoot;
+  libPickerContext = { di, isMelee };
+  document.getElementById('lib-picker-title').textContent =
+    isMelee ? 'Select Melee Profile from Library' : 'Select Shooting Profile from Library';
+  const listEl = document.getElementById('lib-picker-list');
+  if (!profiles.length) {
+    listEl.innerHTML = `<div class="empty-state" style="padding:1.5rem"><p>No ${isMelee ? 'melee' : 'shooting'} profiles in this faction's library yet.<br>Add some from the faction editor.</p></div>`;
+  } else {
+    listEl.innerHTML = profiles.map((p, i) => `
+      <div class="lib-profile-row" style="cursor:pointer" onclick="stampLibProfile(${i})">
+        <div>
+          <div style="font-weight:600">${p.name || '(unnamed)'}</div>
+          <div class="lib-profile-stats">
+            ${isMelee
+              ? `A:${p.attacksDisplay} WS:${p.weaponSkill}+ S:${p.strength} AP:${p.armorPenetration} D:${p.damageDisplay}`
+              : `Rng:${p.range}" A:${p.attacksDisplay} BS:${p.ballisticSkill}+ S:${p.strength} AP:${p.armorPenetration} D:${p.damageDisplay}`}
+          </div>
+        </div>
+        <button class="btn btn-gold btn-sm">Stamp Copy</button>
+      </div>
+    `).join('');
+  }
+  openModal('modal-lib-picker');
+}
+
+function stampLibProfile(libIdx) {
+  if (!libPickerContext) return;
+  const { di, isMelee } = libPickerContext;
+  const lib = getFactionLibrary(editingFactionId);
+  const source = isMelee ? lib.melee[libIdx] : lib.shoot[libIdx];
+  const copy = cloneWithNewIds(source); // snapshot — fully independent
+  const ds = tempUnit.datasheets[di];
+  if (isMelee) { if (!ds.meleeProfiles) ds.meleeProfiles = []; ds.meleeProfiles.push(copy); }
+  else         { if (!ds.shootingProfiles) ds.shootingProfiles = []; ds.shootingProfiles.push(copy); }
+  refreshProfileTable(di, isMelee);
+  closeModal('modal-lib-picker');
+  showToast(`"${copy.name}" stamped into datasheet.`);
+}
+
+/* ── Save profile to library from datasheet ── */
+function saveProfileToLibrary(di, pi, isMelee) {
+  if (!editingFactionId) { showToast('No faction context.', 'error'); return; }
+  const ds = tempUnit.datasheets[di];
+  const arr = isMelee ? ds.meleeProfiles : ds.shootingProfiles;
+  const source = arr[pi];
+  const lib = getFactionLibrary(editingFactionId);
+  const copy = cloneWithNewIds(source);
+  if (isMelee) lib.melee.push(copy);
+  else         lib.shoot.push(copy);
+  saveFactions();
+  showToast(`"${copy.name}" saved to faction library.`);
+}
+
+/* ═══════════════════════════════════════════════════════════════
    UNIT EDITOR MODAL
 ═══════════════════════════════════════════════════════════════ */
-
 let editingUnitContext = { factionId: null, unitId: null };
-let tempUnit = null; // working copy
+let tempUnit = null;
 
 function openUnitEditor(factionId, unitId) {
   editingUnitContext = { factionId, unitId };
   const faction = factions.find(f => f.id === factionId);
   if (unitId) {
     const u = faction.units.find(u => u.id === unitId);
-    tempUnit = JSON.parse(JSON.stringify(u));
+    tempUnit = deepClone(u);
     document.getElementById('modal-unit-title').textContent = 'Edit Unit';
   } else {
     tempUnit = { id: uuid(), name: '', datasheets: [] };
@@ -1342,7 +1273,8 @@ function renderDatasheetsList() {
       <div class="ds-item-header" onclick="toggleDS(this)">
         <span style="font-family:Cinzel,serif;font-size:0.85rem;color:var(--text)">${ds.name || 'Unnamed Datasheet'}</span>
         <div class="flex-row">
-          <span class="badge badge-dim">${ds.modelCount} models · ${ds.wounds}W · T${ds.toughness} · ${ds.armorSave}+</span>
+          <span class="badge badge-dim">${ds.modelCount}×M · ${ds.wounds}W · T${ds.toughness} · ${ds.armorSave}+</span>
+          <button class="btn btn-clone btn-sm" onclick="event.stopPropagation();cloneDatasheet(${di})" title="Clone datasheet">⧉</button>
           <button class="btn btn-danger btn-sm btn-icon" onclick="event.stopPropagation();removeDatasheet(${di})">✕</button>
         </div>
       </div>
@@ -1354,19 +1286,30 @@ function renderDatasheetsList() {
   });
 }
 
+/* ── Clone Datasheet ── */
+function cloneDatasheet(di) {
+  const original = tempUnit.datasheets[di];
+  const clone = cloneWithNewIds(original);
+  clone.name = original.name + ' (Copy)';
+  tempUnit.datasheets.splice(di + 1, 0, clone);
+  renderDatasheetsList();
+  // Auto-expand the clone
+  const items = document.querySelectorAll('#unit-datasheets-list .ds-item');
+  if (items[di + 1]) items[di + 1].querySelector('.ds-item-body').style.display = '';
+  showToast(`"${clone.name}" created.`);
+}
+
 function toggleDS(header) {
   const body = header.nextElementSibling;
   body.style.display = body.style.display === 'none' ? '' : 'none';
 }
 
 function buildDSEditor(ds, di) {
-  const saveOptions = [2,3,4,5,6,7].map(n => `<option value="${n}" ${ds.armorSave===n?'selected':''}>${n === 7 ? 'None' : n+'+'}</option>`).join('');
-  const invOptions  = [3,4,5,6,7].map(n => `<option value="${n}" ${ds.invulnSave===n?'selected':''}>${n === 7 ? 'None' : n+'+'}</option>`).join('');
-  const fnpOptions  = [4,5,6,7].map(n => `<option value="${n}" ${(ds.feelNoPain||7)===n?'selected':''}>${n === 7 ? 'None' : n+'+'}</option>`).join('');
-
-  const shootRows = (ds.shootingProfiles || []).map((p,pi) => buildProfileRow(p, pi, di, false)).join('');
-  const meleeRows = (ds.meleeProfiles || []).map((p,pi) => buildProfileRow(p, pi, di, true)).join('');
-
+  const saveOptions = [2,3,4,5,6,7].map(n => `<option value="${n}" ${ds.armorSave===n?'selected':''}>${n===7?'None':n+'+'}</option>`).join('');
+  const invOptions  = [3,4,5,6,7].map(n => `<option value="${n}" ${ds.invulnSave===n?'selected':''}>${n===7?'None':n+'+'}</option>`).join('');
+  const fnpOptions  = [4,5,6,7].map(n => `<option value="${n}" ${(ds.feelNoPain||7)===n?'selected':''}>${n===7?'None':n+'+'}</option>`).join('');
+  const shootRows = (ds.shootingProfiles||[]).map((p,pi) => buildProfileRow(p,pi,di,false)).join('');
+  const meleeRows = (ds.meleeProfiles||[]).map((p,pi) => buildProfileRow(p,pi,di,true)).join('');
   return `
     <div class="form-row mb-2">
       <div class="form-group">
@@ -1402,14 +1345,13 @@ function buildDSEditor(ds, di) {
     <div class="profile-section">
       <div class="flex-row mb-1">
         <div class="profile-section-title" style="flex:1">☩ SHOOTING PROFILES</div>
+        <button class="btn btn-ghost btn-sm" onclick="openLibPicker(${di},false)" title="Stamp from faction library">⊕ From Library</button>
         <button class="btn btn-ghost btn-sm" onclick="addProfile(${di},false)">+ Add</button>
       </div>
-      <div class="table-wrap" id="shoot-table-${di}">
+      <div class="table-wrap">
         <table class="data-table">
-          <thead><tr>
-            <th>Name</th><th>Rng</th><th>A</th><th>BS</th><th>S</th><th>AP</th><th>D</th><th></th>
-          </tr></thead>
-          <tbody id="shoot-rows-${di}">${shootRows || '<tr><td colspan="8" style="color:var(--text-muted);font-size:0.8rem;text-align:center">No profiles</td></tr>'}</tbody>
+          <thead><tr><th>Name</th><th>Rng</th><th>A</th><th>BS</th><th>S</th><th>AP</th><th>D</th><th></th></tr></thead>
+          <tbody id="shoot-rows-${di}">${shootRows||noProfileRow(8)}</tbody>
         </table>
       </div>
     </div>
@@ -1417,21 +1359,25 @@ function buildDSEditor(ds, di) {
     <div class="profile-section mt-2">
       <div class="flex-row mb-1">
         <div class="profile-section-title" style="flex:1">⚔ MELEE PROFILES</div>
+        <button class="btn btn-ghost btn-sm" onclick="openLibPicker(${di},true)" title="Stamp from faction library">⊕ From Library</button>
         <button class="btn btn-ghost btn-sm" onclick="addProfile(${di},true)">+ Add</button>
       </div>
-      <div class="table-wrap" id="melee-table-${di}">
+      <div class="table-wrap">
         <table class="data-table">
-          <thead><tr>
-            <th>Name</th><th>A</th><th>WS</th><th>S</th><th>AP</th><th>D</th><th></th>
-          </tr></thead>
-          <tbody id="melee-rows-${di}">${meleeRows || '<tr><td colspan="7" style="color:var(--text-muted);font-size:0.8rem;text-align:center">No profiles</td></tr>'}</tbody>
+          <thead><tr><th>Name</th><th>A</th><th>WS</th><th>S</th><th>AP</th><th>D</th><th></th></tr></thead>
+          <tbody id="melee-rows-${di}">${meleeRows||noProfileRow(7)}</tbody>
         </table>
       </div>
     </div>
   `;
 }
 
+function noProfileRow(cols) {
+  return `<tr><td colspan="${cols}" style="color:var(--text-muted);font-size:0.8rem;text-align:center;padding:0.5rem">No profiles</td></tr>`;
+}
+
 function buildProfileRow(p, pi, di, isMelee) {
+  // Each row gets a "save to library" button (⊙) and a "clone" button (⧉)
   if (isMelee) {
     return `<tr>
       <td><input value="${p.name}" onchange="updateProfile(${di},${pi},true,'name',this.value)" placeholder="Power Sword"></td>
@@ -1440,7 +1386,11 @@ function buildProfileRow(p, pi, di, isMelee) {
       <td><input type="number" value="${p.strength}" onchange="updateProfile(${di},${pi},true,'strength',+this.value)" style="width:40px"></td>
       <td><input type="number" value="${p.armorPenetration}" onchange="updateProfile(${di},${pi},true,'armorPenetration',+this.value)" style="width:45px"></td>
       <td><input value="${p.damageDisplay}" onchange="updateProfile(${di},${pi},true,'damageDisplay',this.value)" style="width:50px"></td>
-      <td><button class="btn btn-danger btn-sm btn-icon" onclick="removeProfile(${di},${pi},true)">✕</button></td>
+      <td style="white-space:nowrap">
+        <button class="btn btn-clone btn-sm btn-icon" title="Clone profile" onclick="cloneProfile(${di},${pi},true)">⧉</button>
+        <button class="btn btn-ghost btn-sm btn-icon" title="Save to faction library" onclick="saveProfileToLibrary(${di},${pi},true)">⊙</button>
+        <button class="btn btn-danger btn-sm btn-icon" onclick="removeProfile(${di},${pi},true)">✕</button>
+      </td>
     </tr>`;
   } else {
     return `<tr>
@@ -1451,24 +1401,26 @@ function buildProfileRow(p, pi, di, isMelee) {
       <td><input type="number" value="${p.strength}" onchange="updateProfile(${di},${pi},false,'strength',+this.value)" style="width:40px"></td>
       <td><input type="number" value="${p.armorPenetration}" onchange="updateProfile(${di},${pi},false,'armorPenetration',+this.value)" style="width:45px"></td>
       <td><input value="${p.damageDisplay}" onchange="updateProfile(${di},${pi},false,'damageDisplay',this.value)" style="width:50px"></td>
-      <td><button class="btn btn-danger btn-sm btn-icon" onclick="removeProfile(${di},${pi},false)">✕</button></td>
+      <td style="white-space:nowrap">
+        <button class="btn btn-clone btn-sm btn-icon" title="Clone profile" onclick="cloneProfile(${di},${pi},false)">⧉</button>
+        <button class="btn btn-ghost btn-sm btn-icon" title="Save to faction library" onclick="saveProfileToLibrary(${di},${pi},false)">⊙</button>
+        <button class="btn btn-danger btn-sm btn-icon" onclick="removeProfile(${di},${pi},false)">✕</button>
+      </td>
     </tr>`;
   }
 }
 
-function updateDS(di, field, val) {
-  tempUnit.datasheets[di][field] = val;
-}
+function updateDS(di, field, val) { tempUnit.datasheets[di][field] = val; }
 
 function refreshProfileTable(di, isMelee) {
   const ds = tempUnit.datasheets[di];
   const tbody = document.getElementById(isMelee ? `melee-rows-${di}` : `shoot-rows-${di}`);
   if (!tbody) return;
-  const profiles = isMelee ? (ds.meleeProfiles || []) : (ds.shootingProfiles || []);
+  const profiles = isMelee ? (ds.meleeProfiles||[]) : (ds.shootingProfiles||[]);
   const cols = isMelee ? 7 : 8;
   tbody.innerHTML = profiles.length
     ? profiles.map((p, pi) => buildProfileRow(p, pi, di, isMelee)).join('')
-    : `<tr><td colspan="${cols}" style="color:var(--text-muted);font-size:0.8rem;text-align:center">No profiles</td></tr>`;
+    : noProfileRow(cols);
 }
 
 function addProfile(di, isMelee) {
@@ -1482,19 +1434,32 @@ function addProfile(di, isMelee) {
   }
   refreshProfileTable(di, isMelee);
 }
+
+/* ── Clone Profile ── */
+function cloneProfile(di, pi, isMelee) {
+  const ds = tempUnit.datasheets[di];
+  const arr = isMelee ? ds.meleeProfiles : ds.shootingProfiles;
+  const clone = cloneWithNewIds(arr[pi]);
+  clone.name = arr[pi].name + ' (Copy)';
+  arr.splice(pi + 1, 0, clone);
+  refreshProfileTable(di, isMelee);
+}
+
 function removeProfile(di, pi, isMelee) {
   const ds = tempUnit.datasheets[di];
   if (isMelee) ds.meleeProfiles.splice(pi, 1);
   else ds.shootingProfiles.splice(pi, 1);
   refreshProfileTable(di, isMelee);
 }
+
 function updateProfile(di, pi, isMelee, field, val) {
-  const ds = tempUnit.datasheets[di];
+  const ds  = tempUnit.datasheets[di];
   const arr = isMelee ? ds.meleeProfiles : ds.shootingProfiles;
   arr[pi][field] = val;
   if (field === 'attacksDisplay') arr[pi].attacks = parseDice(val).value;
   if (field === 'damageDisplay')  arr[pi].damage  = parseDice(val).value;
 }
+
 function removeDatasheet(di) {
   tempUnit.datasheets.splice(di, 1);
   renderDatasheetsList();
@@ -1503,15 +1468,11 @@ function removeDatasheet(di) {
 document.getElementById('btn-add-datasheet').addEventListener('click', () => {
   tempUnit.datasheets.push({
     id: uuid(), name: '', modelCount: 5, wounds: 2, toughness: 4, armorSave: 3,
-    invulnSave: 7, feelNoPain: 7,
-    shootingProfiles: [], meleeProfiles: []
+    invulnSave: 7, feelNoPain: 7, shootingProfiles: [], meleeProfiles: []
   });
   renderDatasheetsList();
-  // Auto-expand the newly added datasheet
   const items = document.querySelectorAll('#unit-datasheets-list .ds-item');
-  if (items.length) {
-    items[items.length - 1].querySelector('.ds-item-body').style.display = '';
-  }
+  if (items.length) items[items.length - 1].querySelector('.ds-item-body').style.display = '';
 });
 
 document.getElementById('btn-save-unit').addEventListener('click', () => {
@@ -1531,7 +1492,6 @@ document.getElementById('btn-save-unit').addEventListener('click', () => {
 /* ═══════════════════════════════════════════════════════════════
    ARMIES VIEW
 ═══════════════════════════════════════════════════════════════ */
-
 let editingArmyId   = null;
 let tempArmyEntries = [];
 
@@ -1547,7 +1507,7 @@ function renderArmies() {
     card.className = 'card';
     const totalModels = a.entries.reduce((sum, e) => {
       const u = faction?.units.find(u => u.id === e.unitId);
-      return sum + (u ? u.datasheets.reduce((s, d) => s + d.modelCount, 0) : 0);
+      return sum + (u ? u.datasheets.reduce((s,d) => s + d.modelCount, 0) : 0);
     }, 0);
     card.innerHTML = `
       <div class="card-header">
@@ -1556,6 +1516,7 @@ function renderArmies() {
           <div class="card-meta">${faction ? faction.name : 'Unknown Faction'}</div>
         </div>
         <div class="flex-row">
+          <button class="btn btn-clone btn-sm" onclick="cloneArmy('${a.id}')" title="Clone army">⧉ Clone</button>
           <button class="btn btn-ghost btn-sm" onclick="editArmy('${a.id}')">Edit</button>
           <button class="btn btn-danger btn-sm" onclick="deleteArmy('${a.id}')">✕</button>
         </div>
@@ -1576,6 +1537,16 @@ function renderArmies() {
   });
 }
 
+/* ── Clone Army ── */
+function cloneArmy(id) {
+  const original = armies.find(a => a.id === id);
+  const clone = cloneWithNewIds(original);
+  clone.name = original.name + ' (Copy)';
+  armies.push(clone);
+  saveArmies(); renderArmies();
+  showToast(`"${clone.name}" created.`);
+}
+
 document.getElementById('btn-add-army').addEventListener('click', () => {
   if (!factions.length) { showToast('Add at least one faction first.', 'error'); return; }
   editingArmyId = null;
@@ -1590,7 +1561,7 @@ document.getElementById('btn-add-army').addEventListener('click', () => {
 function editArmy(id) {
   editingArmyId = id;
   const a = armies.find(x => x.id === id);
-  tempArmyEntries = JSON.parse(JSON.stringify(a.entries));
+  tempArmyEntries = deepClone(a.entries);
   document.getElementById('modal-army-title').textContent = 'Edit Army';
   document.getElementById('army-name-input').value = a.name;
   populateFactionSelect(a.factionId);
@@ -1608,10 +1579,8 @@ function renderArmyEditor() {
   const factionId = document.getElementById('army-faction-select').value;
   const faction   = factions.find(f => f.id === factionId);
   if (!faction) return;
-
   const avail = document.getElementById('army-available-units');
   const sel   = document.getElementById('army-selected-units');
-
   avail.innerHTML = faction.units.map(u => `
     <div class="unit-row" style="cursor:pointer" onclick="addArmyEntry('${u.id}')">
       <div class="unit-info">
@@ -1621,7 +1590,6 @@ function renderArmyEditor() {
       <button class="btn btn-ghost btn-sm">+ Add</button>
     </div>
   `).join('') || '<div style="color:var(--text-muted);font-size:0.8rem;padding:0.5rem">No units in faction</div>';
-
   sel.innerHTML = tempArmyEntries.map((e, i) => {
     const u = faction.units.find(u => u.id === e.unitId);
     return `<div class="entry-item">
@@ -1631,14 +1599,8 @@ function renderArmyEditor() {
   }).join('') || '<div style="color:var(--text-muted);font-size:0.8rem;padding:0.5rem">No units added yet</div>';
 }
 
-function addArmyEntry(unitId) {
-  tempArmyEntries.push({ entryId: uuid(), unitId });
-  renderArmyEditor();
-}
-function removeArmyEntry(idx) {
-  tempArmyEntries.splice(idx, 1);
-  renderArmyEditor();
-}
+function addArmyEntry(unitId) { tempArmyEntries.push({ entryId: uuid(), unitId }); renderArmyEditor(); }
+function removeArmyEntry(idx) { tempArmyEntries.splice(idx, 1); renderArmyEditor(); }
 
 document.getElementById('btn-save-army').addEventListener('click', () => {
   const name      = document.getElementById('army-name-input').value.trim();
@@ -1664,7 +1626,6 @@ function deleteArmy(id) {
 /* ═══════════════════════════════════════════════════════════════
    BATTLE VIEW
 ═══════════════════════════════════════════════════════════════ */
-
 function renderBattleSetup() {
   if (battleState) {
     document.getElementById('battle-setup-panel').style.display = 'none';
@@ -1673,63 +1634,51 @@ function renderBattleSetup() {
   }
   document.getElementById('battle-setup-panel').style.display = '';
   document.getElementById('battle-active-panel').style.display = 'none';
-
-  const selA = document.getElementById('battle-army-a');
-  const selB = document.getElementById('battle-army-b');
-  const opts  = armies.map(a => {
+  const opts = armies.map(a => {
     const f = factions.find(x => x.id === a.factionId);
     return `<option value="${a.id}">${a.name} (${f ? f.name : '?'})</option>`;
   }).join('');
-  selA.innerHTML = opts || '<option value="">No armies</option>';
-  selB.innerHTML = opts || '<option value="">No armies</option>';
-  if (armies.length > 1) selB.selectedIndex = 1;
+  document.getElementById('battle-army-a').innerHTML = opts || '<option value="">No armies</option>';
+  document.getElementById('battle-army-b').innerHTML = opts || '<option value="">No armies</option>';
+  if (armies.length > 1) document.getElementById('battle-army-b').selectedIndex = 1;
 }
 
 document.getElementById('btn-begin-battle').addEventListener('click', () => {
   const idA = document.getElementById('battle-army-a').value;
   const idB = document.getElementById('battle-army-b').value;
-  if (!idA || !idB)     { showToast('Select two armies.', 'error'); return; }
-  if (idA === idB)       { showToast('Select two different armies.', 'error'); return; }
+  if (!idA || !idB)  { showToast('Select two armies.', 'error'); return; }
+  if (idA === idB)    { showToast('Select two different armies.', 'error'); return; }
   const name = document.getElementById('battle-name-input').value.trim() || 'Unnamed Battle';
   initBattle(idA, idB, name);
 });
 
 function buildBattleArmy(army) {
   const faction = factions.find(f => f.id === army.factionId);
-  const entries = army.entries.map(e => {
-    const unit = faction?.units.find(u => u.id === e.unitId);
-    return {
-      entryId: e.entryId,
-      unitId:  e.unitId,
-      unitName: unit ? unit.name : 'Unknown',
-      datasheets: (unit?.datasheets || []).map(ds => ({
-        datasheetId: ds.id,
-        name: ds.name,
-        wounds: ds.wounds,
-        toughness: ds.toughness,
-        armorSave: ds.armorSave,
-        invulnSave: ds.invulnSave || 7,
-        feelNoPain: ds.feelNoPain || 7,
-        shootingProfiles: ds.shootingProfiles || [],
-        meleeProfiles: ds.meleeProfiles || [],
-        currentModels: ds.modelCount,
-        maxModels: ds.modelCount,
-        partialWounds: 0,
-      })),
-      activated: false,
-      destroyed: false,
-    };
-  });
-  return { armyId: army.id, label: army.name, entries };
+  return {
+    armyId: army.id, label: army.name,
+    entries: army.entries.map(e => {
+      const unit = faction?.units.find(u => u.id === e.unitId);
+      return {
+        entryId: e.entryId, unitId: e.unitId,
+        unitName: unit ? unit.name : 'Unknown',
+        datasheets: (unit?.datasheets||[]).map(ds => ({
+          datasheetId: ds.id, name: ds.name,
+          wounds: ds.wounds, toughness: ds.toughness,
+          armorSave: ds.armorSave, invulnSave: ds.invulnSave||7, feelNoPain: ds.feelNoPain||7,
+          shootingProfiles: ds.shootingProfiles||[], meleeProfiles: ds.meleeProfiles||[],
+          currentModels: ds.modelCount, maxModels: ds.modelCount, partialWounds: 0,
+        })),
+        activated: false, destroyed: false,
+      };
+    })
+  };
 }
 
 function initBattle(idA, idB, name) {
-  const armyA = armies.find(a => a.id === idA);
-  const armyB = armies.find(a => a.id === idB);
   battleState = {
     name,
-    armyA: buildBattleArmy(armyA),
-    armyB: buildBattleArmy(armyB),
+    armyA: buildBattleArmy(armies.find(a => a.id === idA)),
+    armyB: buildBattleArmy(armies.find(a => a.id === idB)),
     resources: [
       { id: uuid(), name: 'Command Points', value: 0 },
       { id: uuid(), name: 'Round', value: 1 },
@@ -1753,8 +1702,7 @@ function renderBattleActive() {
 }
 
 function renderResources() {
-  const bar = document.getElementById('resource-bar');
-  bar.innerHTML = battleState.resources.map(r => `
+  document.getElementById('resource-bar').innerHTML = battleState.resources.map(r => `
     <div class="resource-item">
       <button class="resource-btn" onclick="changeResource('${r.id}',-1)">−</button>
       <div>
@@ -1770,7 +1718,6 @@ function renderResources() {
 function changeResource(id, delta) {
   const r = battleState.resources.find(x => x.id === id);
   if (!r) return;
-  // If incrementing Round, reset activations
   if (r.name === 'Round' && delta > 0) {
     battleState.armyA.entries.forEach(e => e.activated = false);
     battleState.armyB.entries.forEach(e => e.activated = false);
@@ -1803,9 +1750,9 @@ function renderBattleUnits(side) {
   cont.innerHTML = '';
   const active = ba.entries.filter(e => !e.destroyed);
   if (!active.length) {
-    cont.innerHTML = `<div class="empty-state" style="padding:1.5rem"><p>All units destroyed.</p></div>`;
-    return;
+    cont.innerHTML = `<div class="empty-state" style="padding:1.5rem"><p>All units destroyed.</p></div>`; return;
   }
+  const oppSide = side === 'a' ? 'b' : 'a';
   active.forEach(entry => {
     const card = document.createElement('div');
     card.className = 'battle-unit-card' + (entry.activated ? ' activated' : '');
@@ -1825,8 +1772,6 @@ function renderBattleUnits(side) {
         </div>
       </div>
     `).join('');
-
-    const oppSide = side === 'a' ? 'b' : 'a';
     card.innerHTML = `
       <div class="battle-unit-header">
         <div class="battle-unit-name">${entry.unitName}</div>
@@ -1853,7 +1798,6 @@ function toggleActivated(side, entryId, val) {
   const e  = ba.entries.find(x => x.entryId === entryId);
   if (e) { e.activated = val; renderBattleUnits(side); }
 }
-
 function adjustModels(side, entryId, di, delta) {
   const ba = side === 'a' ? battleState.armyA : battleState.armyB;
   const e  = ba.entries.find(x => x.entryId === entryId);
@@ -1863,7 +1807,6 @@ function adjustModels(side, entryId, di, delta) {
   if (ds.currentModels === 0) ds.partialWounds = 0;
   renderBattleUnits(side);
 }
-
 function adjustWounds(side, entryId, di, delta) {
   const ba = side === 'a' ? battleState.armyA : battleState.armyB;
   const e  = ba.entries.find(x => x.entryId === entryId);
@@ -1872,7 +1815,6 @@ function adjustWounds(side, entryId, di, delta) {
   ds.partialWounds = Math.max(0, Math.min(ds.wounds - 1, ds.partialWounds + delta));
   renderBattleUnits(side);
 }
-
 function removeFromBattle(side, entryId) {
   const ba = side === 'a' ? battleState.armyA : battleState.armyB;
   const e  = ba.entries.find(x => x.entryId === entryId);
@@ -1887,28 +1829,21 @@ document.getElementById('btn-reset-b').addEventListener('click', () => {
   battleState.armyB.entries.forEach(e => e.activated = false);
   renderBattleUnits('b'); showToast('Army B activations reset.');
 });
-
 document.getElementById('btn-end-battle').addEventListener('click', () => {
   showConfirm('End the current battle? All battle progress will be lost.', () => {
-    battleState = null;
-    renderBattleSetup();
+    battleState = null; renderBattleSetup();
   });
 });
 
 /* ═══════════════════════════════════════════════════════════════
    RECOMMENDATION ENGINE
 ═══════════════════════════════════════════════════════════════ */
-
 function calcEntryWoundsVsTarget(attackEntry, targetEntry) {
   let total = 0;
   attackEntry.datasheets.forEach(atkDS => {
     targetEntry.datasheets.forEach(tgtDS => {
       if (tgtDS.currentModels <= 0) return;
-      // Shooting
-      atkDS.shootingProfiles.forEach(p => {
-        total += MATH.expectedWounds(p, tgtDS, false);
-      });
-      // Melee — best profile per model
+      atkDS.shootingProfiles.forEach(p => { total += MATH.expectedWounds(p, tgtDS, false); });
       if (atkDS.meleeProfiles.length) {
         const best = atkDS.meleeProfiles.reduce((b, p) => {
           const w = MATH.expectedWounds({...p, attacks: 1}, tgtDS, true);
@@ -1926,47 +1861,40 @@ function calcTargetTotalHP(entry) {
 }
 
 function runAttack(attackSide, entryId) {
-  const atkArmy = attackSide === 'a' ? battleState.armyA : battleState.armyB;
-  const defArmy = attackSide === 'a' ? battleState.armyB : battleState.armyA;
+  const atkArmy  = attackSide === 'a' ? battleState.armyA : battleState.armyB;
+  const defArmy  = attackSide === 'a' ? battleState.armyB : battleState.armyA;
   const atkEntry = atkArmy.entries.find(e => e.entryId === entryId);
   if (!atkEntry) return;
-
   const targets = defArmy.entries.filter(e => !e.destroyed);
   if (!targets.length) { showToast('No enemy units to attack!', 'error'); return; }
-
-  // For each enemy, calc expected wounds and expected models killed
   const results = targets.map(t => {
-    const wounds    = calcEntryWoundsVsTarget(atkEntry, t);
-    const avgWounds = t.datasheets[0]?.wounds || 1;
-    const kills     = Math.floor(wounds / avgWounds);
-    const hp        = calcTargetTotalHP(t);
+    const wounds = calcEntryWoundsVsTarget(atkEntry, t);
+    const avgW   = t.datasheets[0]?.wounds || 1;
+    const kills  = Math.floor(wounds / avgW);
+    const hp     = calcTargetTotalHP(t);
     return { target: t, wounds, kills, hp, eff: wounds / hp };
   }).sort((a,b) => b.kills - a.kills || b.eff - a.eff);
 
-  // Show analysis
-  document.getElementById('analysis-title').textContent  = atkEntry.unitName + ' — Attack';
+  document.getElementById('analysis-title').textContent     = atkEntry.unitName + ' — Attack';
   document.getElementById('analysis-mode-badge').textContent = 'ATTACK MODE';
-  const content = document.getElementById('analysis-content');
-  content.innerHTML = `
-    <div style="margin-bottom:0.5rem;font-size:0.88rem;color:var(--text-dim)">
-      Best targets ranked by expected model kills:
-    </div>
+  document.getElementById('analysis-content').innerHTML = `
+    <div style="margin-bottom:0.5rem;font-size:0.88rem;color:var(--text-dim)">Best targets ranked by expected model kills:</div>
     ${results.map((r,i) => `
       <div class="analysis-step" style="${i===0?'border-left-color:var(--gold)':''}">
         <div class="analysis-step-num">TARGET ${i+1}</div>
         <div class="analysis-step-main"><strong>${r.target.unitName}</strong></div>
         <div class="analysis-step-detail">
-          Expected wounds: <strong>${r.wounds.toFixed(1)}</strong> · 
-          Expected kills: <strong>~${r.kills}</strong> · 
-          Target HP: ${r.hp.toFixed(0)} · 
-          Efficiency: ${(r.eff * 100).toFixed(0)}%
+          Expected wounds: <strong>${r.wounds.toFixed(1)}</strong> ·
+          Expected kills: <strong>~${r.kills}</strong> ·
+          Target HP: ${r.hp.toFixed(0)} ·
+          Efficiency: ${(r.eff*100).toFixed(0)}%
         </div>
       </div>
     `).join('')}
     <div class="analysis-summary mt-2">
       <div class="analysis-summary-title">BEST RECOMMENDATION</div>
       <p style="font-size:0.9rem">
-        Prioritize <strong>${results[0].target.unitName}</strong> — 
+        Prioritize <strong>${results[0].target.unitName}</strong> —
         expected ~${results[0].kills} model(s) killed (${results[0].wounds.toFixed(1)} wounds).
       </p>
     </div>
@@ -1975,14 +1903,10 @@ function runAttack(attackSide, entryId) {
 }
 
 function runDestroy(targetSide, entryId, attackSide) {
-  // "Destroy" button on an attacking unit: find best friendly sequence to destroy a chosen enemy
-  // Here entryId is the ATTACKING unit; we find the best enemy to destroy
-  const atkArmy  = attackSide === 'a' ? battleState.armyA : battleState.armyB;
-  const defArmy  = targetSide === 'a' ? battleState.armyA : battleState.armyB;
+  const atkArmy    = attackSide === 'a' ? battleState.armyA : battleState.armyB;
+  const defArmy    = targetSide === 'a' ? battleState.armyA : battleState.armyB;
   const defTargets = defArmy.entries.filter(e => !e.destroyed);
-
   if (!defTargets.length) { showToast('No enemy targets.', 'error'); return; }
-
   const atkEntry = atkArmy.entries.find(e => e.entryId === entryId);
   const results  = defTargets.map(t => {
     const wounds = calcEntryWoundsVsTarget(atkEntry, t);
@@ -1990,20 +1914,19 @@ function runDestroy(targetSide, entryId, attackSide) {
     return { target: t, wounds, hp, canDestroy: wounds >= hp };
   }).sort((a,b) => (b.wounds/b.hp) - (a.wounds/a.hp));
 
-  document.getElementById('analysis-title').textContent  = atkEntry.unitName + ' — Destroy';
+  document.getElementById('analysis-title').textContent     = atkEntry.unitName + ' — Destroy';
   document.getElementById('analysis-mode-badge').textContent = 'DESTROY MODE';
-  const content = document.getElementById('analysis-content');
-  content.innerHTML = `
-    <div style="margin-bottom:0.5rem;font-size:0.88rem;color:var(--text-dim)">
-      Expected performance vs enemy units:
-    </div>
+  document.getElementById('analysis-content').innerHTML = `
+    <div style="margin-bottom:0.5rem;font-size:0.88rem;color:var(--text-dim)">Expected performance vs enemy units:</div>
     ${results.map((r,i) => `
-      <div class="analysis-step" style="border-left-color:${r.canDestroy ? 'var(--blood-bright)' : 'var(--gold-dim)'}">
-        <div class="analysis-step-num">OPTION ${i+1} ${r.canDestroy ? '— ☩ CAN DESTROY' : ''}</div>
+      <div class="analysis-step" style="border-left-color:${r.canDestroy?'var(--blood-bright)':'var(--gold-dim)'}">
+        <div class="analysis-step-num">OPTION ${i+1} ${r.canDestroy?'— ☩ CAN DESTROY':''}</div>
         <div class="analysis-step-main"><strong>${r.target.unitName}</strong></div>
         <div class="analysis-step-detail">
-          Expected wounds: <strong>${r.wounds.toFixed(1)}</strong> / ${r.hp.toFixed(0)} HP · 
-          ${r.canDestroy ? '<span style="color:var(--blood-bright)">Likely destroyed</span>' : `Shortfall: ${(r.hp - r.wounds).toFixed(1)} wounds`}
+          Expected: <strong>${r.wounds.toFixed(1)}</strong> / ${r.hp.toFixed(0)} HP ·
+          ${r.canDestroy
+            ? '<span style="color:var(--blood-bright)">Likely destroyed</span>'
+            : `Shortfall: ${(r.hp-r.wounds).toFixed(1)} wounds`}
         </div>
       </div>
     `).join('')}
@@ -2014,47 +1937,31 @@ function runDestroy(targetSide, entryId, attackSide) {
 function runDestroyAnything(side) {
   const atkArmy = side === 'a' ? battleState.armyA : battleState.armyB;
   const defArmy = side === 'a' ? battleState.armyB : battleState.armyA;
-
   const atkUnits = atkArmy.entries.filter(e => !e.destroyed);
   const defUnits = defArmy.entries.filter(e => !e.destroyed);
+  if (!atkUnits.length || !defUnits.length) { showToast('Not enough units.', 'error'); return; }
 
-  if (!atkUnits.length || !defUnits.length) {
-    showToast('Not enough units for analysis.', 'error'); return;
-  }
-
-  // For each enemy, find cheapest friendly activation sequence to destroy it
   const targetAnalysis = defUnits.map(t => {
-    const hp = calcTargetTotalHP(t);
-    const sorted = atkUnits.map(a => ({
-      entry: a,
-      wounds: calcEntryWoundsVsTarget(a, t)
-    })).sort((a,b) => b.wounds - a.wounds);
-
-    let cumulative = 0;
-    const sequence = [];
-    for (const s of sorted) {
-      if (cumulative >= hp) break;
-      cumulative += s.wounds;
-      sequence.push(s);
-    }
-    return { target: t, hp, sequence, cumulative, achievable: cumulative >= hp };
+    const hp     = calcTargetTotalHP(t);
+    const sorted = atkUnits.map(a => ({ entry: a, wounds: calcEntryWoundsVsTarget(a, t) }))
+                           .sort((a,b) => b.wounds - a.wounds);
+    let cum = 0; const seq = [];
+    for (const s of sorted) { if (cum >= hp) break; cum += s.wounds; seq.push(s); }
+    return { target: t, hp, sequence: seq, cumulative: cum, achievable: cum >= hp };
   }).sort((a,b) => a.sequence.length - b.sequence.length || (b.achievable ? 1 : -1));
 
-  document.getElementById('analysis-title').textContent = atkArmy.label + ' — Destroy Anything';
+  document.getElementById('analysis-title').textContent     = atkArmy.label + ' — Destroy Anything';
   document.getElementById('analysis-mode-badge').textContent = 'DESTROY ANYTHING';
-  const content = document.getElementById('analysis-content');
-  content.innerHTML = `
-    <div style="margin-bottom:0.5rem;font-size:0.88rem;color:var(--text-dim)">
-      Easiest enemy units to destroy, ranked by activation cost:
-    </div>
-    ${targetAnalysis.map((ta, i) => `
-      <div class="analysis-step" style="border-left-color:${ta.achievable ? 'var(--blood-bright)' : 'var(--gold-dim)'}">
-        <div class="analysis-step-num">TARGET ${i+1} — ${ta.sequence.length} activation(s) needed</div>
+  document.getElementById('analysis-content').innerHTML = `
+    <div style="margin-bottom:0.5rem;font-size:0.88rem;color:var(--text-dim)">Easiest targets ranked by activation cost:</div>
+    ${targetAnalysis.map((ta,i) => `
+      <div class="analysis-step" style="border-left-color:${ta.achievable?'var(--blood-bright)':'var(--gold-dim)'}">
+        <div class="analysis-step-num">TARGET ${i+1} — ${ta.sequence.length} activation(s)</div>
         <div class="analysis-step-main"><strong>${ta.target.unitName}</strong> — ${ta.hp.toFixed(0)} HP</div>
         <div class="analysis-step-detail">
           ${ta.sequence.map((s,si) => `${si+1}. ${s.entry.unitName} (${s.wounds.toFixed(1)}W)`).join(' → ')}<br>
-          Cumulative: ${ta.cumulative.toFixed(1)}W vs ${ta.hp.toFixed(0)} HP
-          ${ta.achievable ? ' — <span style="color:var(--blood-bright)">☩ Destroy expected</span>' : ' — <span style="color:var(--gold-dim)">May not destroy</span>'}
+          Total: ${ta.cumulative.toFixed(1)}W vs ${ta.hp.toFixed(0)} HP
+          ${ta.achievable?' — <span style="color:var(--blood-bright)">☩ Destroy expected</span>':' — <span style="color:var(--gold-dim)">May not destroy</span>'}
         </div>
       </div>
     `).join('')}
@@ -2066,78 +1973,51 @@ document.getElementById('btn-destroy-anything-a').addEventListener('click', () =
 document.getElementById('btn-destroy-anything-b').addEventListener('click', () => runDestroyAnything('b'));
 
 /* ═══════════════════════════════════════════════════════════════
-   BATTLE SIMULATION
+   SIMULATION
 ═══════════════════════════════════════════════════════════════ */
-
 document.getElementById('btn-simulate').addEventListener('click', () => {
-  const report = simulateBattle();
-  document.getElementById('report-body').innerHTML = report;
+  document.getElementById('report-body').innerHTML = simulateBattle();
   openModal('modal-report');
 });
 
 function simulateBattle() {
-  // Deep copy state for simulation
-  const simA = JSON.parse(JSON.stringify(battleState.armyA));
-  const simB = JSON.parse(JSON.stringify(battleState.armyB));
-
-  let html = '';
-  let winner = null;
+  const simA = deepClone(battleState.armyA);
+  const simB = deepClone(battleState.armyB);
+  let html = ''; let winner = null;
 
   for (let round = 1; round <= 5; round++) {
     const aUnits = simA.entries.filter(e => !e.destroyed);
     const bUnits = simB.entries.filter(e => !e.destroyed);
     if (!aUnits.length || !bUnits.length) break;
+    let log = '';
 
-    let roundLog = '';
-
-    // Army A attacks
-    roundLog += '<strong>' + simA.label + ' attacks:</strong><br>';
+    log += '<strong>' + simA.label + ' attacks:</strong><br>';
     aUnits.forEach(atkUnit => {
-      if (!bUnits.length) return;
-      // Find best target
-      const best = bUnits.map(t => ({
-        t, wounds: calcEntryWoundsVsTarget(atkUnit, t), hp: calcTargetTotalHP(t)
-      })).sort((a,b) => (b.wounds/b.hp) - (a.wounds/a.hp))[0];
-
-      if (!best) return;
-      const hp = best.hp;
-      applySimWounds(best.t, best.wounds);
-      roundLog += `&nbsp;&nbsp;${atkUnit.unitName} → ${best.t.unitName}: ${best.wounds.toFixed(1)}W`;
-      if (MATH.totalHP(best.t.datasheets[0] || {wounds:1, currentModels:0, partialWounds:0}) <= 0 || best.t.datasheets.every(d => d.currentModels === 0)) {
-        best.t.destroyed = true;
-        roundLog += ' — <span style="color:var(--blood-bright)">☩ DESTROYED</span>';
-      }
-      roundLog += '<br>';
-    });
-
-    const bUnits2 = simB.entries.filter(e => !e.destroyed);
-
-    // Army B attacks
-    roundLog += '<strong>' + simB.label + ' attacks:</strong><br>';
-    bUnits2.forEach(atkUnit => {
-      const aAlive = simA.entries.filter(e => !e.destroyed);
-      if (!aAlive.length) return;
-      const best = aAlive.map(t => ({
-        t, wounds: calcEntryWoundsVsTarget(atkUnit, t), hp: calcTargetTotalHP(t)
-      })).sort((a,b) => (b.wounds/b.hp) - (a.wounds/a.hp))[0];
-
+      const alive = simB.entries.filter(e => !e.destroyed);
+      if (!alive.length) return;
+      const best = alive.map(t => ({ t, wounds: calcEntryWoundsVsTarget(atkUnit, t), hp: calcTargetTotalHP(t) }))
+                        .sort((a,b) => (b.wounds/b.hp)-(a.wounds/a.hp))[0];
       if (!best) return;
       applySimWounds(best.t, best.wounds);
-      roundLog += `&nbsp;&nbsp;${atkUnit.unitName} → ${best.t.unitName}: ${best.wounds.toFixed(1)}W`;
-      if (best.t.datasheets.every(d => d.currentModels === 0)) {
-        best.t.destroyed = true;
-        roundLog += ' — <span style="color:var(--blood-bright)">☩ DESTROYED</span>';
-      }
-      roundLog += '<br>';
+      log += `&nbsp;&nbsp;${atkUnit.unitName} → ${best.t.unitName}: ${best.wounds.toFixed(1)}W`;
+      if (best.t.datasheets.every(d => d.currentModels === 0)) { best.t.destroyed = true; log += ' — <span style="color:var(--blood-bright)">☩ DESTROYED</span>'; }
+      log += '<br>';
     });
 
-    html += `
-      <div class="report-round">
-        <div class="report-round-header">Round ${round}</div>
-        <div class="report-round-body">${roundLog}</div>
-      </div>
-    `;
+    log += '<strong>' + simB.label + ' attacks:</strong><br>';
+    simB.entries.filter(e => !e.destroyed).forEach(atkUnit => {
+      const alive = simA.entries.filter(e => !e.destroyed);
+      if (!alive.length) return;
+      const best = alive.map(t => ({ t, wounds: calcEntryWoundsVsTarget(atkUnit, t), hp: calcTargetTotalHP(t) }))
+                        .sort((a,b) => (b.wounds/b.hp)-(a.wounds/a.hp))[0];
+      if (!best) return;
+      applySimWounds(best.t, best.wounds);
+      log += `&nbsp;&nbsp;${atkUnit.unitName} → ${best.t.unitName}: ${best.wounds.toFixed(1)}W`;
+      if (best.t.datasheets.every(d => d.currentModels === 0)) { best.t.destroyed = true; log += ' — <span style="color:var(--blood-bright)">☩ DESTROYED</span>'; }
+      log += '<br>';
+    });
 
+    html += `<div class="report-round"><div class="report-round-header">Round ${round}</div><div class="report-round-body">${log}</div></div>`;
     const aAlive = simA.entries.filter(e => !e.destroyed).length;
     const bAlive = simB.entries.filter(e => !e.destroyed).length;
     if (!aAlive && !bAlive) { winner = 'Draw'; break; }
@@ -2147,34 +2027,23 @@ function simulateBattle() {
 
   const aFinal = simA.entries.filter(e => !e.destroyed).length;
   const bFinal = simB.entries.filter(e => !e.destroyed).length;
-  if (!winner) {
-    winner = aFinal > bFinal ? simA.label : bFinal > aFinal ? simB.label : 'Draw';
-  }
-
-  html += `<div class="report-outcome">⚔ Outcome: <span style="color:var(--blood-bright)">${winner}</span> wins — ${simA.label}: ${aFinal} units · ${simB.label}: ${bFinal} units</div>`;
+  if (!winner) winner = aFinal > bFinal ? simA.label : bFinal > aFinal ? simB.label : 'Draw';
+  html += `<div class="report-outcome">⚔ Outcome: <span style="color:var(--blood-bright)">${winner}</span> — ${simA.label}: ${aFinal} units · ${simB.label}: ${bFinal} units</div>`;
   return html;
 }
 
 function applySimWounds(entry, wounds) {
-  // Distribute wounds across datasheets proportionally
   let remaining = wounds;
   for (const ds of entry.datasheets) {
     if (ds.currentModels <= 0) continue;
     const hp = MATH.totalHP(ds);
     const taken = Math.min(remaining, hp);
     remaining -= taken;
-    // Kill models
-    let woundPool = taken;
-    while (woundPool > 0 && ds.currentModels > 0) {
+    let pool = taken;
+    while (pool > 0 && ds.currentModels > 0) {
       const lastHP = ds.wounds - ds.partialWounds;
-      if (woundPool >= lastHP) {
-        woundPool -= lastHP;
-        ds.currentModels--;
-        ds.partialWounds = 0;
-      } else {
-        ds.partialWounds += woundPool;
-        woundPool = 0;
-      }
+      if (pool >= lastHP) { pool -= lastHP; ds.currentModels--; ds.partialWounds = 0; }
+      else { ds.partialWounds += pool; pool = 0; }
     }
     if (remaining <= 0) break;
   }
@@ -2183,15 +2052,12 @@ function applySimWounds(entry, wounds) {
 /* ═══════════════════════════════════════════════════════════════
    DATA VIEW
 ═══════════════════════════════════════════════════════════════ */
-
 document.getElementById('btn-export').addEventListener('click', () => {
-  const data = JSON.stringify({ factions, armies }, null, 2);
-  const blob = new Blob([data], { type: 'application/json' });
+  const blob = new Blob([JSON.stringify({ factions, armies }, null, 2)], { type: 'application/json' });
   const url  = URL.createObjectURL(blob);
   const a    = document.createElement('a');
   a.href = url; a.download = 'war-engine-data.json'; a.click();
-  URL.revokeObjectURL(url);
-  showToast('Data exported.');
+  URL.revokeObjectURL(url); showToast('Data exported.');
 });
 
 function handleImport(replace) {
@@ -2203,42 +2069,33 @@ function handleImport(replace) {
       try {
         const data = JSON.parse(e.target.result);
         if (replace) {
-          factions = data.factions || [];
-          armies   = data.armies   || [];
+          factions = data.factions || []; armies = data.armies || [];
         } else {
-          // Merge — avoid duplicate IDs
-          const existFIds = new Set(factions.map(f => f.id));
-          const existAIds = new Set(armies.map(a => a.id));
-          (data.factions || []).forEach(f => { if (!existFIds.has(f.id)) factions.push(f); });
-          (data.armies   || []).forEach(a => { if (!existAIds.has(a.id)) armies.push(a); });
+          const fIds = new Set(factions.map(f => f.id));
+          const aIds = new Set(armies.map(a => a.id));
+          (data.factions||[]).forEach(f => { if (!fIds.has(f.id)) factions.push(f); });
+          (data.armies||[]).forEach(a => { if (!aIds.has(a.id)) armies.push(a); });
         }
-        saveFactions(); saveArmies();
-        renderFactions(); renderArmies();
-        showToast(`Import ${replace ? 'replace' : 'merge'} complete.`);
+        saveFactions(); saveArmies(); renderFactions(); renderArmies();
+        showToast(`Import ${replace?'replace':'merge'} complete.`);
       } catch { showToast('Invalid JSON file.', 'error'); }
     };
-    reader.readAsText(file);
-    input.value = '';
+    reader.readAsText(file); input.value = '';
   };
   input.click();
 }
-
 document.getElementById('btn-import-merge').addEventListener('click', () => handleImport(false));
 document.getElementById('btn-import-replace').addEventListener('click', () => handleImport(true));
-
 document.getElementById('btn-clear-all').addEventListener('click', () => {
   showConfirm('⚠ Delete ALL factions and armies? This cannot be undone.', () => {
     factions = []; armies = [];
-    saveFactions(); saveArmies();
-    renderFactions(); renderArmies();
-    showToast('All data cleared.');
+    saveFactions(); saveArmies(); renderFactions(); renderArmies(); showToast('All data cleared.');
   });
 });
 
 /* ═══════════════════════════════════════════════════════════════
    CONFIRM MODAL
 ═══════════════════════════════════════════════════════════════ */
-
 let confirmCallback = null;
 function showConfirm(msg, cb) {
   document.getElementById('confirm-message').textContent = msg;
@@ -2255,14 +2112,14 @@ document.getElementById('btn-confirm-ok').addEventListener('click', () => {
 ═══════════════════════════════════════════════════════════════ */
 renderFactions();
 renderArmies();
-
 </script>
-  <footer style="text-align:center;padding:12px;font-size:12px;color:var(--text-muted);border-top:1px solid var(--border-dim);font-family:'Crimson Pro',serif;">
-    <a href="https://github.com/SethGochey/battle-assistant/blob/main/README.md" target="_blank" rel="noopener"
+
+<footer style="text-align:center;padding:12px;font-size:12px;color:var(--text-muted);border-top:1px solid var(--border-dim);font-family:'Crimson Pro',serif;">
+  <a href="https://github.com/SethGochey/battle-assistant/blob/main/README.md" target="_blank" rel="noopener"
      style="color:var(--text-muted);text-decoration:none;transition:color 0.2s;"
      onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text-muted)'">
     ☩ How to use Battle Assistant
-    </a>
-  </footer>
+  </a>
+</footer>
 </body>
 </html>
