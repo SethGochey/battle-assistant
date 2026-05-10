@@ -93,19 +93,7 @@ These are deliberate scope decisions, not bugs:
 
 ---
 
-## Usage
-
-### Option A — Open locally
-1. Download `war-engine-40k.html`
-2. Open it in Chrome, Firefox, Safari, or Edge
-3. No server needed — works completely offline after fonts load
-
-### Option B — Host on GitHub Pages
-1. Fork this repository
-2. Enable GitHub Pages on the `main` branch (Settings → Pages → Deploy from branch)
-3. Your app is live at `https://yourusername.github.io/your-repo-name/war-engine-40k.html`
-
-### Data persistence
+## Data persistence
 All faction and army data is stored in your browser's **localStorage** under the keys `w40k_factions` and `w40k_armies`. Battle state is ephemeral (in-memory only — it resets when you close or refresh the tab). Use the **Export** feature to back up your data.
 
 ---
