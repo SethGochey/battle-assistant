@@ -48,15 +48,12 @@
   p  { font-size: 1rem; line-height: 1.6; }
   small { font-size: 0.8rem; color: var(--text-dim); }
   .ornament { color: var(--gold-dim); font-size: 0.75rem; letter-spacing: 0.2em; }
-  .skull-icon { color: var(--blood); font-size: 1.1em; }
   .divider {
     display: flex; align-items: center; gap: 0.75rem;
     color: var(--gold-dim); font-size: 0.65rem; letter-spacing: 0.3em;
     margin: 0.75rem 0;
   }
-  .divider::before, .divider::after {
-    content: ''; flex: 1; height: 1px; background: var(--border-gold);
-  }
+  .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border-gold); }
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: var(--surface2); }
   ::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 3px; }
@@ -167,12 +164,6 @@
   .btn-ghost:hover:not(:disabled) { color: var(--gold); border-color: var(--border-gold); background: var(--surface3); }
   .btn-danger { background: none; color: var(--blood-bright); border-color: rgba(192,32,32,0.3); }
   .btn-danger:hover:not(:disabled) { background: rgba(192,32,32,0.1); border-color: var(--blood-bright); }
-  /* Clone button — distinctive teal-ish accent so it reads differently from Edit/Delete */
-  .btn-clone {
-    background: none; color: #6aadbb; border-color: rgba(106,173,187,0.35);
-    font-size: 0.65rem;
-  }
-  .btn-clone:hover:not(:disabled) { background: rgba(106,173,187,0.1); border-color: #6aadbb; }
   .btn-sm { font-size: 0.65rem; padding: 0.3rem 0.65rem; }
   .btn-lg { font-size: 0.9rem; padding: 0.65rem 1.5rem; }
   .btn-icon { padding: 0.35rem 0.5rem; font-size: 0.85rem; }
@@ -183,43 +174,24 @@
     font-family: 'Cinzel', serif; font-size: 0.7rem; font-weight: 600;
     letter-spacing: 0.1em; color: var(--text-dim);
   }
-  .form-input, .form-select, .form-textarea {
+  .form-input, .form-select {
     background: var(--surface3); color: var(--text);
     border: 1px solid var(--border-dim); border-radius: var(--radius);
     padding: 0.45rem 0.75rem; font-family: 'Crimson Pro', serif; font-size: 0.95rem;
     transition: border-color var(--transition), box-shadow var(--transition);
     outline: none; width: 100%;
   }
-  .form-input:focus, .form-select:focus, .form-textarea:focus {
+  .form-input:focus, .form-select:focus {
     border-color: var(--gold); box-shadow: 0 0 0 2px var(--gold-glow);
   }
   .form-select option { background: var(--surface3); }
   .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 0.75rem; }
-
-  /* ── Stat Box ── */
-  .stat-box { background: var(--surface3); border: 1px solid var(--border-dim); border-radius: var(--radius); padding: 0.5rem 0.75rem; text-align: center; }
-  .stat-value { font-family: 'Cinzel', serif; font-size: 1.4rem; font-weight: 700; color: var(--gold); line-height: 1; }
-  .stat-label { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.12em; color: var(--text-dim); margin-top: 0.2rem; }
-
-  /* ── Counter ── */
-  .counter { display: inline-flex; align-items: center; gap: 0; border: 1px solid var(--border-dim); border-radius: var(--radius); overflow: hidden; }
-  .counter-btn {
-    background: var(--surface3); color: var(--gold); border: none; cursor: pointer;
-    min-width: 44px; min-height: 44px; font-size: 1.1rem; font-weight: 700;
-    transition: background var(--transition); display: flex; align-items: center; justify-content: center;
-  }
-  .counter-btn:hover { background: var(--surface4); }
-  .counter-val {
-    font-family: 'Cinzel', serif; font-size: 0.95rem; font-weight: 700; color: var(--text);
-    background: var(--surface2); padding: 0 0.75rem; min-width: 60px; text-align: center; line-height: 44px;
-  }
 
   /* ── Badge ── */
   .badge { display: inline-block; font-family: 'Cinzel', serif; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; padding: 0.15rem 0.5rem; border-radius: 2px; }
   .badge-gold { background: rgba(201,168,76,0.15); color: var(--gold); border: 1px solid var(--border-gold); }
   .badge-blood { background: rgba(139,26,26,0.2); color: #e05050; border: 1px solid rgba(139,26,26,0.4); }
   .badge-dim { background: var(--surface3); color: var(--text-dim); border: 1px solid var(--border-dim); }
-  .badge-teal { background: rgba(106,173,187,0.1); color: #6aadbb; border: 1px solid rgba(106,173,187,0.3); }
 
   /* ── Toast ── */
   #toast-container { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 500; display: flex; flex-direction: column; gap: 0.5rem; }
@@ -241,7 +213,6 @@
     display: flex; flex-direction: column; animation: modal-in 0.25s ease;
   }
   .modal.modal-lg { max-width: 900px; }
-  .modal.modal-xl { max-width: 1100px; }
   @keyframes modal-in { from { opacity:0; transform: scale(0.96) translateY(-12px); } to { opacity:1; transform: none; } }
   .modal-header { padding: 1rem 1.25rem; border-bottom: 1px solid var(--border-gold); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
   .modal-title { font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 700; color: var(--gold); }
@@ -258,9 +229,7 @@
   .data-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
   .data-table th { font-family: 'Cinzel', serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; color: var(--text-dim); text-align: left; padding: 0.4rem 0.6rem; border-bottom: 1px solid var(--border-gold); }
   .data-table td { padding: 0.4rem 0.6rem; border-bottom: 1px solid var(--border-dim); vertical-align: middle; }
-  .data-table tr:hover td { background: var(--surface3); }
-  .data-table input { background: transparent; border: none; color: var(--text); font-family: 'Crimson Pro', serif; font-size: 0.88rem; width: 100%; outline: none; padding: 0; }
-  .data-table input:focus { border-bottom: 1px solid var(--gold); }
+  .data-table tr:last-child td { border-bottom: none; }
 
   /* ── Empty State ── */
   .empty-state { text-align: center; padding: 3rem 1rem; color: var(--text-muted); }
@@ -269,51 +238,39 @@
 
   /* ── Grid / Flex ── */
   .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
-  .grid-auto { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+  .grid-auto { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
   .flex-row { display: flex; align-items: center; gap: 0.5rem; }
   .flex-wrap { flex-wrap: wrap; }
-  .flex-1 { flex: 1; }
-  .gap-sm { gap: 0.25rem; }
-  .gap-md { gap: 0.75rem; }
   .mt-1 { margin-top: 0.5rem; }
   .mt-2 { margin-top: 1rem; }
-  .mt-3 { margin-top: 1.5rem; }
   .mb-1 { margin-bottom: 0.5rem; }
   .mb-2 { margin-bottom: 1rem; }
 
-  /* ══ FACTIONS VIEW ══ */
-  .faction-card { cursor: default; }
-  .faction-units { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.75rem; }
-  .unit-row { display: flex; align-items: center; justify-content: space-between; padding: 0.4rem 0.6rem; background: var(--surface3); border: 1px solid var(--border-dim); border-radius: var(--radius); }
-  .unit-row:hover { border-color: var(--border-gold); }
-  .unit-info { font-size: 0.9rem; }
-  .unit-info small { display: block; color: var(--text-dim); font-size: 0.72rem; }
-  .unit-actions { display: flex; gap: 0.35rem; }
-
-  /* Datasheet editor */
-  .ds-list { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 0.75rem; }
-  .ds-item { border: 1px solid var(--border-dim); border-radius: var(--radius); overflow: hidden; }
-  .ds-item-header { display: flex; align-items: center; justify-content: space-between; padding: 0.5rem 0.75rem; background: var(--surface3); cursor: pointer; }
-  .ds-item-header:hover { background: var(--surface4); }
-  .ds-item-body { padding: 0.75rem; background: var(--surface2); }
-  .profile-section { margin-top: 0.75rem; }
-  .profile-section-title { font-family: 'Cinzel', serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; color: var(--gold-dim); margin-bottom: 0.5rem; }
-  .table-wrap { overflow-x: auto; border: 1px solid var(--border-dim); border-radius: var(--radius); }
-
-  /* Profile library picker rows */
-  .lib-profile-row {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0.45rem 0.75rem; background: var(--surface3);
-    border: 1px solid var(--border-dim); border-radius: var(--radius);
-    margin-bottom: 0.35rem; font-size: 0.85rem;
-  }
-  .lib-profile-row:hover { border-color: var(--border-gold); }
-  .lib-profile-stats { font-size: 0.72rem; color: var(--text-dim); margin-top: 0.1rem; }
-
   /* ══ ARMIES VIEW ══ */
-  .army-stats { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem; }
-  .entry-item { display: flex; align-items: center; justify-content: space-between; padding: 0.35rem 0.6rem; background: var(--surface3); border: 1px solid var(--border-dim); border-radius: var(--radius); margin-top: 0.35rem; font-size: 0.88rem; }
+  .army-card { cursor: default; }
+  .army-unit-list { margin-top: 0.75rem; display: flex; flex-direction: column; gap: 0.35rem; }
+  .army-unit-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.3rem 0.6rem; background: var(--surface3);
+    border: 1px solid var(--border-dim); border-radius: var(--radius);
+    font-size: 0.85rem;
+  }
+  .army-unit-meta { font-size: 0.7rem; color: var(--text-dim); }
+
+  /* ── Army detail modal ── */
+  .unit-detail-block {
+    border: 1px solid var(--border-dim); border-radius: var(--radius);
+    overflow: hidden; margin-bottom: 0.75rem;
+  }
+  .unit-detail-header {
+    background: var(--surface3); padding: 0.5rem 0.75rem;
+    font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: 700; color: var(--text);
+  }
+  .unit-detail-body { padding: 0.6rem 0.75rem; }
+  .ds-detail-block { margin-bottom: 0.75rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border-dim); }
+  .ds-detail-block:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+  .ds-detail-name { font-family: 'Cinzel', serif; font-size: 0.78rem; font-weight: 700; color: var(--gold-dim); margin-bottom: 0.4rem; }
+  .ds-stat-row { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.4rem; }
 
   /* ══ BATTLE VIEW ══ */
   .resource-bar { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; padding: 0.5rem 0; margin-bottom: 1rem; }
@@ -338,10 +295,10 @@
   .ds-tracker { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; padding: 0.35rem 0; border-top: 1px solid var(--border-dim); margin-top: 0.4rem; }
   .ds-tracker-label { font-size: 0.75rem; color: var(--text-dim); min-width: 90px; }
   .ds-tracker-models { display: flex; align-items: center; gap: 0.25rem; font-size: 0.8rem; }
-  .tracker-btn { background: var(--surface4); border: 1px solid var(--border-dim); color: var(--gold); cursor: pointer; width: 28px; height: 28px; border-radius: var(--radius); font-size: 0.85rem; font-weight: 700; display: flex; align-items: center; justify-content: center; transition: background var(--transition); }
+  .tracker-btn { background: var(--surface4); border: 1px solid var(--border-dim); color: var(--gold); cursor: pointer; width: 36px; height: 36px; border-radius: var(--radius); font-size: 0.9rem; font-weight: 700; display: flex; align-items: center; justify-content: center; transition: background var(--transition); }
   .tracker-btn:hover { background: var(--surface5); }
-  .tracker-val { font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: 700; color: var(--text); min-width: 32px; text-align: center; }
-  .tracker-sep { color: var(--text-muted); font-size: 0.75rem; }
+  .tracker-val { font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: 700; color: var(--text); min-width: 36px; text-align: center; }
+  .tracker-sep { color: var(--text-muted); font-size: 0.75rem; margin: 0 0.15rem; }
   .activated-toggle { display: flex; align-items: center; gap: 0.35rem; cursor: pointer; font-size: 0.72rem; color: var(--text-dim); font-family: 'Cinzel', serif; letter-spacing: 0.08em; }
   .activated-toggle input { accent-color: var(--gold); cursor: pointer; }
   .analysis-panel-backdrop { display: none; position: fixed; inset: 0; z-index: 400; background: rgba(0,0,0,0.6); align-items: flex-end; justify-content: flex-end; }
@@ -370,77 +327,33 @@
   /* ══ DATA VIEW ══ */
   .data-sections { display: flex; flex-direction: column; gap: 1.5rem; max-width: 600px; }
   .data-card { padding: 1.25rem; }
-  .data-card h3 { margin-bottom: 0.75rem; }
+  .data-card h3 { margin-bottom: 0.5rem; }
   .data-card p { font-size: 0.9rem; color: var(--text-dim); margin-bottom: 1rem; }
   .danger-zone { border-color: rgba(192,32,32,0.3); }
   .danger-zone h3 { color: var(--blood-bright); }
   .rules-ref-table { font-size: 0.85rem; margin-top: 0.75rem; }
   .rules-ref-table th { color: var(--gold); }
 
-  /* ══ PROFILE LIBRARY SECTION in faction editor ══ */
-  .lib-section {
-    margin-top: 1.25rem;
+  /* ── Import schema info box ── */
+  .schema-box {
     background: var(--surface3); border: 1px solid var(--border-dim);
-    border-radius: var(--radius); padding: 0.75rem;
+    border-radius: var(--radius); padding: 0.85rem; margin-top: 0.75rem;
+    font-size: 0.8rem;
   }
-  .lib-section-header {
-    display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: 0.5rem;
-  }
-  .lib-tabs { display: flex; gap: 0.35rem; margin-bottom: 0.75rem; }
-  .lib-tab {
-    font-family: 'Cinzel', serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em;
-    padding: 0.3rem 0.75rem; border-radius: var(--radius); cursor: pointer;
-    background: none; color: var(--text-dim); border: 1px solid var(--border-dim);
-    transition: all var(--transition);
-  }
-  .lib-tab.active { color: var(--gold); border-color: var(--border-gold); background: var(--surface4); }
-  .lib-empty { font-size: 0.8rem; color: var(--text-muted); padding: 0.5rem 0; font-style: italic; }
-
-  /* ══ PASTE PREVIEW ══ */
-  .paste-ds-preview {
-    border: 1px solid var(--border-dim); border-radius: var(--radius);
-    overflow: hidden; margin-bottom: 0.5rem;
-  }
-  .paste-ds-preview-header {
-    background: var(--surface3); padding: 0.4rem 0.75rem;
-    font-family: 'Cinzel', serif; font-size: 0.8rem; color: var(--gold);
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  .paste-ds-preview-body { padding: 0.5rem 0.75rem; font-size: 0.8rem; color: var(--text-dim); }
-  .paste-profile-line { padding: 0.15rem 0; border-bottom: 1px solid var(--border-dim); }
-  .paste-profile-line:last-child { border-bottom: none; }
-  .paste-error-row {
-    background: rgba(192,32,32,0.08); border: 1px solid rgba(192,32,32,0.25);
-    border-radius: var(--radius); padding: 0.4rem 0.75rem;
-    font-size: 0.78rem; color: #e05050; margin-bottom: 0.35rem;
-  }
-  .paste-warn-row {
-    background: rgba(201,168,76,0.06); border: 1px solid var(--border-gold);
-    border-radius: var(--radius); padding: 0.4rem 0.75rem;
-    font-size: 0.78rem; color: var(--gold-dim); margin-bottom: 0.35rem;
-  }
-  /* format-ref box inside paste modal */
-  .fmt-ref {
-    background: var(--surface3); border: 1px solid var(--border-dim);
-    border-radius: var(--radius); padding: 0.85rem; margin-bottom: 1rem; font-size: 0.8rem;
-  }
-  .fmt-ref-title {
+  .schema-box-title {
     font-family: 'Cinzel', serif; font-size: 0.65rem; font-weight: 700;
     letter-spacing: 0.12em; color: var(--gold-dim); margin-bottom: 0.5rem;
   }
-  .fmt-ref code {
+  .schema-box code {
     font-family: 'Courier New', monospace; font-size: 0.72rem;
     color: var(--gold); background: var(--surface4);
     padding: 0.1rem 0.35rem; border-radius: 2px;
   }
-  .fmt-ref pre {
+  .schema-box pre {
     font-family: 'Courier New', monospace; font-size: 0.7rem;
-    color: var(--text-muted); line-height: 1.8; white-space: pre-wrap;
-    margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--border-dim);
+    color: var(--text-dim); line-height: 1.7; white-space: pre-wrap;
+    margin-top: 0.5rem;
   }
-  .fmt-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.5rem; }
-  .fmt-col-title { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.1em; color: var(--text-dim); margin-bottom: 0.3rem; }
 
   @media (max-width: 768px) {
     .nav-tabs { display: none; }
@@ -449,16 +362,10 @@
     .analysis-panel { width: 100%; height: 90vh; border-left: none; }
     .analysis-panel-backdrop { align-items: flex-end; }
     .grid-2 { grid-template-columns: 1fr; }
-    .grid-3 { grid-template-columns: repeat(2, 1fr); }
     #app-main { padding: 1rem 0.75rem; }
     .modal { max-width: 100%; margin: 0; border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
     .modal-backdrop { align-items: flex-end; padding: 0; }
     .modal { max-height: 95vh; }
-    .fmt-cols { grid-template-columns: 1fr; }
-  }
-  @media (max-width: 500px) {
-    .grid-3 { grid-template-columns: 1fr; }
-    .form-row { grid-template-columns: 1fr 1fr; }
   }
 </style>
 </head>
@@ -472,8 +379,7 @@
     </div>
     <nav>
       <ul class="nav-tabs" id="nav-tabs">
-        <li><button class="nav-tab active" data-view="factions">⚔ Factions</button></li>
-        <li><button class="nav-tab" data-view="armies">🛡 Armies</button></li>
+        <li><button class="nav-tab active" data-view="armies">🛡 Armies</button></li>
         <li><button class="nav-tab" data-view="battle">☩ Battle</button></li>
         <li><button class="nav-tab" data-view="data">⬡ Data</button></li>
       </ul>
@@ -489,8 +395,7 @@
       <button class="drawer-close" id="drawer-close">✕</button>
     </div>
     <div class="divider">✦ ✦ ✦</div>
-    <button class="drawer-nav-tab active" data-view="factions">⚔ &nbsp; Factions</button>
-    <button class="drawer-nav-tab" data-view="armies">🛡 &nbsp; Armies</button>
+    <button class="drawer-nav-tab active" data-view="armies">🛡 &nbsp; Armies</button>
     <button class="drawer-nav-tab" data-view="battle">☩ &nbsp; Battle</button>
     <button class="drawer-nav-tab" data-view="data">⬡ &nbsp; Data</button>
   </div>
@@ -499,35 +404,21 @@
 
 <main id="app-main">
 
-  <!-- ═══ FACTIONS ═══ -->
-  <div class="view active" id="view-factions">
-    <div class="section-header mb-2">
-      <div>
-        <h2>Factions</h2>
-        <small class="ornament">✦ Unit Templates &amp; Datasheets ✦</small>
-      </div>
-      <button class="btn btn-gold" id="btn-add-faction">+ Add Faction</button>
-    </div>
-    <div class="grid-auto" id="factions-list"></div>
-    <div class="empty-state" id="factions-empty" style="display:none">
-      <div class="empty-icon">⚔</div>
-      <p>No factions yet. Add your first faction to define unit templates.</p>
-    </div>
-  </div>
-
   <!-- ═══ ARMIES ═══ -->
-  <div class="view" id="view-armies">
+  <div class="view active" id="view-armies">
     <div class="section-header mb-2">
       <div>
         <h2>Armies</h2>
-        <small class="ornament">✦ Compose Your Forces ✦</small>
+        <small class="ornament">✦ Imported from Army Builder ✦</small>
       </div>
-      <button class="btn btn-gold" id="btn-add-army">+ Add Army</button>
+      <button class="btn btn-gold" id="btn-import-army">⬆ Import Army File</button>
     </div>
+    <input type="file" id="army-import-file" accept=".json" style="display:none">
     <div class="grid-auto" id="armies-list"></div>
-    <div class="empty-state" id="armies-empty" style="display:none">
+    <div class="empty-state" id="armies-empty">
       <div class="empty-icon">🛡</div>
-      <p>No armies yet. Create a faction first, then compose your army.</p>
+      <p>No armies yet.</p>
+      <p style="margin-top:0.5rem;font-size:0.82rem">Export an army from the Army Builder app and import it here.</p>
     </div>
   </div>
 
@@ -560,9 +451,7 @@
       <div class="card mb-2" style="padding:0.75rem 1rem">
         <div class="flex-row">
           <div style="flex:1">
-            <div class="flex-row">
-              <span class="cinzel" style="font-size:1rem;color:var(--gold);font-weight:700" id="battle-header-name">Battle</span>
-            </div>
+            <span class="cinzel" style="font-size:1rem;color:var(--gold);font-weight:700" id="battle-header-name">Battle</span>
             <div class="flex-row mt-1">
               <span id="battle-header-a" style="font-size:0.85rem;font-weight:600;font-family:Cinzel,serif"></span>
               <span style="color:var(--blood);font-family:Cinzel,serif;font-weight:900;margin:0 0.5rem">VS</span>
@@ -575,7 +464,7 @@
         <div class="resource-bar" id="resource-bar"></div>
         <button class="btn btn-ghost btn-sm" id="btn-add-resource">+ Add Resource</button>
       </div>
-      <div class="battle-panels" id="battle-panels">
+      <div class="battle-panels">
         <div class="battle-panel" id="panel-a">
           <div class="battle-panel-header">
             <span class="battle-panel-title" id="panel-a-title">Army A</span>
@@ -607,33 +496,69 @@
   <div class="view" id="view-data">
     <div class="section-header mb-2">
       <div>
-        <h2>Data Management</h2>
-        <small class="ornament">✦ Import · Export · Reference ✦</small>
+        <h2>Data</h2>
+        <small class="ornament">✦ Backup · Restore · Reference ✦</small>
       </div>
     </div>
     <div class="data-sections">
       <div class="card data-card">
-        <h3>Export Data</h3>
-        <p>Download all factions and armies as a JSON file for backup or sharing.</p>
-        <button class="btn btn-gold" id="btn-export">⬇ Export JSON</button>
+        <h3>Backup</h3>
+        <p>Export all imported armies as a Battle Assistant backup file. Use this to move your armies between devices or browsers.</p>
+        <button class="btn btn-gold" id="btn-export-backup">⬇ Export Backup</button>
       </div>
       <div class="card data-card">
-        <h3>Import Data</h3>
-        <p>Load factions and armies from a previously exported JSON file.</p>
-        <div class="flex-row gap-md">
-          <input type="file" id="import-file" accept=".json" style="display:none">
-          <button class="btn btn-ghost" id="btn-import-merge">⬆ Import &amp; Merge</button>
-          <button class="btn btn-ghost" id="btn-import-replace">⬆ Import &amp; Replace</button>
+        <h3>Restore from Backup</h3>
+        <p>Load a previously exported Battle Assistant backup. This merges armies by ID — existing armies with the same ID are not duplicated.</p>
+        <div class="flex-row">
+          <input type="file" id="backup-import-file" accept=".json" style="display:none">
+          <button class="btn btn-ghost" id="btn-import-backup">⬆ Import Backup</button>
         </div>
       </div>
       <div class="card data-card danger-zone">
         <h3>⚠ Danger Zone</h3>
-        <p>Permanently delete all factions and armies. This cannot be undone.</p>
-        <button class="btn btn-danger" id="btn-clear-all">✕ Clear All Data</button>
+        <p>Permanently delete all armies. This cannot be undone.</p>
+        <button class="btn btn-danger" id="btn-clear-all">✕ Clear All Armies</button>
+      </div>
+      <div class="card data-card">
+        <h3>Army Builder Import Format</h3>
+        <p>Battle Assistant accepts JSON files exported by the Army Builder app. The file must include <code style="font-family:monospace;font-size:0.85rem;color:var(--gold)">"baImportVersion": 1</code> at the root. Files with a different or missing version are rejected.</p>
+        <div class="schema-box">
+          <div class="schema-box-title">EXPECTED SCHEMA — baImportVersion 1</div>
+          <pre>{
+  "baImportVersion": 1,
+  "armies": [
+    {
+      "id": "uuid",
+      "name": "1st Company Strike Force",
+      "faction": "Space Marines",
+      "entries": [
+        {
+          "entryId": "uuid",
+          "unitName": "Intercessor Squad",
+          "datasheets": [
+            {
+              "datasheetId": "uuid",
+              "name": "Intercessor Sergeant",
+              "modelCount": 1,
+              "wounds": 3,
+              "toughness": 4,
+              "armorSave": 3,
+              "invulnSave": 7,
+              "feelNoPain": 7,
+              "shootingProfiles": [ ...resolved profiles only... ],
+              "meleeProfiles":    [ ...resolved profiles only... ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}</pre>
+        </div>
       </div>
       <div class="card data-card">
         <h3>Rules Reference</h3>
-        <p>Quick lookup for the hit / wound / save sequence at the table.</p>
+        <p>Quick lookup for the hit / wound / save sequence.</p>
         <div class="divider">WOUND CHART</div>
         <table class="data-table rules-ref-table">
           <thead><tr><th>Condition</th><th>Wound Roll</th></tr></thead>
@@ -646,7 +571,7 @@
           </tbody>
         </table>
         <div class="divider mt-2">SAVE MODIFIERS</div>
-        <p style="font-size:0.85rem;color:var(--text-dim)">Modified save = Armor Save − AP. Invuln save ignores AP. Best (lowest number) save applies. Natural 1 always fails.</p>
+        <p style="font-size:0.85rem;color:var(--text-dim)">Modified save = Armor Save − AP. Invuln save ignores AP. Best (lower number) applies. Natural 1 always fails.</p>
       </div>
     </div>
   </div>
@@ -656,7 +581,7 @@
 
 <!-- Analysis Panel -->
 <div class="analysis-panel-backdrop" id="analysis-backdrop">
-  <div class="analysis-panel" id="analysis-panel">
+  <div class="analysis-panel">
     <div class="analysis-header">
       <div>
         <div class="analysis-title" id="analysis-title">Analysis</div>
@@ -669,216 +594,16 @@
   </div>
 </div>
 
-<!-- ══ MODAL: FACTION EDITOR ══ -->
-<div class="modal-backdrop" id="modal-faction">
-  <div class="modal modal-xl">
-    <div class="modal-header">
-      <span class="modal-title" id="modal-faction-title">Add Faction</span>
-      <button class="modal-close" data-close="modal-faction">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="form-group mb-2">
-        <label class="form-label">Faction Name</label>
-        <input type="text" class="form-input" id="faction-name-input" placeholder="Space Marines, Orks, Necrons…">
-      </div>
-      <div class="divider">UNITS</div>
-      <div class="section-header">
-        <span class="section-title">Unit Roster</span>
-        <button class="btn btn-ghost btn-sm" id="btn-add-unit">+ Add Unit</button>
-      </div>
-      <div id="faction-units-list" class="ds-list"></div>
-
-      <!-- Profile Library -->
-      <div class="lib-section">
-        <div class="lib-section-header">
-          <span class="section-title">Profile Library</span>
-          <span class="badge badge-teal">FACTION-WIDE</span>
-        </div>
-        <p style="font-size:0.8rem;color:var(--text-dim);margin-bottom:0.75rem">
-          Save profiles here once, stamp them into any datasheet via "From Library". Each stamp is an independent copy.
-        </p>
-        <div class="lib-tabs">
-          <button class="lib-tab active" id="lib-tab-shoot" onclick="switchLibTab('shoot')">☩ Shooting</button>
-          <button class="lib-tab" id="lib-tab-melee" onclick="switchLibTab('melee')">⚔ Melee</button>
-        </div>
-        <div id="lib-shoot-list"></div>
-        <div id="lib-melee-list" style="display:none"></div>
-        <div class="flex-row mt-1" style="gap:0.5rem">
-          <button class="btn btn-ghost btn-sm" id="btn-lib-add-shoot" onclick="addLibProfile(false)">+ Add Shooting Profile</button>
-          <button class="btn btn-ghost btn-sm" id="btn-lib-add-melee" onclick="addLibProfile(true)">+ Add Melee Profile</button>
-        </div>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" data-close="modal-faction">Cancel</button>
-      <button class="btn btn-gold" id="btn-save-faction">Save Faction</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══ MODAL: UNIT EDITOR ══ -->
-<div class="modal-backdrop" id="modal-unit">
-  <div class="modal modal-xl">
-    <div class="modal-header">
-      <span class="modal-title" id="modal-unit-title">Edit Unit</span>
-      <button class="modal-close" data-close="modal-unit">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="form-group mb-2">
-        <label class="form-label">Unit Name</label>
-        <input type="text" class="form-input" id="unit-name-input" placeholder="Intercessor Squad…">
-      </div>
-      <div class="divider">DATASHEETS</div>
-      <div class="section-header">
-        <span class="section-title">Datasheet Models</span>
-        <div class="flex-row gap-sm">
-          <button class="btn btn-clone btn-sm" id="btn-open-paste">⊞ Paste from Spreadsheet</button>
-          <button class="btn btn-ghost btn-sm" id="btn-add-datasheet">+ Add Datasheet</button>
-        </div>
-      </div>
-      <div id="unit-datasheets-list" class="ds-list"></div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" data-close="modal-unit">Cancel</button>
-      <button class="btn btn-gold" id="btn-save-unit">Save Unit</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══ MODAL: PASTE FROM SPREADSHEET ══ -->
-<div class="modal-backdrop" id="modal-paste">
+<!-- ══ MODAL: ARMY DETAIL ══ -->
+<div class="modal-backdrop" id="modal-army-detail">
   <div class="modal modal-lg">
     <div class="modal-header">
-      <span class="modal-title">⊞ Paste from Spreadsheet</span>
-      <button class="modal-close" data-close="modal-paste">✕</button>
+      <span class="modal-title" id="army-detail-title">Army Detail</span>
+      <button class="modal-close" data-close="modal-army-detail">✕</button>
     </div>
-    <div class="modal-body">
-
-      <!-- Format reference -->
-      <div style="background:var(--surface3);border:1px solid var(--border-dim);border-radius:var(--radius);padding:0.75rem;margin-bottom:1rem;">
-        <div class="section-title mb-1">FORMAT REFERENCE</div>
-        <p style="font-size:0.82rem;color:var(--text-dim);line-height:1.7;margin-bottom:0.6rem">
-          Copy a selection from Excel or Google Sheets and paste below. First column must be the row type:
-          <code style="color:var(--gold);background:var(--surface4);padding:0.1rem 0.4rem;border-radius:2px">DATASHEET</code>
-          <code style="color:var(--gold);background:var(--surface4);padding:0.1rem 0.4rem;border-radius:2px">SHOOT</code>
-          <code style="color:var(--gold);background:var(--surface4);padding:0.1rem 0.4rem;border-radius:2px">MELEE</code>.
-          Profiles belong to the most recent DATASHEET row above them.
-          Attacks &amp; Damage accept dice notation (D6, 2D6+1, D3) or plain numbers.
-          Saves accept <code style="color:var(--gold);background:var(--surface4);padding:0.1rem 0.4rem;border-radius:2px">3</code> or <code style="color:var(--gold);background:var(--surface4);padding:0.1rem 0.4rem;border-radius:2px">3+</code>.
-          Use <code style="color:var(--gold);background:var(--surface4);padding:0.1rem 0.4rem;border-radius:2px">-</code> or <code style="color:var(--gold);background:var(--surface4);padding:0.1rem 0.4rem;border-radius:2px">7</code> for None.
-        </p>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem">
-          <div>
-            <div style="font-family:Cinzel,serif;font-size:0.65rem;letter-spacing:0.1em;color:var(--gold-dim);margin-bottom:0.35rem">DATASHEET COLUMNS</div>
-            <code style="font-size:0.72rem;color:var(--text-dim);line-height:2;display:block">
-              DATASHEET &nbsp;|&nbsp; Name &nbsp;|&nbsp; Models &nbsp;|&nbsp; Wounds &nbsp;|&nbsp; T &nbsp;|&nbsp; Save &nbsp;|&nbsp; Invuln &nbsp;|&nbsp; FNP
-            </code>
-          </div>
-          <div>
-            <div style="font-family:Cinzel,serif;font-size:0.65rem;letter-spacing:0.1em;color:var(--gold-dim);margin-bottom:0.35rem">PROFILE COLUMNS</div>
-            <code style="font-size:0.72rem;color:var(--text-dim);line-height:2;display:block">
-              SHOOT &nbsp;|&nbsp; Name &nbsp;|&nbsp; Range &nbsp;|&nbsp; Attacks &nbsp;|&nbsp; BS &nbsp;|&nbsp; S &nbsp;|&nbsp; AP &nbsp;|&nbsp; Damage<br>
-              MELEE &nbsp;|&nbsp; Name &nbsp;|&nbsp; Attacks &nbsp;|&nbsp; WS &nbsp;|&nbsp; S &nbsp;|&nbsp; AP &nbsp;|&nbsp; Damage
-            </code>
-          </div>
-        </div>
-        <div style="margin-top:0.75rem;padding-top:0.6rem;border-top:1px solid var(--border-dim)">
-          <div style="font-family:Cinzel,serif;font-size:0.65rem;letter-spacing:0.1em;color:var(--gold-dim);margin-bottom:0.35rem">EXAMPLE</div>
-          <pre style="font-family:monospace;font-size:0.7rem;color:var(--text-muted);line-height:1.9;white-space:pre-wrap">DATASHEET	Intercessor Sergeant	1	3	4	3	-	-
-SHOOT	Bolt Rifle	24	2	3	4	-1	1
-MELEE	Close Combat Weapon	3	3	4	0	1
-DATASHEET	Intercessor	4	2	4	3	-	-
-SHOOT	Bolt Rifle	24	2	3	4	-1	1
-MELEE	Close Combat Weapon	3	3	4	0	1</pre>
-        </div>
-      </div>
-
-      <!-- Paste area -->
-      <div class="form-group mb-2">
-        <label class="form-label">Paste Spreadsheet Data Here</label>
-        <textarea
-          class="form-textarea"
-          id="paste-input"
-          rows="10"
-          placeholder="Select rows in your spreadsheet, copy (Cmd+C / Ctrl+C), then paste here (Cmd+V / Ctrl+V)&#x2026;"
-          style="font-family:monospace;font-size:0.8rem;resize:vertical;min-height:160px"
-        ></textarea>
-      </div>
-
-      <!-- Parse result feedback -->
-      <div id="paste-preview" style="display:none">
-        <div class="divider">PREVIEW</div>
-        <div id="paste-stats" style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.75rem"></div>
-        <div id="paste-errors" style="margin-bottom:0.5rem"></div>
-        <div id="paste-preview-list"></div>
-      </div>
-
-    </div>
-    <div class="modal-footer" style="justify-content:space-between;align-items:center">
-      <div style="display:flex;gap:0.5rem;align-items:center">
-        <button class="btn btn-ghost btn-sm" id="btn-paste-parse">⟳ Preview</button>
-        <span style="font-size:0.75rem;color:var(--text-muted)">Check before importing</span>
-      </div>
-      <div style="display:flex;gap:0.5rem">
-        <button class="btn btn-ghost" data-close="modal-paste">Cancel</button>
-        <button class="btn btn-gold" id="btn-paste-import" disabled>Import <span id="paste-import-count"></span></button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ══ MODAL: PROFILE LIBRARY PICKER ══ -->
-<div class="modal-backdrop" id="modal-lib-picker">
-  <div class="modal" style="max-width:520px">
-    <div class="modal-header">
-      <span class="modal-title" id="lib-picker-title">Select from Library</span>
-      <button class="modal-close" data-close="modal-lib-picker">✕</button>
-    </div>
-    <div class="modal-body">
-      <p style="font-size:0.85rem;color:var(--text-dim);margin-bottom:1rem">
-        Select a profile to stamp a copy into this datasheet. The copy is fully independent — edits won't affect the library original.
-      </p>
-      <div id="lib-picker-list"></div>
-    </div>
+    <div class="modal-body" id="army-detail-body"></div>
     <div class="modal-footer">
-      <button class="btn btn-ghost" data-close="modal-lib-picker">Cancel</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══ MODAL: ARMY EDITOR ══ -->
-<div class="modal-backdrop" id="modal-army">
-  <div class="modal modal-lg">
-    <div class="modal-header">
-      <span class="modal-title" id="modal-army-title">Add Army</span>
-      <button class="modal-close" data-close="modal-army">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="form-row mb-2">
-        <div class="form-group">
-          <label class="form-label">Army Name</label>
-          <input type="text" class="form-input" id="army-name-input" placeholder="1st Company…">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Faction</label>
-          <select class="form-select" id="army-faction-select"></select>
-        </div>
-      </div>
-      <div class="divider">UNIT ROSTER</div>
-      <div class="grid-2" style="align-items:start;gap:1rem">
-        <div>
-          <div class="section-title mb-1">Available Units</div>
-          <div id="army-available-units" style="display:flex;flex-direction:column;gap:0.35rem;max-height:300px;overflow-y:auto"></div>
-        </div>
-        <div>
-          <div class="section-title mb-1">Added to Army</div>
-          <div id="army-selected-units" style="display:flex;flex-direction:column;gap:0.35rem;max-height:300px;overflow-y:auto"></div>
-        </div>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" data-close="modal-army">Cancel</button>
-      <button class="btn btn-gold" id="btn-save-army">Save Army</button>
+      <button class="btn btn-ghost" data-close="modal-army-detail">Close</button>
     </div>
   </div>
 </div>
@@ -887,10 +612,10 @@ MELEE	Close Combat Weapon	3	3	4	0	1</pre>
 <div class="modal-backdrop" id="modal-confirm">
   <div class="modal" style="max-width:400px">
     <div class="modal-header">
-      <span class="modal-title" id="confirm-title">Confirm</span>
+      <span class="modal-title">Confirm</span>
       <button class="modal-close" data-close="modal-confirm">✕</button>
     </div>
-    <div class="modal-body"><p id="confirm-message"></p></div>
+    <div class="modal-body"><p id="confirm-message" style="font-size:0.95rem"></p></div>
     <div class="modal-footer">
       <button class="btn btn-ghost" data-close="modal-confirm">Cancel</button>
       <button class="btn btn-danger" id="btn-confirm-ok">Confirm</button>
@@ -938,31 +663,20 @@ MELEE	Close Combat Weapon	3	3	4	0	1</pre>
 
 <script>
 /* ═══════════════════════════════════════════════════════════════
+   CONSTANTS
+═══════════════════════════════════════════════════════════════ */
+const BA_IMPORT_VERSION = 1;
+const LS_KEY = 'w40k_imported_armies';
+
+/* ═══════════════════════════════════════════════════════════════
    UTILITIES
 ═══════════════════════════════════════════════════════════════ */
-const uuid = () => crypto.randomUUID ? crypto.randomUUID()
+const uuid = () => crypto.randomUUID
+  ? crypto.randomUUID()
   : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
       const r = Math.random() * 16 | 0;
       return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
     });
-
-function deepClone(obj) { return JSON.parse(JSON.stringify(obj)); }
-
-// Deep clone and reassign ALL ids at every level so the copy is fully independent
-function cloneWithNewIds(obj) {
-  const clone = deepClone(obj);
-  rewriteIds(clone);
-  return clone;
-}
-
-function rewriteIds(node) {
-  if (!node || typeof node !== 'object') return;
-  if (Array.isArray(node)) { node.forEach(rewriteIds); return; }
-  if ('id' in node) node.id = uuid();
-  if ('entryId' in node) node.entryId = uuid();
-  if ('datasheetId' in node) node.datasheetId = uuid();
-  Object.values(node).forEach(v => { if (v && typeof v === 'object') rewriteIds(v); });
-}
 
 function showToast(msg, type = 'ok') {
   const c = document.getElementById('toast-container');
@@ -970,7 +684,10 @@ function showToast(msg, type = 'ok') {
   t.className = 'toast' + (type === 'error' ? ' error' : '');
   t.textContent = msg;
   c.appendChild(t);
-  setTimeout(() => { t.style.opacity = '0'; t.style.transition = 'opacity 0.3s'; setTimeout(() => t.remove(), 300); }, 3000);
+  setTimeout(() => {
+    t.style.opacity = '0'; t.style.transition = 'opacity 0.3s';
+    setTimeout(() => t.remove(), 300);
+  }, 3000);
 }
 
 function openModal(id)  { document.getElementById(id).classList.add('open'); }
@@ -987,19 +704,16 @@ document.querySelectorAll('[data-close]').forEach(btn => {
 document.getElementById('analysis-close').addEventListener('click', closeAnalysis);
 
 /* ═══════════════════════════════════════════════════════════════
-   DICE PARSER
+   PERSISTENCE
 ═══════════════════════════════════════════════════════════════ */
-function parseDice(str) {
-  if (!str) return { value: 0, display: '0' };
-  const s = str.toString().trim().toUpperCase();
-  const m = s.match(/^(\d+)?D(\d+)([+-]\d+)?$|^(\d+(?:\.\d+)?)$/);
-  if (!m) return { value: parseFloat(s) || 0, display: s };
-  if (m[4] !== undefined) return { value: parseFloat(m[4]), display: s };
-  const coeff = m[1] ? parseInt(m[1]) : 1;
-  const die   = parseInt(m[2]);
-  const mod   = m[3] ? parseInt(m[3]) : 0;
-  return { value: coeff * (die + 1) / 2 + mod, display: s };
-}
+const LS = {
+  get(def) { try { return JSON.parse(localStorage.getItem(LS_KEY)) ?? def; } catch { return def; } },
+  set(val) { localStorage.setItem(LS_KEY, JSON.stringify(val)); }
+};
+
+// armies: array of fully-resolved army objects (no faction store references)
+let armies = LS.get([]);
+function saveArmies() { LS.set(armies); }
 
 /* ═══════════════════════════════════════════════════════════════
    COMBAT MATH
@@ -1011,7 +725,7 @@ const MATH = {
     if (S < T)      return 2/6;
     if (S === T)    return 3/6;
     if (S > T)      return 4/6;
-    return 5/6; // S >= T*2
+    return 5/6;
   },
   pFailSave(armorSave, ap, invulnSave) {
     const modSave  = armorSave - ap;
@@ -1039,21 +753,6 @@ const MATH = {
 };
 
 /* ═══════════════════════════════════════════════════════════════
-   PERSISTENCE
-═══════════════════════════════════════════════════════════════ */
-const LS = {
-  get(key, def) { try { return JSON.parse(localStorage.getItem(key)) ?? def; } catch { return def; } },
-  set(key, val) { localStorage.setItem(key, JSON.stringify(val)); }
-};
-
-let factions = LS.get('w40k_factions', []);
-let armies   = LS.get('w40k_armies', []);
-let battleState = null;
-
-function saveFactions() { LS.set('w40k_factions', factions); }
-function saveArmies()   { LS.set('w40k_armies', armies); }
-
-/* ═══════════════════════════════════════════════════════════════
    NAVIGATION
 ═══════════════════════════════════════════════════════════════ */
 function switchView(name) {
@@ -1062,9 +761,8 @@ function switchView(name) {
   document.querySelectorAll('.nav-tab, .drawer-nav-tab').forEach(t => {
     t.classList.toggle('active', t.dataset.view === name);
   });
-  if (name === 'battle')   renderBattleSetup();
-  if (name === 'factions') renderFactions();
-  if (name === 'armies')   renderArmies();
+  if (name === 'armies') renderArmies();
+  if (name === 'battle') renderBattleSetup();
 }
 document.querySelectorAll('.nav-tab, .drawer-nav-tab').forEach(t => {
   t.addEventListener('click', () => { switchView(t.dataset.view); closeMobileDrawer(); });
@@ -1077,686 +775,186 @@ document.getElementById('drawer-close').addEventListener('click', closeMobileDra
 document.getElementById('drawer-backdrop').addEventListener('click', closeMobileDrawer);
 
 /* ═══════════════════════════════════════════════════════════════
-   FACTIONS VIEW
+   ARMY IMPORT — validates baImportVersion contract
 ═══════════════════════════════════════════════════════════════ */
-let editingFactionId = null;
+function importArmyFile(file) {
+  const reader = new FileReader();
+  reader.onload = e => {
+    let data;
+    try { data = JSON.parse(e.target.result); }
+    catch { showToast('Could not parse file — is it valid JSON?', 'error'); return; }
 
-function renderFactions() {
-  const list  = document.getElementById('factions-list');
-  const empty = document.getElementById('factions-empty');
-  list.innerHTML = '';
-  if (!factions.length) { empty.style.display = ''; return; }
-  empty.style.display = 'none';
-  factions.forEach(f => {
-    const card = document.createElement('div');
-    card.className = 'card faction-card';
-    card.innerHTML = `
-      <div class="card-header">
-        <div>
-          <div class="card-title">⚔ ${f.name}</div>
-          <div class="card-meta">${f.units.length} unit${f.units.length !== 1 ? 's' : ''}
-            ${(f.profileLibrary?.shoot?.length || 0) + (f.profileLibrary?.melee?.length || 0) > 0
-              ? ` · <span class="badge badge-teal">${(f.profileLibrary?.shoot?.length||0)+(f.profileLibrary?.melee?.length||0)} library profiles</span>`
-              : ''}</div>
-        </div>
-        <div class="flex-row">
-          <button class="btn btn-clone btn-sm" onclick="cloneFaction('${f.id}')" title="Clone entire faction">⧉ Clone</button>
-          <button class="btn btn-ghost btn-sm" onclick="editFaction('${f.id}')">Edit</button>
-          <button class="btn btn-danger btn-sm" onclick="deleteFaction('${f.id}')">✕</button>
-        </div>
-      </div>
-      <div class="faction-units">
-        ${f.units.map(u => `
-          <div class="unit-row">
-            <div class="unit-info">
-              ${u.name}
-              <small>${u.datasheets.length} datasheet${u.datasheets.length !== 1 ? 's' : ''} · ${u.datasheets.reduce((a,d) => a + d.modelCount, 0)} models</small>
-            </div>
-            <div class="unit-actions">
-              <button class="btn btn-clone btn-sm" onclick="cloneUnit('${f.id}','${u.id}')" title="Clone unit">⧉</button>
-              <button class="btn btn-ghost btn-sm" onclick="editUnit('${f.id}','${u.id}')">Edit</button>
-              <button class="btn btn-danger btn-sm btn-icon" onclick="deleteUnit('${f.id}','${u.id}')">✕</button>
-            </div>
-          </div>
-        `).join('')}
-        ${!f.units.length ? '<div style="font-size:0.8rem;color:var(--text-muted);padding:0.25rem 0">No units — click Edit to add</div>' : ''}
-      </div>
-    `;
-    list.appendChild(card);
-  });
+    // Version gate
+    if (!('baImportVersion' in data)) {
+      showToast('Import failed: file is missing "baImportVersion". Export it from the Army Builder.', 'error');
+      return;
+    }
+    if (data.baImportVersion !== BA_IMPORT_VERSION) {
+      showToast(
+        `Import failed: file is version ${data.baImportVersion}, Battle Assistant expects version ${BA_IMPORT_VERSION}. Update your Army Builder or Battle Assistant.`,
+        'error'
+      );
+      return;
+    }
+    if (!Array.isArray(data.armies) || !data.armies.length) {
+      showToast('Import failed: file contains no armies.', 'error');
+      return;
+    }
+
+    // Validate each army minimally
+    const valid = [];
+    const skipped = [];
+    data.armies.forEach(a => {
+      if (!a.id || !a.name || !Array.isArray(a.entries)) {
+        skipped.push(a.name || '(unnamed)');
+        return;
+      }
+      valid.push(a);
+    });
+
+    if (!valid.length) {
+      showToast('Import failed: no valid armies found in file.', 'error');
+      return;
+    }
+
+    // Merge by id — don't duplicate
+    const existingIds = new Set(armies.map(a => a.id));
+    let added = 0, dupes = 0;
+    valid.forEach(a => {
+      if (existingIds.has(a.id)) { dupes++; return; }
+      armies.push(a);
+      added++;
+    });
+
+    saveArmies();
+    renderArmies();
+
+    const parts = [];
+    if (added)   parts.push(`${added} army${added !== 1 ? 's' : ''} imported`);
+    if (dupes)   parts.push(`${dupes} already present (skipped)`);
+    if (skipped.length) parts.push(`${skipped.length} invalid (skipped)`);
+    showToast(parts.join(' · ') + '.');
+  };
+  reader.readAsText(file);
 }
 
-/* ── Clone Faction ── */
-function cloneFaction(id) {
-  const original = factions.find(f => f.id === id);
-  const clone = cloneWithNewIds(original);
-  clone.name = original.name + ' (Copy)';
-  factions.push(clone);
-  saveFactions(); renderFactions();
-  showToast(`"${clone.name}" created.`);
-}
-
-/* ── Clone Unit (within same faction) ── */
-function cloneUnit(factionId, unitId) {
-  const f = factions.find(x => x.id === factionId);
-  const original = f.units.find(u => u.id === unitId);
-  const clone = cloneWithNewIds(original);
-  clone.name = original.name + ' (Copy)';
-  f.units.push(clone);
-  saveFactions(); renderFactions();
-  // If faction editor is open, refresh unit list too
-  if (editingFactionId === factionId) renderFactionUnitsList(f);
-  showToast(`"${clone.name}" created.`);
-}
-
-document.getElementById('btn-add-faction').addEventListener('click', () => {
-  editingFactionId = null;
-  document.getElementById('modal-faction-title').textContent = 'Add Faction';
-  document.getElementById('faction-name-input').value = '';
-  document.getElementById('faction-units-list').innerHTML =
-    `<div class="empty-state" style="padding:1.5rem"><p>Save faction first, then add units.</p></div>`;
-  renderLibrarySection(null);
-  openModal('modal-faction');
+document.getElementById('btn-import-army').addEventListener('click', () => {
+  document.getElementById('army-import-file').click();
 });
-
-function editFaction(id) {
-  editingFactionId = id;
-  const f = factions.find(x => x.id === id);
-  document.getElementById('modal-faction-title').textContent = 'Edit Faction';
-  document.getElementById('faction-name-input').value = f.name;
-  renderFactionUnitsList(f);
-  renderLibrarySection(f);
-  openModal('modal-faction');
-}
-
-function renderFactionUnitsList(faction) {
-  const list = document.getElementById('faction-units-list');
-  list.innerHTML = '';
-  if (!faction.units.length) {
-    list.innerHTML = `<div class="empty-state" style="padding:1rem"><p>No units yet. Click "+ Add Unit".</p></div>`;
-    return;
-  }
-  faction.units.forEach(u => {
-    const row = document.createElement('div');
-    row.className = 'unit-row';
-    row.innerHTML = `
-      <div class="unit-info">
-        ${u.name}
-        <small>${u.datasheets.length} datasheet(s)</small>
-      </div>
-      <div class="unit-actions">
-        <button class="btn btn-clone btn-sm" onclick="cloneUnit('${faction.id}','${u.id}')" title="Clone unit">⧉ Clone</button>
-        <button class="btn btn-ghost btn-sm" onclick="editUnit('${faction.id}','${u.id}')">Edit</button>
-        <button class="btn btn-danger btn-sm btn-icon" onclick="deleteUnit('${faction.id}','${u.id}');renderFactionUnitsList(factions.find(x=>x.id==='${faction.id}'))">✕</button>
-      </div>
-    `;
-    list.appendChild(row);
-  });
-}
-
-document.getElementById('btn-add-unit').addEventListener('click', () => {
-  if (!editingFactionId) { showToast('Save faction first.', 'error'); return; }
-  openUnitEditor(editingFactionId, null);
-});
-
-document.getElementById('btn-save-faction').addEventListener('click', () => {
-  const name = document.getElementById('faction-name-input').value.trim();
-  if (!name) { showToast('Enter a faction name.', 'error'); return; }
-  if (editingFactionId) {
-    const f = factions.find(x => x.id === editingFactionId);
-    f.name = name;
-  } else {
-    const f = { id: uuid(), name, units: [], profileLibrary: { shoot: [], melee: [] } };
-    factions.push(f);
-    editingFactionId = f.id;
-  }
-  saveFactions(); renderFactions(); showToast('Faction saved.');
-});
-
-function deleteFaction(id) {
-  showConfirm('Delete this faction and all its units?', () => {
-    factions = factions.filter(f => f.id !== id);
-    armies   = armies.filter(a => a.factionId !== id);
-    saveFactions(); saveArmies(); renderFactions(); showToast('Faction deleted.');
-  });
-}
-
-function deleteUnit(factionId, unitId) {
-  const f = factions.find(x => x.id === factionId);
-  if (!f) return;
-  f.units = f.units.filter(u => u.id !== unitId);
-  saveFactions(); renderFactions();
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   PROFILE LIBRARY (faction-level)
-═══════════════════════════════════════════════════════════════ */
-let currentLibTab = 'shoot';
-
-function getFactionLibrary(factionId) {
-  const f = factions.find(x => x.id === factionId);
-  if (!f) return null;
-  if (!f.profileLibrary) f.profileLibrary = { shoot: [], melee: [] };
-  return f.profileLibrary;
-}
-
-function switchLibTab(tab) {
-  currentLibTab = tab;
-  document.getElementById('lib-tab-shoot').classList.toggle('active', tab === 'shoot');
-  document.getElementById('lib-tab-melee').classList.toggle('active', tab === 'melee');
-  document.getElementById('lib-shoot-list').style.display = tab === 'shoot' ? '' : 'none';
-  document.getElementById('lib-melee-list').style.display = tab === 'melee' ? '' : 'none';
-}
-
-function renderLibrarySection(faction) {
-  const shootList = document.getElementById('lib-shoot-list');
-  const meleeList = document.getElementById('lib-melee-list');
-  if (!faction) {
-    shootList.innerHTML = '<div class="lib-empty">Save faction first to manage library.</div>';
-    meleeList.innerHTML = '';
-    return;
-  }
-  const lib = getFactionLibrary(faction.id);
-  renderLibList(shootList, lib.shoot, false, faction.id);
-  renderLibList(meleeList, lib.melee, true, faction.id);
-}
-
-function renderLibList(container, profiles, isMelee, factionId) {
-  if (!profiles.length) {
-    container.innerHTML = `<div class="lib-empty">No ${isMelee ? 'melee' : 'shooting'} profiles in library yet.</div>`;
-    return;
-  }
-  container.innerHTML = profiles.map((p, i) => `
-    <div class="lib-profile-row">
-      <div>
-        <div>${p.name || '(unnamed)'}</div>
-        <div class="lib-profile-stats">
-          ${isMelee
-            ? `A:${p.attacksDisplay} WS:${p.weaponSkill}+ S:${p.strength} AP:${p.armorPenetration} D:${p.damageDisplay}`
-            : `Rng:${p.range}" A:${p.attacksDisplay} BS:${p.ballisticSkill}+ S:${p.strength} AP:${p.armorPenetration} D:${p.damageDisplay}`}
-        </div>
-      </div>
-      <div class="flex-row gap-sm">
-        <button class="btn btn-danger btn-sm btn-icon" onclick="deleteLibProfile('${factionId}',${i},${isMelee})">✕</button>
-      </div>
-    </div>
-  `).join('');
-}
-
-function addLibProfile(isMelee) {
-  if (!editingFactionId) { showToast('Save faction first.', 'error'); return; }
-  const lib = getFactionLibrary(editingFactionId);
-  const arr = isMelee ? lib.melee : lib.shoot;
-  if (isMelee) {
-    arr.push({ id: uuid(), name: 'New Melee Profile', attacks: 1, attacksDisplay: '1', weaponSkill: 3, strength: 4, armorPenetration: 0, damage: 1, damageDisplay: '1' });
-  } else {
-    arr.push({ id: uuid(), name: 'New Shooting Profile', attacks: 1, attacksDisplay: '1', range: 24, ballisticSkill: 3, strength: 4, armorPenetration: 0, damage: 1, damageDisplay: '1' });
-  }
-  saveFactions();
-  const f = factions.find(x => x.id === editingFactionId);
-  renderLibrarySection(f);
-  if (isMelee) switchLibTab('melee'); else switchLibTab('shoot');
-  showToast('Profile added to library. Edit it from the datasheet editor to set stats.');
-}
-
-function deleteLibProfile(factionId, idx, isMelee) {
-  const lib = getFactionLibrary(factionId);
-  const arr = isMelee ? lib.melee : lib.shoot;
-  arr.splice(idx, 1);
-  saveFactions();
-  const f = factions.find(x => x.id === factionId);
-  renderLibrarySection(f);
-}
-
-/* ── Library Picker (called from inside datasheet editor) ── */
-let libPickerContext = null; // { di, isMelee }
-
-function openLibPicker(di, isMelee) {
-  if (!editingFactionId) return;
-  const lib = getFactionLibrary(editingFactionId);
-  const profiles = isMelee ? lib.melee : lib.shoot;
-  libPickerContext = { di, isMelee };
-  document.getElementById('lib-picker-title').textContent =
-    isMelee ? 'Select Melee Profile from Library' : 'Select Shooting Profile from Library';
-  const listEl = document.getElementById('lib-picker-list');
-  if (!profiles.length) {
-    listEl.innerHTML = `<div class="empty-state" style="padding:1.5rem"><p>No ${isMelee ? 'melee' : 'shooting'} profiles in this faction's library yet.<br>Add some from the faction editor.</p></div>`;
-  } else {
-    listEl.innerHTML = profiles.map((p, i) => `
-      <div class="lib-profile-row" style="cursor:pointer" onclick="stampLibProfile(${i})">
-        <div>
-          <div style="font-weight:600">${p.name || '(unnamed)'}</div>
-          <div class="lib-profile-stats">
-            ${isMelee
-              ? `A:${p.attacksDisplay} WS:${p.weaponSkill}+ S:${p.strength} AP:${p.armorPenetration} D:${p.damageDisplay}`
-              : `Rng:${p.range}" A:${p.attacksDisplay} BS:${p.ballisticSkill}+ S:${p.strength} AP:${p.armorPenetration} D:${p.damageDisplay}`}
-          </div>
-        </div>
-        <button class="btn btn-gold btn-sm">Stamp Copy</button>
-      </div>
-    `).join('');
-  }
-  openModal('modal-lib-picker');
-}
-
-function stampLibProfile(libIdx) {
-  if (!libPickerContext) return;
-  const { di, isMelee } = libPickerContext;
-  const lib = getFactionLibrary(editingFactionId);
-  const source = isMelee ? lib.melee[libIdx] : lib.shoot[libIdx];
-  const copy = cloneWithNewIds(source); // snapshot — fully independent
-  const ds = tempUnit.datasheets[di];
-  if (isMelee) { if (!ds.meleeProfiles) ds.meleeProfiles = []; ds.meleeProfiles.push(copy); }
-  else         { if (!ds.shootingProfiles) ds.shootingProfiles = []; ds.shootingProfiles.push(copy); }
-  refreshProfileTable(di, isMelee);
-  closeModal('modal-lib-picker');
-  showToast(`"${copy.name}" stamped into datasheet.`);
-}
-
-/* ── Save profile to library from datasheet ── */
-function saveProfileToLibrary(di, pi, isMelee) {
-  if (!editingFactionId) { showToast('No faction context.', 'error'); return; }
-  const ds = tempUnit.datasheets[di];
-  const arr = isMelee ? ds.meleeProfiles : ds.shootingProfiles;
-  const source = arr[pi];
-  const lib = getFactionLibrary(editingFactionId);
-  const copy = cloneWithNewIds(source);
-  if (isMelee) lib.melee.push(copy);
-  else         lib.shoot.push(copy);
-  saveFactions();
-  showToast(`"${copy.name}" saved to faction library.`);
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   UNIT EDITOR MODAL
-═══════════════════════════════════════════════════════════════ */
-let editingUnitContext = { factionId: null, unitId: null };
-let tempUnit = null;
-
-function openUnitEditor(factionId, unitId) {
-  editingUnitContext = { factionId, unitId };
-  const faction = factions.find(f => f.id === factionId);
-  if (unitId) {
-    const u = faction.units.find(u => u.id === unitId);
-    tempUnit = deepClone(u);
-    document.getElementById('modal-unit-title').textContent = 'Edit Unit';
-  } else {
-    tempUnit = { id: uuid(), name: '', datasheets: [] };
-    document.getElementById('modal-unit-title').textContent = 'Add Unit';
-  }
-  document.getElementById('unit-name-input').value = tempUnit.name;
-  renderDatasheetsList();
-  openModal('modal-unit');
-}
-window.editUnit = openUnitEditor;
-
-function renderDatasheetsList() {
-  const list = document.getElementById('unit-datasheets-list');
-  list.innerHTML = '';
-  if (!tempUnit.datasheets.length) {
-    list.innerHTML = `<div class="empty-state" style="padding:1rem"><p>No datasheets. Click "+ Add Datasheet".</p></div>`;
-    return;
-  }
-  tempUnit.datasheets.forEach((ds, di) => {
-    const item = document.createElement('div');
-    item.className = 'ds-item';
-    item.innerHTML = `
-      <div class="ds-item-header" onclick="toggleDS(this)">
-        <span style="font-family:Cinzel,serif;font-size:0.85rem;color:var(--text)">${ds.name || 'Unnamed Datasheet'}</span>
-        <div class="flex-row">
-          <span class="badge badge-dim">${ds.modelCount}×M · ${ds.wounds}W · T${ds.toughness} · ${ds.armorSave}+</span>
-          <button class="btn btn-clone btn-sm" onclick="event.stopPropagation();cloneDatasheet(${di})" title="Clone datasheet">⧉</button>
-          <button class="btn btn-danger btn-sm btn-icon" onclick="event.stopPropagation();removeDatasheet(${di})">✕</button>
-        </div>
-      </div>
-      <div class="ds-item-body" style="display:none">
-        ${buildDSEditor(ds, di)}
-      </div>
-    `;
-    list.appendChild(item);
-  });
-}
-
-/* ── Clone Datasheet ── */
-function cloneDatasheet(di) {
-  const original = tempUnit.datasheets[di];
-  const clone = cloneWithNewIds(original);
-  clone.name = original.name + ' (Copy)';
-  tempUnit.datasheets.splice(di + 1, 0, clone);
-  renderDatasheetsList();
-  // Auto-expand the clone
-  const items = document.querySelectorAll('#unit-datasheets-list .ds-item');
-  if (items[di + 1]) items[di + 1].querySelector('.ds-item-body').style.display = '';
-  showToast(`"${clone.name}" created.`);
-}
-
-function toggleDS(header) {
-  const body = header.nextElementSibling;
-  body.style.display = body.style.display === 'none' ? '' : 'none';
-}
-
-function buildDSEditor(ds, di) {
-  const saveOptions = [2,3,4,5,6,7].map(n => `<option value="${n}" ${ds.armorSave===n?'selected':''}>${n===7?'None':n+'+'}</option>`).join('');
-  const invOptions  = [3,4,5,6,7].map(n => `<option value="${n}" ${ds.invulnSave===n?'selected':''}>${n===7?'None':n+'+'}</option>`).join('');
-  const fnpOptions  = [4,5,6,7].map(n => `<option value="${n}" ${(ds.feelNoPain||7)===n?'selected':''}>${n===7?'None':n+'+'}</option>`).join('');
-  const shootRows = (ds.shootingProfiles||[]).map((p,pi) => buildProfileRow(p,pi,di,false)).join('');
-  const meleeRows = (ds.meleeProfiles||[]).map((p,pi) => buildProfileRow(p,pi,di,true)).join('');
-  return `
-    <div class="form-row mb-2">
-      <div class="form-group">
-        <label class="form-label">Name</label>
-        <input class="form-input" value="${ds.name}" onchange="updateDS(${di},'name',this.value)" placeholder="Intercessor">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Model Count</label>
-        <input type="number" class="form-input" value="${ds.modelCount}" min="1" onchange="updateDS(${di},'modelCount',+this.value)">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Toughness (T)</label>
-        <input type="number" class="form-input" value="${ds.toughness}" min="1" onchange="updateDS(${di},'toughness',+this.value)">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Armor Save</label>
-        <select class="form-select" onchange="updateDS(${di},'armorSave',+this.value)">${saveOptions}</select>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Wounds (W)</label>
-        <input type="number" class="form-input" value="${ds.wounds}" min="1" onchange="updateDS(${di},'wounds',+this.value)">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Invuln Save</label>
-        <select class="form-select" onchange="updateDS(${di},'invulnSave',+this.value)">${invOptions}</select>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Feel No Pain</label>
-        <select class="form-select" onchange="updateDS(${di},'feelNoPain',+this.value)">${fnpOptions}</select>
-      </div>
-    </div>
-
-    <div class="profile-section">
-      <div class="flex-row mb-1">
-        <div class="profile-section-title" style="flex:1">☩ SHOOTING PROFILES</div>
-        <button class="btn btn-ghost btn-sm" onclick="openLibPicker(${di},false)" title="Stamp from faction library">⊕ From Library</button>
-        <button class="btn btn-ghost btn-sm" onclick="addProfile(${di},false)">+ Add</button>
-      </div>
-      <div class="table-wrap">
-        <table class="data-table">
-          <thead><tr><th>Name</th><th>Rng</th><th>A</th><th>BS</th><th>S</th><th>AP</th><th>D</th><th></th></tr></thead>
-          <tbody id="shoot-rows-${di}">${shootRows||noProfileRow(8)}</tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="profile-section mt-2">
-      <div class="flex-row mb-1">
-        <div class="profile-section-title" style="flex:1">⚔ MELEE PROFILES</div>
-        <button class="btn btn-ghost btn-sm" onclick="openLibPicker(${di},true)" title="Stamp from faction library">⊕ From Library</button>
-        <button class="btn btn-ghost btn-sm" onclick="addProfile(${di},true)">+ Add</button>
-      </div>
-      <div class="table-wrap">
-        <table class="data-table">
-          <thead><tr><th>Name</th><th>A</th><th>WS</th><th>S</th><th>AP</th><th>D</th><th></th></tr></thead>
-          <tbody id="melee-rows-${di}">${meleeRows||noProfileRow(7)}</tbody>
-        </table>
-      </div>
-    </div>
-  `;
-}
-
-function noProfileRow(cols) {
-  return `<tr><td colspan="${cols}" style="color:var(--text-muted);font-size:0.8rem;text-align:center;padding:0.5rem">No profiles</td></tr>`;
-}
-
-function buildProfileRow(p, pi, di, isMelee) {
-  // Each row gets a "save to library" button (⊙) and a "clone" button (⧉)
-  if (isMelee) {
-    return `<tr>
-      <td><input value="${p.name}" onchange="updateProfile(${di},${pi},true,'name',this.value)" placeholder="Power Sword"></td>
-      <td><input value="${p.attacksDisplay}" onchange="updateProfile(${di},${pi},true,'attacksDisplay',this.value)" style="width:50px"></td>
-      <td><input type="number" value="${p.weaponSkill}" onchange="updateProfile(${di},${pi},true,'weaponSkill',+this.value)" style="width:40px" min="2" max="6"></td>
-      <td><input type="number" value="${p.strength}" onchange="updateProfile(${di},${pi},true,'strength',+this.value)" style="width:40px"></td>
-      <td><input type="number" value="${p.armorPenetration}" onchange="updateProfile(${di},${pi},true,'armorPenetration',+this.value)" style="width:45px"></td>
-      <td><input value="${p.damageDisplay}" onchange="updateProfile(${di},${pi},true,'damageDisplay',this.value)" style="width:50px"></td>
-      <td style="white-space:nowrap">
-        <button class="btn btn-clone btn-sm btn-icon" title="Clone profile" onclick="cloneProfile(${di},${pi},true)">⧉</button>
-        <button class="btn btn-ghost btn-sm btn-icon" title="Save to faction library" onclick="saveProfileToLibrary(${di},${pi},true)">⊙</button>
-        <button class="btn btn-danger btn-sm btn-icon" onclick="removeProfile(${di},${pi},true)">✕</button>
-      </td>
-    </tr>`;
-  } else {
-    return `<tr>
-      <td><input value="${p.name}" onchange="updateProfile(${di},${pi},false,'name',this.value)" placeholder="Bolt Rifle"></td>
-      <td><input type="number" value="${p.range}" onchange="updateProfile(${di},${pi},false,'range',+this.value)" style="width:40px"></td>
-      <td><input value="${p.attacksDisplay}" onchange="updateProfile(${di},${pi},false,'attacksDisplay',this.value)" style="width:50px"></td>
-      <td><input type="number" value="${p.ballisticSkill}" onchange="updateProfile(${di},${pi},false,'ballisticSkill',+this.value)" style="width:40px" min="2" max="6"></td>
-      <td><input type="number" value="${p.strength}" onchange="updateProfile(${di},${pi},false,'strength',+this.value)" style="width:40px"></td>
-      <td><input type="number" value="${p.armorPenetration}" onchange="updateProfile(${di},${pi},false,'armorPenetration',+this.value)" style="width:45px"></td>
-      <td><input value="${p.damageDisplay}" onchange="updateProfile(${di},${pi},false,'damageDisplay',this.value)" style="width:50px"></td>
-      <td style="white-space:nowrap">
-        <button class="btn btn-clone btn-sm btn-icon" title="Clone profile" onclick="cloneProfile(${di},${pi},false)">⧉</button>
-        <button class="btn btn-ghost btn-sm btn-icon" title="Save to faction library" onclick="saveProfileToLibrary(${di},${pi},false)">⊙</button>
-        <button class="btn btn-danger btn-sm btn-icon" onclick="removeProfile(${di},${pi},false)">✕</button>
-      </td>
-    </tr>`;
-  }
-}
-
-function updateDS(di, field, val) { tempUnit.datasheets[di][field] = val; }
-
-function refreshProfileTable(di, isMelee) {
-  const ds = tempUnit.datasheets[di];
-  const tbody = document.getElementById(isMelee ? `melee-rows-${di}` : `shoot-rows-${di}`);
-  if (!tbody) return;
-  const profiles = isMelee ? (ds.meleeProfiles||[]) : (ds.shootingProfiles||[]);
-  const cols = isMelee ? 7 : 8;
-  tbody.innerHTML = profiles.length
-    ? profiles.map((p, pi) => buildProfileRow(p, pi, di, isMelee)).join('')
-    : noProfileRow(cols);
-}
-
-function addProfile(di, isMelee) {
-  const ds = tempUnit.datasheets[di];
-  if (isMelee) {
-    if (!ds.meleeProfiles) ds.meleeProfiles = [];
-    ds.meleeProfiles.push({ id: uuid(), name: '', attacks: 1, attacksDisplay: '1', weaponSkill: 3, strength: 4, armorPenetration: 0, damage: 1, damageDisplay: '1' });
-  } else {
-    if (!ds.shootingProfiles) ds.shootingProfiles = [];
-    ds.shootingProfiles.push({ id: uuid(), name: '', attacks: 1, attacksDisplay: '1', range: 24, ballisticSkill: 3, strength: 4, armorPenetration: 0, damage: 1, damageDisplay: '1' });
-  }
-  refreshProfileTable(di, isMelee);
-}
-
-/* ── Clone Profile ── */
-function cloneProfile(di, pi, isMelee) {
-  const ds = tempUnit.datasheets[di];
-  const arr = isMelee ? ds.meleeProfiles : ds.shootingProfiles;
-  const clone = cloneWithNewIds(arr[pi]);
-  clone.name = arr[pi].name + ' (Copy)';
-  arr.splice(pi + 1, 0, clone);
-  refreshProfileTable(di, isMelee);
-}
-
-function removeProfile(di, pi, isMelee) {
-  const ds = tempUnit.datasheets[di];
-  if (isMelee) ds.meleeProfiles.splice(pi, 1);
-  else ds.shootingProfiles.splice(pi, 1);
-  refreshProfileTable(di, isMelee);
-}
-
-function updateProfile(di, pi, isMelee, field, val) {
-  const ds  = tempUnit.datasheets[di];
-  const arr = isMelee ? ds.meleeProfiles : ds.shootingProfiles;
-  arr[pi][field] = val;
-  if (field === 'attacksDisplay') arr[pi].attacks = parseDice(val).value;
-  if (field === 'damageDisplay')  arr[pi].damage  = parseDice(val).value;
-}
-
-function removeDatasheet(di) {
-  tempUnit.datasheets.splice(di, 1);
-  renderDatasheetsList();
-}
-
-document.getElementById('btn-add-datasheet').addEventListener('click', () => {
-  tempUnit.datasheets.push({
-    id: uuid(), name: '', modelCount: 5, wounds: 2, toughness: 4, armorSave: 3,
-    invulnSave: 7, feelNoPain: 7, shootingProfiles: [], meleeProfiles: []
-  });
-  renderDatasheetsList();
-  const items = document.querySelectorAll('#unit-datasheets-list .ds-item');
-  if (items.length) items[items.length - 1].querySelector('.ds-item-body').style.display = '';
-});
-
-document.getElementById('btn-save-unit').addEventListener('click', () => {
-  tempUnit.name = document.getElementById('unit-name-input').value.trim();
-  if (!tempUnit.name) { showToast('Enter a unit name.', 'error'); return; }
-  const faction = factions.find(f => f.id === editingUnitContext.factionId);
-  const idx = faction.units.findIndex(u => u.id === tempUnit.id);
-  if (idx >= 0) faction.units[idx] = tempUnit;
-  else faction.units.push(tempUnit);
-  saveFactions();
-  renderFactions();
-  if (editingFactionId) renderFactionUnitsList(faction);
-  closeModal('modal-unit');
-  showToast('Unit saved.');
+document.getElementById('army-import-file').addEventListener('change', e => {
+  const file = e.target.files[0];
+  if (file) importArmyFile(file);
+  e.target.value = '';
 });
 
 /* ═══════════════════════════════════════════════════════════════
    ARMIES VIEW
 ═══════════════════════════════════════════════════════════════ */
-let editingArmyId   = null;
-let tempArmyEntries = [];
-
 function renderArmies() {
   const list  = document.getElementById('armies-list');
   const empty = document.getElementById('armies-empty');
   list.innerHTML = '';
+
   if (!armies.length) { empty.style.display = ''; return; }
   empty.style.display = 'none';
+
   armies.forEach(a => {
-    const faction = factions.find(f => f.id === a.factionId);
+    const totalModels = a.entries.reduce((sum, e) =>
+      sum + e.datasheets.reduce((s, d) => s + d.modelCount, 0), 0);
+    const totalUnits  = a.entries.length;
+
     const card = document.createElement('div');
-    card.className = 'card';
-    const totalModels = a.entries.reduce((sum, e) => {
-      const u = faction?.units.find(u => u.id === e.unitId);
-      return sum + (u ? u.datasheets.reduce((s,d) => s + d.modelCount, 0) : 0);
-    }, 0);
+    card.className = 'card army-card';
     card.innerHTML = `
       <div class="card-header">
         <div>
           <div class="card-title">🛡 ${a.name}</div>
-          <div class="card-meta">${faction ? faction.name : 'Unknown Faction'}</div>
+          <div class="card-meta">${a.faction || 'Unknown Faction'}</div>
         </div>
         <div class="flex-row">
-          <button class="btn btn-clone btn-sm" onclick="cloneArmy('${a.id}')" title="Clone army">⧉ Clone</button>
-          <button class="btn btn-ghost btn-sm" onclick="editArmy('${a.id}')">Edit</button>
+          <button class="btn btn-ghost btn-sm" onclick="showArmyDetail('${a.id}')">View</button>
           <button class="btn btn-danger btn-sm" onclick="deleteArmy('${a.id}')">✕</button>
         </div>
       </div>
-      <div class="army-stats">
-        <span class="badge badge-gold">${a.entries.length} units</span>
+      <div class="flex-row flex-wrap mt-1" style="gap:0.35rem">
+        <span class="badge badge-gold">${totalUnits} unit${totalUnits !== 1 ? 's' : ''}</span>
         <span class="badge badge-dim">${totalModels} models</span>
       </div>
-      <div style="margin-top:0.5rem">
-        ${a.entries.slice(0,5).map(e => {
-          const u = faction?.units.find(u => u.id === e.unitId);
-          return `<div class="entry-item"><span style="font-size:0.85rem">${u ? u.name : 'Unknown'}</span></div>`;
-        }).join('')}
-        ${a.entries.length > 5 ? `<div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.35rem">+${a.entries.length - 5} more…</div>` : ''}
+      <div class="army-unit-list">
+        ${a.entries.slice(0, 5).map(e => `
+          <div class="army-unit-row">
+            <span>${e.unitName}</span>
+            <span class="army-unit-meta">${e.datasheets.reduce((s,d) => s + d.modelCount, 0)} models</span>
+          </div>
+        `).join('')}
+        ${a.entries.length > 5
+          ? `<div style="font-size:0.72rem;color:var(--text-muted);padding:0.2rem 0.4rem">+${a.entries.length - 5} more units…</div>`
+          : ''}
       </div>
     `;
     list.appendChild(card);
   });
 }
 
-/* ── Clone Army ── */
-function cloneArmy(id) {
-  const original = armies.find(a => a.id === id);
-  const clone = cloneWithNewIds(original);
-  clone.name = original.name + ' (Copy)';
-  armies.push(clone);
-  saveArmies(); renderArmies();
-  showToast(`"${clone.name}" created.`);
-}
-
-document.getElementById('btn-add-army').addEventListener('click', () => {
-  if (!factions.length) { showToast('Add at least one faction first.', 'error'); return; }
-  editingArmyId = null;
-  tempArmyEntries = [];
-  document.getElementById('modal-army-title').textContent = 'Add Army';
-  document.getElementById('army-name-input').value = '';
-  populateFactionSelect();
-  renderArmyEditor();
-  openModal('modal-army');
-});
-
-function editArmy(id) {
-  editingArmyId = id;
+function showArmyDetail(id) {
   const a = armies.find(x => x.id === id);
-  tempArmyEntries = deepClone(a.entries);
-  document.getElementById('modal-army-title').textContent = 'Edit Army';
-  document.getElementById('army-name-input').value = a.name;
-  populateFactionSelect(a.factionId);
-  renderArmyEditor();
-  openModal('modal-army');
-}
-
-function populateFactionSelect(selectedId) {
-  const sel = document.getElementById('army-faction-select');
-  sel.innerHTML = factions.map(f => `<option value="${f.id}" ${f.id === selectedId ? 'selected' : ''}>${f.name}</option>`).join('');
-  sel.onchange = renderArmyEditor;
-}
-
-function renderArmyEditor() {
-  const factionId = document.getElementById('army-faction-select').value;
-  const faction   = factions.find(f => f.id === factionId);
-  if (!faction) return;
-  const avail = document.getElementById('army-available-units');
-  const sel   = document.getElementById('army-selected-units');
-  avail.innerHTML = faction.units.map(u => `
-    <div class="unit-row" style="cursor:pointer" onclick="addArmyEntry('${u.id}')">
-      <div class="unit-info">
-        ${u.name}
-        <small>${u.datasheets.reduce((a,d)=>a+d.modelCount,0)} models</small>
+  if (!a) return;
+  document.getElementById('army-detail-title').textContent = `${a.name} — ${a.faction || ''}`;
+  document.getElementById('army-detail-body').innerHTML = a.entries.map(e => `
+    <div class="unit-detail-block">
+      <div class="unit-detail-header">${e.unitName}</div>
+      <div class="unit-detail-body">
+        ${e.datasheets.map(ds => `
+          <div class="ds-detail-block">
+            <div class="ds-detail-name">${ds.name || 'Datasheet'}</div>
+            <div class="ds-stat-row">
+              <span class="badge badge-dim">${ds.modelCount}× Models</span>
+              <span class="badge badge-dim">T${ds.toughness}</span>
+              <span class="badge badge-dim">${ds.wounds}W</span>
+              <span class="badge badge-dim">${ds.armorSave}+</span>
+              ${ds.invulnSave < 7 ? `<span class="badge badge-dim">${ds.invulnSave}++</span>` : ''}
+              ${ds.feelNoPain < 7 ? `<span class="badge badge-dim">${ds.feelNoPain}+++</span>` : ''}
+            </div>
+            ${ds.shootingProfiles?.length ? `
+              <div style="font-size:0.7rem;font-family:Cinzel,serif;letter-spacing:0.1em;color:var(--gold-dim);margin:0.4rem 0 0.25rem">SHOOTING</div>
+              ${ds.shootingProfiles.map(p => `
+                <div style="font-size:0.8rem;color:var(--text-dim);padding:0.15rem 0;border-bottom:1px solid var(--border-dim)">
+                  <span style="color:var(--text)">${p.name}</span>
+                  &nbsp;·&nbsp; Rng:${p.range}" A:${p.attacksDisplay} BS:${p.ballisticSkill}+ S:${p.strength} AP:${p.armorPenetration} D:${p.damageDisplay}
+                </div>
+              `).join('')}
+            ` : ''}
+            ${ds.meleeProfiles?.length ? `
+              <div style="font-size:0.7rem;font-family:Cinzel,serif;letter-spacing:0.1em;color:var(--gold-dim);margin:0.4rem 0 0.25rem">MELEE</div>
+              ${ds.meleeProfiles.map(p => `
+                <div style="font-size:0.8rem;color:var(--text-dim);padding:0.15rem 0;border-bottom:1px solid var(--border-dim)">
+                  <span style="color:var(--text)">${p.name}</span>
+                  &nbsp;·&nbsp; A:${p.attacksDisplay} WS:${p.weaponSkill}+ S:${p.strength} AP:${p.armorPenetration} D:${p.damageDisplay}
+                </div>
+              `).join('')}
+            ` : ''}
+          </div>
+        `).join('')}
       </div>
-      <button class="btn btn-ghost btn-sm">+ Add</button>
     </div>
-  `).join('') || '<div style="color:var(--text-muted);font-size:0.8rem;padding:0.5rem">No units in faction</div>';
-  sel.innerHTML = tempArmyEntries.map((e, i) => {
-    const u = faction.units.find(u => u.id === e.unitId);
-    return `<div class="entry-item">
-      <span style="font-size:0.85rem">${u ? u.name : 'Unknown'}</span>
-      <button class="btn btn-danger btn-sm btn-icon" onclick="removeArmyEntry(${i})">✕</button>
-    </div>`;
-  }).join('') || '<div style="color:var(--text-muted);font-size:0.8rem;padding:0.5rem">No units added yet</div>';
+  `).join('');
+  openModal('modal-army-detail');
 }
-
-function addArmyEntry(unitId) { tempArmyEntries.push({ entryId: uuid(), unitId }); renderArmyEditor(); }
-function removeArmyEntry(idx) { tempArmyEntries.splice(idx, 1); renderArmyEditor(); }
-
-document.getElementById('btn-save-army').addEventListener('click', () => {
-  const name      = document.getElementById('army-name-input').value.trim();
-  const factionId = document.getElementById('army-faction-select').value;
-  if (!name) { showToast('Enter an army name.', 'error'); return; }
-  if (!tempArmyEntries.length) { showToast('Add at least one unit.', 'error'); return; }
-  if (editingArmyId) {
-    const a = armies.find(x => x.id === editingArmyId);
-    a.name = name; a.factionId = factionId; a.entries = tempArmyEntries;
-  } else {
-    armies.push({ id: uuid(), name, factionId, entries: tempArmyEntries });
-  }
-  saveArmies(); renderArmies(); closeModal('modal-army'); showToast('Army saved.');
-});
 
 function deleteArmy(id) {
-  showConfirm('Delete this army?', () => {
+  showConfirm('Remove this army from Battle Assistant? (The original Army Builder file is unaffected.)', () => {
     armies = armies.filter(a => a.id !== id);
-    saveArmies(); renderArmies(); showToast('Army deleted.');
+    saveArmies();
+    renderArmies();
+    showToast('Army removed.');
   });
 }
 
 /* ═══════════════════════════════════════════════════════════════
    BATTLE VIEW
 ═══════════════════════════════════════════════════════════════ */
+let battleState = null;
+
 function renderBattleSetup() {
   if (battleState) {
     document.getElementById('battle-setup-panel').style.display = 'none';
@@ -1765,12 +963,10 @@ function renderBattleSetup() {
   }
   document.getElementById('battle-setup-panel').style.display = '';
   document.getElementById('battle-active-panel').style.display = 'none';
-  const opts = armies.map(a => {
-    const f = factions.find(x => x.id === a.factionId);
-    return `<option value="${a.id}">${a.name} (${f ? f.name : '?'})</option>`;
-  }).join('');
-  document.getElementById('battle-army-a').innerHTML = opts || '<option value="">No armies</option>';
-  document.getElementById('battle-army-b').innerHTML = opts || '<option value="">No armies</option>';
+  const opts = armies.map(a => `<option value="${a.id}">${a.name} (${a.faction || '?'})</option>`).join('');
+  const noOpt = '<option value="">No armies — import one first</option>';
+  document.getElementById('battle-army-a').innerHTML = opts || noOpt;
+  document.getElementById('battle-army-b').innerHTML = opts || noOpt;
   if (armies.length > 1) document.getElementById('battle-army-b').selectedIndex = 1;
 }
 
@@ -1778,30 +974,36 @@ document.getElementById('btn-begin-battle').addEventListener('click', () => {
   const idA = document.getElementById('battle-army-a').value;
   const idB = document.getElementById('battle-army-b').value;
   if (!idA || !idB)  { showToast('Select two armies.', 'error'); return; }
-  if (idA === idB)    { showToast('Select two different armies.', 'error'); return; }
+  if (idA === idB)   { showToast('Select two different armies.', 'error'); return; }
   const name = document.getElementById('battle-name-input').value.trim() || 'Unnamed Battle';
   initBattle(idA, idB, name);
 });
 
+// Build a BattleArmy from the stored self-contained army object
 function buildBattleArmy(army) {
-  const faction = factions.find(f => f.id === army.factionId);
   return {
-    armyId: army.id, label: army.name,
-    entries: army.entries.map(e => {
-      const unit = faction?.units.find(u => u.id === e.unitId);
-      return {
-        entryId: e.entryId, unitId: e.unitId,
-        unitName: unit ? unit.name : 'Unknown',
-        datasheets: (unit?.datasheets||[]).map(ds => ({
-          datasheetId: ds.id, name: ds.name,
-          wounds: ds.wounds, toughness: ds.toughness,
-          armorSave: ds.armorSave, invulnSave: ds.invulnSave||7, feelNoPain: ds.feelNoPain||7,
-          shootingProfiles: ds.shootingProfiles||[], meleeProfiles: ds.meleeProfiles||[],
-          currentModels: ds.modelCount, maxModels: ds.modelCount, partialWounds: 0,
-        })),
-        activated: false, destroyed: false,
-      };
-    })
+    armyId: army.id,
+    label:  army.name,
+    entries: army.entries.map(e => ({
+      entryId:  e.entryId,
+      unitName: e.unitName,
+      datasheets: e.datasheets.map(ds => ({
+        datasheetId:      ds.datasheetId,
+        name:             ds.name,
+        wounds:           ds.wounds,
+        toughness:        ds.toughness,
+        armorSave:        ds.armorSave,
+        invulnSave:       ds.invulnSave  ?? 7,
+        feelNoPain:       ds.feelNoPain  ?? 7,
+        shootingProfiles: ds.shootingProfiles ?? [],
+        meleeProfiles:    ds.meleeProfiles    ?? [],
+        currentModels:    ds.modelCount,
+        maxModels:        ds.modelCount,
+        partialWounds:    0,
+      })),
+      activated: false,
+      destroyed: false,
+    }))
   };
 }
 
@@ -1812,9 +1014,8 @@ function initBattle(idA, idB, name) {
     armyB: buildBattleArmy(armies.find(a => a.id === idB)),
     resources: [
       { id: uuid(), name: 'Command Points', value: 0 },
-      { id: uuid(), name: 'Round', value: 1 },
+      { id: uuid(), name: 'Round',          value: 1 },
     ],
-    phase: 'active'
   };
   renderBattleActive();
 }
@@ -1832,6 +1033,7 @@ function renderBattleActive() {
   renderBattleUnits('b');
 }
 
+/* ── Resources ── */
 function renderResources() {
   document.getElementById('resource-bar').innerHTML = battleState.resources.map(r => `
     <div class="resource-item">
@@ -1858,10 +1060,12 @@ function changeResource(id, delta) {
   r.value = Math.max(0, r.value + delta);
   renderResources();
 }
+
 function deleteResource(id) {
   battleState.resources = battleState.resources.filter(r => r.id !== id);
   renderResources();
 }
+
 document.getElementById('btn-add-resource').addEventListener('click', () => {
   document.getElementById('resource-name-input').value = '';
   document.getElementById('resource-value-input').value = '0';
@@ -1875,19 +1079,24 @@ document.getElementById('btn-save-resource').addEventListener('click', () => {
   renderResources(); closeModal('modal-resource');
 });
 
+/* ── Battle Units ── */
 function renderBattleUnits(side) {
   const ba   = side === 'a' ? battleState.armyA : battleState.armyB;
   const cont = document.getElementById('panel-' + side + '-units');
   cont.innerHTML = '';
-  const active = ba.entries.filter(e => !e.destroyed);
-  if (!active.length) {
-    cont.innerHTML = `<div class="empty-state" style="padding:1.5rem"><p>All units destroyed.</p></div>`; return;
-  }
+  const active  = ba.entries.filter(e => !e.destroyed);
   const oppSide = side === 'a' ? 'b' : 'a';
+
+  if (!active.length) {
+    cont.innerHTML = `<div class="empty-state" style="padding:1.5rem"><p>All units destroyed.</p></div>`;
+    return;
+  }
+
   active.forEach(entry => {
     const card = document.createElement('div');
     card.className = 'battle-unit-card' + (entry.activated ? ' activated' : '');
     card.id = 'buc-' + entry.entryId;
+
     const dsTrackers = entry.datasheets.map((ds, di) => `
       <div class="ds-tracker">
         <div class="ds-tracker-label">${ds.name || 'Models'}</div>
@@ -1895,7 +1104,7 @@ function renderBattleUnits(side) {
           <button class="tracker-btn" onclick="adjustModels('${side}','${entry.entryId}',${di},-1)">−</button>
           <div class="tracker-val">${ds.currentModels}/${ds.maxModels}</div>
           <button class="tracker-btn" onclick="adjustModels('${side}','${entry.entryId}',${di},+1)">+</button>
-          <span class="tracker-sep" style="margin:0 0.3rem">·</span>
+          <span class="tracker-sep">·</span>
           <span style="font-size:0.7rem;color:var(--text-dim)">W:</span>
           <button class="tracker-btn" onclick="adjustWounds('${side}','${entry.entryId}',${di},-1)">−</button>
           <div class="tracker-val">${ds.wounds - ds.partialWounds}/${ds.wounds}</div>
@@ -1903,6 +1112,7 @@ function renderBattleUnits(side) {
         </div>
       </div>
     `).join('');
+
     card.innerHTML = `
       <div class="battle-unit-header">
         <div class="battle-unit-name">${entry.unitName}</div>
@@ -1914,7 +1124,7 @@ function renderBattleUnits(side) {
         </div>
       </div>
       ${dsTrackers}
-      <div class="flex-row flex-wrap gap-sm mt-1">
+      <div class="flex-row flex-wrap mt-1" style="gap:0.3rem">
         <button class="btn btn-blood btn-sm" onclick="runAttack('${side}','${entry.entryId}')">⚔ Attack</button>
         <button class="btn btn-ghost btn-sm" onclick="runDestroy('${oppSide}','${entry.entryId}','${side}')">☩ Destroy…</button>
         <button class="btn btn-danger btn-sm" onclick="removeFromBattle('${side}','${entry.entryId}')">✕ Remove</button>
@@ -1929,6 +1139,7 @@ function toggleActivated(side, entryId, val) {
   const e  = ba.entries.find(x => x.entryId === entryId);
   if (e) { e.activated = val; renderBattleUnits(side); }
 }
+
 function adjustModels(side, entryId, di, delta) {
   const ba = side === 'a' ? battleState.armyA : battleState.armyB;
   const e  = ba.entries.find(x => x.entryId === entryId);
@@ -1938,6 +1149,7 @@ function adjustModels(side, entryId, di, delta) {
   if (ds.currentModels === 0) ds.partialWounds = 0;
   renderBattleUnits(side);
 }
+
 function adjustWounds(side, entryId, di, delta) {
   const ba = side === 'a' ? battleState.armyA : battleState.armyB;
   const e  = ba.entries.find(x => x.entryId === entryId);
@@ -1946,6 +1158,7 @@ function adjustWounds(side, entryId, di, delta) {
   ds.partialWounds = Math.max(0, Math.min(ds.wounds - 1, ds.partialWounds + delta));
   renderBattleUnits(side);
 }
+
 function removeFromBattle(side, entryId) {
   const ba = side === 'a' ? battleState.armyA : battleState.armyB;
   const e  = ba.entries.find(x => x.entryId === entryId);
@@ -1974,9 +1187,12 @@ function calcEntryWoundsVsTarget(attackEntry, targetEntry) {
   attackEntry.datasheets.forEach(atkDS => {
     targetEntry.datasheets.forEach(tgtDS => {
       if (tgtDS.currentModels <= 0) return;
-      atkDS.shootingProfiles.forEach(p => { total += MATH.expectedWounds(p, tgtDS, false); });
-      if (atkDS.meleeProfiles.length) {
-        const best = atkDS.meleeProfiles.reduce((b, p) => {
+      (atkDS.shootingProfiles || []).forEach(p => {
+        total += MATH.expectedWounds(p, tgtDS, false);
+      });
+      const melee = atkDS.meleeProfiles || [];
+      if (melee.length) {
+        const best = melee.reduce((b, p) => {
           const w = MATH.expectedWounds({...p, attacks: 1}, tgtDS, true);
           return w > b.w ? { p, w } : b;
         }, { p: null, w: -1 });
@@ -1998,27 +1214,28 @@ function runAttack(attackSide, entryId) {
   if (!atkEntry) return;
   const targets = defArmy.entries.filter(e => !e.destroyed);
   if (!targets.length) { showToast('No enemy units to attack!', 'error'); return; }
+
   const results = targets.map(t => {
     const wounds = calcEntryWoundsVsTarget(atkEntry, t);
     const avgW   = t.datasheets[0]?.wounds || 1;
     const kills  = Math.floor(wounds / avgW);
     const hp     = calcTargetTotalHP(t);
     return { target: t, wounds, kills, hp, eff: wounds / hp };
-  }).sort((a,b) => b.kills - a.kills || b.eff - a.eff);
+  }).sort((a, b) => b.kills - a.kills || b.eff - a.eff);
 
-  document.getElementById('analysis-title').textContent     = atkEntry.unitName + ' — Attack';
+  document.getElementById('analysis-title').textContent      = atkEntry.unitName + ' — Attack';
   document.getElementById('analysis-mode-badge').textContent = 'ATTACK MODE';
   document.getElementById('analysis-content').innerHTML = `
     <div style="margin-bottom:0.5rem;font-size:0.88rem;color:var(--text-dim)">Best targets ranked by expected model kills:</div>
-    ${results.map((r,i) => `
-      <div class="analysis-step" style="${i===0?'border-left-color:var(--gold)':''}">
-        <div class="analysis-step-num">TARGET ${i+1}</div>
+    ${results.map((r, i) => `
+      <div class="analysis-step" style="${i === 0 ? 'border-left-color:var(--gold)' : ''}">
+        <div class="analysis-step-num">TARGET ${i + 1}</div>
         <div class="analysis-step-main"><strong>${r.target.unitName}</strong></div>
         <div class="analysis-step-detail">
           Expected wounds: <strong>${r.wounds.toFixed(1)}</strong> ·
           Expected kills: <strong>~${r.kills}</strong> ·
           Target HP: ${r.hp.toFixed(0)} ·
-          Efficiency: ${(r.eff*100).toFixed(0)}%
+          Efficiency: ${(r.eff * 100).toFixed(0)}%
         </div>
       </div>
     `).join('')}
@@ -2039,25 +1256,26 @@ function runDestroy(targetSide, entryId, attackSide) {
   const defTargets = defArmy.entries.filter(e => !e.destroyed);
   if (!defTargets.length) { showToast('No enemy targets.', 'error'); return; }
   const atkEntry = atkArmy.entries.find(e => e.entryId === entryId);
-  const results  = defTargets.map(t => {
+
+  const results = defTargets.map(t => {
     const wounds = calcEntryWoundsVsTarget(atkEntry, t);
     const hp     = calcTargetTotalHP(t);
     return { target: t, wounds, hp, canDestroy: wounds >= hp };
-  }).sort((a,b) => (b.wounds/b.hp) - (a.wounds/a.hp));
+  }).sort((a, b) => (b.wounds / b.hp) - (a.wounds / a.hp));
 
-  document.getElementById('analysis-title').textContent     = atkEntry.unitName + ' — Destroy';
+  document.getElementById('analysis-title').textContent      = atkEntry.unitName + ' — Destroy';
   document.getElementById('analysis-mode-badge').textContent = 'DESTROY MODE';
   document.getElementById('analysis-content').innerHTML = `
     <div style="margin-bottom:0.5rem;font-size:0.88rem;color:var(--text-dim)">Expected performance vs enemy units:</div>
-    ${results.map((r,i) => `
-      <div class="analysis-step" style="border-left-color:${r.canDestroy?'var(--blood-bright)':'var(--gold-dim)'}">
-        <div class="analysis-step-num">OPTION ${i+1} ${r.canDestroy?'— ☩ CAN DESTROY':''}</div>
+    ${results.map((r, i) => `
+      <div class="analysis-step" style="border-left-color:${r.canDestroy ? 'var(--blood-bright)' : 'var(--gold-dim)'}">
+        <div class="analysis-step-num">OPTION ${i + 1}${r.canDestroy ? ' — ☩ CAN DESTROY' : ''}</div>
         <div class="analysis-step-main"><strong>${r.target.unitName}</strong></div>
         <div class="analysis-step-detail">
           Expected: <strong>${r.wounds.toFixed(1)}</strong> / ${r.hp.toFixed(0)} HP ·
           ${r.canDestroy
             ? '<span style="color:var(--blood-bright)">Likely destroyed</span>'
-            : `Shortfall: ${(r.hp-r.wounds).toFixed(1)} wounds`}
+            : `Shortfall: ${(r.hp - r.wounds).toFixed(1)} wounds`}
         </div>
       </div>
     `).join('')}
@@ -2066,33 +1284,36 @@ function runDestroy(targetSide, entryId, attackSide) {
 }
 
 function runDestroyAnything(side) {
-  const atkArmy = side === 'a' ? battleState.armyA : battleState.armyB;
-  const defArmy = side === 'a' ? battleState.armyB : battleState.armyA;
+  const atkArmy  = side === 'a' ? battleState.armyA : battleState.armyB;
+  const defArmy  = side === 'a' ? battleState.armyB : battleState.armyA;
   const atkUnits = atkArmy.entries.filter(e => !e.destroyed);
   const defUnits = defArmy.entries.filter(e => !e.destroyed);
   if (!atkUnits.length || !defUnits.length) { showToast('Not enough units.', 'error'); return; }
 
   const targetAnalysis = defUnits.map(t => {
     const hp     = calcTargetTotalHP(t);
-    const sorted = atkUnits.map(a => ({ entry: a, wounds: calcEntryWoundsVsTarget(a, t) }))
-                           .sort((a,b) => b.wounds - a.wounds);
+    const sorted = atkUnits
+      .map(a => ({ entry: a, wounds: calcEntryWoundsVsTarget(a, t) }))
+      .sort((a, b) => b.wounds - a.wounds);
     let cum = 0; const seq = [];
     for (const s of sorted) { if (cum >= hp) break; cum += s.wounds; seq.push(s); }
     return { target: t, hp, sequence: seq, cumulative: cum, achievable: cum >= hp };
-  }).sort((a,b) => a.sequence.length - b.sequence.length || (b.achievable ? 1 : -1));
+  }).sort((a, b) => a.sequence.length - b.sequence.length || (b.achievable ? 1 : -1));
 
-  document.getElementById('analysis-title').textContent     = atkArmy.label + ' — Destroy Anything';
+  document.getElementById('analysis-title').textContent      = atkArmy.label + ' — Destroy Anything';
   document.getElementById('analysis-mode-badge').textContent = 'DESTROY ANYTHING';
   document.getElementById('analysis-content').innerHTML = `
     <div style="margin-bottom:0.5rem;font-size:0.88rem;color:var(--text-dim)">Easiest targets ranked by activation cost:</div>
-    ${targetAnalysis.map((ta,i) => `
-      <div class="analysis-step" style="border-left-color:${ta.achievable?'var(--blood-bright)':'var(--gold-dim)'}">
-        <div class="analysis-step-num">TARGET ${i+1} — ${ta.sequence.length} activation(s)</div>
+    ${targetAnalysis.map((ta, i) => `
+      <div class="analysis-step" style="border-left-color:${ta.achievable ? 'var(--blood-bright)' : 'var(--gold-dim)'}">
+        <div class="analysis-step-num">TARGET ${i + 1} — ${ta.sequence.length} activation(s)</div>
         <div class="analysis-step-main"><strong>${ta.target.unitName}</strong> — ${ta.hp.toFixed(0)} HP</div>
         <div class="analysis-step-detail">
-          ${ta.sequence.map((s,si) => `${si+1}. ${s.entry.unitName} (${s.wounds.toFixed(1)}W)`).join(' → ')}<br>
+          ${ta.sequence.map((s, si) => `${si + 1}. ${s.entry.unitName} (${s.wounds.toFixed(1)}W)`).join(' → ')}<br>
           Total: ${ta.cumulative.toFixed(1)}W vs ${ta.hp.toFixed(0)} HP
-          ${ta.achievable?' — <span style="color:var(--blood-bright)">☩ Destroy expected</span>':' — <span style="color:var(--gold-dim)">May not destroy</span>'}
+          ${ta.achievable
+            ? ' — <span style="color:var(--blood-bright)">☩ Destroy expected</span>'
+            : ' — <span style="color:var(--gold-dim)">May not destroy</span>'}
         </div>
       </div>
     `).join('')}
@@ -2112,8 +1333,8 @@ document.getElementById('btn-simulate').addEventListener('click', () => {
 });
 
 function simulateBattle() {
-  const simA = deepClone(battleState.armyA);
-  const simB = deepClone(battleState.armyB);
+  const simA = JSON.parse(JSON.stringify(battleState.armyA));
+  const simB = JSON.parse(JSON.stringify(battleState.armyB));
   let html = ''; let winner = null;
 
   for (let round = 1; round <= 5; round++) {
@@ -2122,33 +1343,30 @@ function simulateBattle() {
     if (!aUnits.length || !bUnits.length) break;
     let log = '';
 
-    log += '<strong>' + simA.label + ' attacks:</strong><br>';
-    aUnits.forEach(atkUnit => {
-      const alive = simB.entries.filter(e => !e.destroyed);
-      if (!alive.length) return;
-      const best = alive.map(t => ({ t, wounds: calcEntryWoundsVsTarget(atkUnit, t), hp: calcTargetTotalHP(t) }))
-                        .sort((a,b) => (b.wounds/b.hp)-(a.wounds/a.hp))[0];
-      if (!best) return;
-      applySimWounds(best.t, best.wounds);
-      log += `&nbsp;&nbsp;${atkUnit.unitName} → ${best.t.unitName}: ${best.wounds.toFixed(1)}W`;
-      if (best.t.datasheets.every(d => d.currentModels === 0)) { best.t.destroyed = true; log += ' — <span style="color:var(--blood-bright)">☩ DESTROYED</span>'; }
-      log += '<br>';
-    });
+    const runSide = (atkList, defEntries, label) => {
+      log += `<strong>${label} attacks:</strong><br>`;
+      atkList.forEach(atkUnit => {
+        const alive = defEntries.filter(e => !e.destroyed);
+        if (!alive.length) return;
+        const best = alive
+          .map(t => ({ t, wounds: calcEntryWoundsVsTarget(atkUnit, t), hp: calcTargetTotalHP(t) }))
+          .sort((a, b) => (b.wounds / b.hp) - (a.wounds / a.hp))[0];
+        if (!best) return;
+        applySimWounds(best.t, best.wounds);
+        log += `&nbsp;&nbsp;${atkUnit.unitName} → ${best.t.unitName}: ${best.wounds.toFixed(1)}W`;
+        if (best.t.datasheets.every(d => d.currentModels === 0)) {
+          best.t.destroyed = true;
+          log += ' — <span style="color:var(--blood-bright)">☩ DESTROYED</span>';
+        }
+        log += '<br>';
+      });
+    };
 
-    log += '<strong>' + simB.label + ' attacks:</strong><br>';
-    simB.entries.filter(e => !e.destroyed).forEach(atkUnit => {
-      const alive = simA.entries.filter(e => !e.destroyed);
-      if (!alive.length) return;
-      const best = alive.map(t => ({ t, wounds: calcEntryWoundsVsTarget(atkUnit, t), hp: calcTargetTotalHP(t) }))
-                        .sort((a,b) => (b.wounds/b.hp)-(a.wounds/a.hp))[0];
-      if (!best) return;
-      applySimWounds(best.t, best.wounds);
-      log += `&nbsp;&nbsp;${atkUnit.unitName} → ${best.t.unitName}: ${best.wounds.toFixed(1)}W`;
-      if (best.t.datasheets.every(d => d.currentModels === 0)) { best.t.destroyed = true; log += ' — <span style="color:var(--blood-bright)">☩ DESTROYED</span>'; }
-      log += '<br>';
-    });
+    runSide(simA.entries.filter(e => !e.destroyed), simB.entries, simA.label);
+    runSide(simB.entries.filter(e => !e.destroyed), simA.entries, simB.label);
 
     html += `<div class="report-round"><div class="report-round-header">Round ${round}</div><div class="report-round-body">${log}</div></div>`;
+
     const aAlive = simA.entries.filter(e => !e.destroyed).length;
     const bAlive = simB.entries.filter(e => !e.destroyed).length;
     if (!aAlive && !bAlive) { winner = 'Draw'; break; }
@@ -2167,8 +1385,7 @@ function applySimWounds(entry, wounds) {
   let remaining = wounds;
   for (const ds of entry.datasheets) {
     if (ds.currentModels <= 0) continue;
-    const hp = MATH.totalHP(ds);
-    const taken = Math.min(remaining, hp);
+    const taken = Math.min(remaining, MATH.totalHP(ds));
     remaining -= taken;
     let pool = taken;
     while (pool > 0 && ds.currentModels > 0) {
@@ -2181,46 +1398,37 @@ function applySimWounds(entry, wounds) {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   DATA VIEW
+   DATA VIEW — BACKUP / RESTORE
 ═══════════════════════════════════════════════════════════════ */
-document.getElementById('btn-export').addEventListener('click', () => {
-  const blob = new Blob([JSON.stringify({ factions, armies }, null, 2)], { type: 'application/json' });
+document.getElementById('btn-export-backup').addEventListener('click', () => {
+  // Backup wraps armies in the same baImportVersion envelope so it can be
+  // re-imported by either battle-assistant or (in theory) the army builder
+  const payload = { baImportVersion: BA_IMPORT_VERSION, armies };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
   const url  = URL.createObjectURL(blob);
   const a    = document.createElement('a');
-  a.href = url; a.download = 'war-engine-data.json'; a.click();
-  URL.revokeObjectURL(url); showToast('Data exported.');
+  a.href = url;
+  a.download = `battle-assistant-backup-${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('Backup exported.');
 });
 
-function handleImport(replace) {
-  const input = document.getElementById('import-file');
-  input.onchange = () => {
-    const file = input.files[0]; if (!file) return;
-    const reader = new FileReader();
-    reader.onload = e => {
-      try {
-        const data = JSON.parse(e.target.result);
-        if (replace) {
-          factions = data.factions || []; armies = data.armies || [];
-        } else {
-          const fIds = new Set(factions.map(f => f.id));
-          const aIds = new Set(armies.map(a => a.id));
-          (data.factions||[]).forEach(f => { if (!fIds.has(f.id)) factions.push(f); });
-          (data.armies||[]).forEach(a => { if (!aIds.has(a.id)) armies.push(a); });
-        }
-        saveFactions(); saveArmies(); renderFactions(); renderArmies();
-        showToast(`Import ${replace?'replace':'merge'} complete.`);
-      } catch { showToast('Invalid JSON file.', 'error'); }
-    };
-    reader.readAsText(file); input.value = '';
-  };
-  input.click();
-}
-document.getElementById('btn-import-merge').addEventListener('click', () => handleImport(false));
-document.getElementById('btn-import-replace').addEventListener('click', () => handleImport(true));
+document.getElementById('btn-import-backup').addEventListener('click', () => {
+  document.getElementById('backup-import-file').click();
+});
+document.getElementById('backup-import-file').addEventListener('change', e => {
+  const file = e.target.files[0];
+  if (file) importArmyFile(file); // same importer — validates version, merges by id
+  e.target.value = '';
+});
+
 document.getElementById('btn-clear-all').addEventListener('click', () => {
-  showConfirm('⚠ Delete ALL factions and armies? This cannot be undone.', () => {
-    factions = []; armies = [];
-    saveFactions(); saveArmies(); renderFactions(); renderArmies(); showToast('All data cleared.');
+  showConfirm('⚠ Remove ALL armies from Battle Assistant? This cannot be undone.', () => {
+    armies = [];
+    saveArmies();
+    renderArmies();
+    showToast('All armies cleared.');
   });
 });
 
@@ -2239,237 +1447,8 @@ document.getElementById('btn-confirm-ok').addEventListener('click', () => {
 });
 
 /* ═══════════════════════════════════════════════════════════════
-   SPREADSHEET PASTE PARSER
-═══════════════════════════════════════════════════════════════ */
-
-// Holds the last successful parse result so Import can use it without re-parsing
-let pasteParseResult = null;
-
-// Parse a save/skill column: "3+", "3", "-", "7", "" → integer 2–7; 7 = none
-function parseSaveCol(raw, noneDefault) {
-  if (raw === undefined || raw === null) return noneDefault;
-  const s = raw.toString().trim();
-  if (!s || s === '-' || s.toLowerCase() === 'none') return noneDefault;
-  const n = parseInt(s.replace('+', ''));
-  if (isNaN(n) || n < 2 || n > 6) return noneDefault;
-  return n;
-}
-
-// Parse one tab-separated line into a typed result object
-function parsePasteLine(raw, lineNum) {
-  const cols = raw.split('\t').map(c => c.trim());
-  const type = cols[0].toUpperCase();
-
-  if (type === 'DATASHEET') {
-    // DATASHEET | Name | Models | Wounds | T | Save | Invuln | FNP
-    if (cols.length < 6) {
-      return { error: true, lineNum,
-        msg: `Row ${lineNum}: DATASHEET needs at least 6 columns (got ${cols.length})` };
-    }
-    const warnings = [];
-    const name       = cols[1] || '';
-    const modelCount = Math.max(1, parseInt(cols[2]) || 1);
-    const wounds     = Math.max(1, parseInt(cols[3]) || 1);
-    const toughness  = Math.max(1, parseInt(cols[4]) || 4);
-    const armorSave  = parseSaveCol(cols[5], 3);
-    const invulnSave = parseSaveCol(cols[6], 7);
-    const feelNoPain = parseSaveCol(cols[7], 7);
-    if (!name) warnings.push(`Row ${lineNum}: DATASHEET has no name — will import as "Unnamed"`);
-    return { type: 'DATASHEET', lineNum, warnings,
-      data: { id: uuid(), name: name || 'Unnamed', modelCount, wounds, toughness,
-               armorSave, invulnSave, feelNoPain,
-               shootingProfiles: [], meleeProfiles: [] } };
-  }
-
-  if (type === 'SHOOT') {
-    // SHOOT | Name | Range | Attacks | BS | S | AP | Damage
-    if (cols.length < 8) {
-      return { error: true, lineNum,
-        msg: `Row ${lineNum}: SHOOT needs 8 columns (got ${cols.length})` };
-    }
-    const warnings = [];
-    const name   = cols[1] || '';
-    const range  = Math.max(0, parseInt(cols[2]) || 0);
-    const atkRaw = cols[3] || '1';
-    const atk    = parseDice(atkRaw);
-    const bs     = parseSaveCol(cols[4], 4);
-    const str    = Math.max(1, parseInt(cols[5]) || 4);
-    const ap     = parseInt(cols[6]) || 0;
-    const dmgRaw = cols[7] || '1';
-    const dmg    = parseDice(dmgRaw);
-    if (!name) warnings.push(`Row ${lineNum}: SHOOT profile has no name`);
-    return { type: 'SHOOT', lineNum, warnings,
-      data: { id: uuid(), name, range,
-               attacks: atk.value, attacksDisplay: atk.display,
-               ballisticSkill: bs, strength: str, armorPenetration: ap,
-               damage: dmg.value, damageDisplay: dmg.display } };
-  }
-
-  if (type === 'MELEE') {
-    // MELEE | Name | Attacks | WS | S | AP | Damage
-    if (cols.length < 7) {
-      return { error: true, lineNum,
-        msg: `Row ${lineNum}: MELEE needs 7 columns (got ${cols.length})` };
-    }
-    const warnings = [];
-    const name   = cols[1] || '';
-    const atkRaw = cols[2] || '1';
-    const atk    = parseDice(atkRaw);
-    const ws     = parseSaveCol(cols[3], 4);
-    const str    = Math.max(1, parseInt(cols[4]) || 4);
-    const ap     = parseInt(cols[5]) || 0;
-    const dmgRaw = cols[6] || '1';
-    const dmg    = parseDice(dmgRaw);
-    if (!name) warnings.push(`Row ${lineNum}: MELEE profile has no name`);
-    return { type: 'MELEE', lineNum, warnings,
-      data: { id: uuid(), name,
-               attacks: atk.value, attacksDisplay: atk.display,
-               weaponSkill: ws, strength: str, armorPenetration: ap,
-               damage: dmg.value, damageDisplay: dmg.display } };
-  }
-
-  // Unrecognised — probably a header row the user included by accident
-  return { error: true, lineNum,
-    msg: `Row ${lineNum}: Unknown row type "${cols[0]}" — expected DATASHEET, SHOOT, or MELEE` };
-}
-
-// Top-level: text → { datasheets[], errors[], warnings[] }
-function parseSpreadsheetPaste(text) {
-  const lines    = text.split('\n').map(l => l.replace(/\r$/, '')).filter(l => l.trim());
-  const errors   = [];
-  const warnings = [];
-  const datasheets = [];
-  let currentDS  = null;
-
-  lines.forEach((line, i) => {
-    const lineNum = i + 1;
-    const result  = parsePasteLine(line, lineNum);
-    if (result.error) { errors.push(result.msg); return; }
-    if (result.warnings?.length) warnings.push(...result.warnings);
-
-    if (result.type === 'DATASHEET') {
-      currentDS = result.data;
-      datasheets.push(currentDS);
-    } else if (result.type === 'SHOOT') {
-      if (!currentDS) {
-        errors.push(`Row ${lineNum}: SHOOT profile "${result.data.name}" has no preceding DATASHEET row — skipped`);
-        return;
-      }
-      currentDS.shootingProfiles.push(result.data);
-    } else if (result.type === 'MELEE') {
-      if (!currentDS) {
-        errors.push(`Row ${lineNum}: MELEE profile "${result.data.name}" has no preceding DATASHEET row — skipped`);
-        return;
-      }
-      currentDS.meleeProfiles.push(result.data);
-    }
-  });
-
-  return { datasheets, errors, warnings };
-}
-
-// Render parse result into the modal preview section
-function renderPastePreview(result) {
-  const { datasheets, errors, warnings } = result;
-  const previewEl   = document.getElementById('paste-preview');
-  const statBarEl   = document.getElementById('paste-stats');
-  const errorsEl    = document.getElementById('paste-errors');
-  const previewList = document.getElementById('paste-preview-list');
-  const importBtn   = document.getElementById('btn-paste-import');
-  const importCount = document.getElementById('paste-import-count');
-
-  previewEl.style.display = '';
-
-  // Stat bar
-  const totalProfiles = datasheets.reduce((n, ds) =>
-    n + ds.shootingProfiles.length + ds.meleeProfiles.length, 0);
-  statBarEl.innerHTML =
-    `<span class="badge badge-gold">${datasheets.length} datasheet${datasheets.length !== 1 ? 's' : ''}</span>` +
-    `<span class="badge badge-dim">${totalProfiles} profile${totalProfiles !== 1 ? 's' : ''}</span>` +
-    (errors.length   ? `<span class="badge badge-blood">${errors.length} error${errors.length !== 1 ? 's' : ''}</span>` : '') +
-    (warnings.length ? `<span class="badge badge-teal">${warnings.length} warning${warnings.length !== 1 ? 's' : ''}</span>` : '');
-
-  // Errors + warnings
-  errorsEl.innerHTML =
-    errors.map(e   => `<div class="paste-error-row">⚠ ${e}</div>`).join('') +
-    warnings.map(w => `<div class="paste-warn-row">△ ${w}</div>`).join('');
-
-  // Datasheet preview cards
-  previewList.innerHTML = datasheets.length ? datasheets.map(ds => {
-    const shootHtml = ds.shootingProfiles.map(p =>
-      `<div class="paste-profile-line">
-        <span style="color:var(--text)">☩ ${p.name || '(unnamed)'}</span>
-        <span style="color:var(--text-muted);margin-left:0.5rem">Rng:${p.range}" A:${p.attacksDisplay} BS:${p.ballisticSkill}+ S:${p.strength} AP:${p.armorPenetration} D:${p.damageDisplay}</span>
-      </div>`).join('');
-    const meleeHtml = ds.meleeProfiles.map(p =>
-      `<div class="paste-profile-line">
-        <span style="color:var(--text)">⚔ ${p.name || '(unnamed)'}</span>
-        <span style="color:var(--text-muted);margin-left:0.5rem">A:${p.attacksDisplay} WS:${p.weaponSkill}+ S:${p.strength} AP:${p.armorPenetration} D:${p.damageDisplay}</span>
-      </div>`).join('');
-    const saveLine = `${ds.armorSave}+${ds.invulnSave < 7 ? ` / ${ds.invulnSave}++` : ''}${ds.feelNoPain < 7 ? ` / ${ds.feelNoPain}+++` : ''}`;
-    return `<div class="paste-ds-preview">
-      <div class="paste-ds-preview-header">
-        <span>${ds.name}</span>
-        <span class="badge badge-dim">${ds.modelCount}×M · ${ds.wounds}W · T${ds.toughness} · ${saveLine}</span>
-      </div>
-      ${shootHtml || meleeHtml
-        ? `<div class="paste-ds-preview-body">${shootHtml}${meleeHtml}</div>`
-        : ''}
-    </div>`;
-  }).join('')
-  : `<div style="color:var(--text-muted);font-size:0.85rem;padding:0.5rem 0">No valid datasheets found.</div>`;
-
-  // Enable/disable import button
-  importBtn.disabled = datasheets.length === 0;
-  importCount.textContent = datasheets.length > 0 ? `(${datasheets.length})` : '';
-}
-
-// ── Wire up the paste modal ──
-
-document.getElementById('btn-open-paste').addEventListener('click', () => {
-  document.getElementById('paste-input').value = '';
-  document.getElementById('paste-preview').style.display = 'none';
-  document.getElementById('btn-paste-import').disabled = true;
-  document.getElementById('paste-import-count').textContent = '';
-  pasteParseResult = null;
-  openModal('modal-paste');
-});
-
-document.getElementById('btn-paste-parse').addEventListener('click', () => {
-  const text = document.getElementById('paste-input').value;
-  if (!text.trim()) { showToast('Nothing to parse — paste some rows first.', 'error'); return; }
-  pasteParseResult = parseSpreadsheetPaste(text);
-  renderPastePreview(pasteParseResult);
-});
-
-// Auto-preview on paste event — 60 ms delay lets the textarea receive the content first
-document.getElementById('paste-input').addEventListener('paste', () => {
-  setTimeout(() => {
-    const text = document.getElementById('paste-input').value;
-    if (!text.trim()) return;
-    pasteParseResult = parseSpreadsheetPaste(text);
-    renderPastePreview(pasteParseResult);
-  }, 60);
-});
-
-document.getElementById('btn-paste-import').addEventListener('click', () => {
-  if (!pasteParseResult || !pasteParseResult.datasheets.length) return;
-  const count = pasteParseResult.datasheets.length;
-  pasteParseResult.datasheets.forEach(ds => tempUnit.datasheets.push(ds));
-  renderDatasheetsList();
-  // Auto-expand the first newly added datasheet
-  const items = document.querySelectorAll('#unit-datasheets-list .ds-item');
-  const firstNew = items[items.length - count];
-  if (firstNew) firstNew.querySelector('.ds-item-body').style.display = '';
-  closeModal('modal-paste');
-  showToast(`${count} datasheet${count !== 1 ? 's' : ''} imported.`);
-  pasteParseResult = null;
-});
-
-/* ═══════════════════════════════════════════════════════════════
    INIT
 ═══════════════════════════════════════════════════════════════ */
-renderFactions();
 renderArmies();
 </script>
 
