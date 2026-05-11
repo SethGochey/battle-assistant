@@ -397,6 +397,51 @@
   .lib-tab.active { color: var(--gold); border-color: var(--border-gold); background: var(--surface4); }
   .lib-empty { font-size: 0.8rem; color: var(--text-muted); padding: 0.5rem 0; font-style: italic; }
 
+  /* ══ PASTE PREVIEW ══ */
+  .paste-ds-preview {
+    border: 1px solid var(--border-dim); border-radius: var(--radius);
+    overflow: hidden; margin-bottom: 0.5rem;
+  }
+  .paste-ds-preview-header {
+    background: var(--surface3); padding: 0.4rem 0.75rem;
+    font-family: 'Cinzel', serif; font-size: 0.8rem; color: var(--gold);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .paste-ds-preview-body { padding: 0.5rem 0.75rem; font-size: 0.8rem; color: var(--text-dim); }
+  .paste-profile-line { padding: 0.15rem 0; border-bottom: 1px solid var(--border-dim); }
+  .paste-profile-line:last-child { border-bottom: none; }
+  .paste-error-row {
+    background: rgba(192,32,32,0.08); border: 1px solid rgba(192,32,32,0.25);
+    border-radius: var(--radius); padding: 0.4rem 0.75rem;
+    font-size: 0.78rem; color: #e05050; margin-bottom: 0.35rem;
+  }
+  .paste-warn-row {
+    background: rgba(201,168,76,0.06); border: 1px solid var(--border-gold);
+    border-radius: var(--radius); padding: 0.4rem 0.75rem;
+    font-size: 0.78rem; color: var(--gold-dim); margin-bottom: 0.35rem;
+  }
+  /* format-ref box inside paste modal */
+  .fmt-ref {
+    background: var(--surface3); border: 1px solid var(--border-dim);
+    border-radius: var(--radius); padding: 0.85rem; margin-bottom: 1rem; font-size: 0.8rem;
+  }
+  .fmt-ref-title {
+    font-family: 'Cinzel', serif; font-size: 0.65rem; font-weight: 700;
+    letter-spacing: 0.12em; color: var(--gold-dim); margin-bottom: 0.5rem;
+  }
+  .fmt-ref code {
+    font-family: 'Courier New', monospace; font-size: 0.72rem;
+    color: var(--gold); background: var(--surface4);
+    padding: 0.1rem 0.35rem; border-radius: 2px;
+  }
+  .fmt-ref pre {
+    font-family: 'Courier New', monospace; font-size: 0.7rem;
+    color: var(--text-muted); line-height: 1.8; white-space: pre-wrap;
+    margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--border-dim);
+  }
+  .fmt-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.5rem; }
+  .fmt-col-title { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.1em; color: var(--text-dim); margin-bottom: 0.3rem; }
+
   @media (max-width: 768px) {
     .nav-tabs { display: none; }
     .hamburger { display: flex; align-items: center; justify-content: center; }
@@ -409,6 +454,7 @@
     .modal { max-width: 100%; margin: 0; border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
     .modal-backdrop { align-items: flex-end; padding: 0; }
     .modal { max-height: 95vh; }
+    .fmt-cols { grid-template-columns: 1fr; }
   }
   @media (max-width: 500px) {
     .grid-3 { grid-template-columns: 1fr; }
@@ -685,13 +731,98 @@
       <div class="divider">DATASHEETS</div>
       <div class="section-header">
         <span class="section-title">Datasheet Models</span>
-        <button class="btn btn-ghost btn-sm" id="btn-add-datasheet">+ Add Datasheet</button>
+        <div class="flex-row gap-sm">
+          <button class="btn btn-clone btn-sm" id="btn-open-paste">⊞ Paste from Spreadsheet</button>
+          <button class="btn btn-ghost btn-sm" id="btn-add-datasheet">+ Add Datasheet</button>
+        </div>
       </div>
       <div id="unit-datasheets-list" class="ds-list"></div>
     </div>
     <div class="modal-footer">
       <button class="btn btn-ghost" data-close="modal-unit">Cancel</button>
       <button class="btn btn-gold" id="btn-save-unit">Save Unit</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL: PASTE FROM SPREADSHEET ══ -->
+<div class="modal-backdrop" id="modal-paste">
+  <div class="modal modal-lg">
+    <div class="modal-header">
+      <span class="modal-title">⊞ Paste from Spreadsheet</span>
+      <button class="modal-close" data-close="modal-paste">✕</button>
+    </div>
+    <div class="modal-body">
+
+      <!-- Format reference -->
+      <div style="background:var(--surface3);border:1px solid var(--border-dim);border-radius:var(--radius);padding:0.75rem;margin-bottom:1rem;">
+        <div class="section-title mb-1">FORMAT REFERENCE</div>
+        <p style="font-size:0.82rem;color:var(--text-dim);line-height:1.7;margin-bottom:0.6rem">
+          Copy a selection from Excel or Google Sheets and paste below. First column must be the row type:
+          <code style="color:var(--gold);background:var(--surface4);padding:0.1rem 0.4rem;border-radius:2px">DATASHEET</code>
+          <code style="color:var(--gold);background:var(--surface4);padding:0.1rem 0.4rem;border-radius:2px">SHOOT</code>
+          <code style="color:var(--gold);background:var(--surface4);padding:0.1rem 0.4rem;border-radius:2px">MELEE</code>.
+          Profiles belong to the most recent DATASHEET row above them.
+          Attacks &amp; Damage accept dice notation (D6, 2D6+1, D3) or plain numbers.
+          Saves accept <code style="color:var(--gold);background:var(--surface4);padding:0.1rem 0.4rem;border-radius:2px">3</code> or <code style="color:var(--gold);background:var(--surface4);padding:0.1rem 0.4rem;border-radius:2px">3+</code>.
+          Use <code style="color:var(--gold);background:var(--surface4);padding:0.1rem 0.4rem;border-radius:2px">-</code> or <code style="color:var(--gold);background:var(--surface4);padding:0.1rem 0.4rem;border-radius:2px">7</code> for None.
+        </p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem">
+          <div>
+            <div style="font-family:Cinzel,serif;font-size:0.65rem;letter-spacing:0.1em;color:var(--gold-dim);margin-bottom:0.35rem">DATASHEET COLUMNS</div>
+            <code style="font-size:0.72rem;color:var(--text-dim);line-height:2;display:block">
+              DATASHEET &nbsp;|&nbsp; Name &nbsp;|&nbsp; Models &nbsp;|&nbsp; Wounds &nbsp;|&nbsp; T &nbsp;|&nbsp; Save &nbsp;|&nbsp; Invuln &nbsp;|&nbsp; FNP
+            </code>
+          </div>
+          <div>
+            <div style="font-family:Cinzel,serif;font-size:0.65rem;letter-spacing:0.1em;color:var(--gold-dim);margin-bottom:0.35rem">PROFILE COLUMNS</div>
+            <code style="font-size:0.72rem;color:var(--text-dim);line-height:2;display:block">
+              SHOOT &nbsp;|&nbsp; Name &nbsp;|&nbsp; Range &nbsp;|&nbsp; Attacks &nbsp;|&nbsp; BS &nbsp;|&nbsp; S &nbsp;|&nbsp; AP &nbsp;|&nbsp; Damage<br>
+              MELEE &nbsp;|&nbsp; Name &nbsp;|&nbsp; Attacks &nbsp;|&nbsp; WS &nbsp;|&nbsp; S &nbsp;|&nbsp; AP &nbsp;|&nbsp; Damage
+            </code>
+          </div>
+        </div>
+        <div style="margin-top:0.75rem;padding-top:0.6rem;border-top:1px solid var(--border-dim)">
+          <div style="font-family:Cinzel,serif;font-size:0.65rem;letter-spacing:0.1em;color:var(--gold-dim);margin-bottom:0.35rem">EXAMPLE</div>
+          <pre style="font-family:monospace;font-size:0.7rem;color:var(--text-muted);line-height:1.9;white-space:pre-wrap">DATASHEET	Intercessor Sergeant	1	3	4	3	-	-
+SHOOT	Bolt Rifle	24	2	3	4	-1	1
+MELEE	Close Combat Weapon	3	3	4	0	1
+DATASHEET	Intercessor	4	2	4	3	-	-
+SHOOT	Bolt Rifle	24	2	3	4	-1	1
+MELEE	Close Combat Weapon	3	3	4	0	1</pre>
+        </div>
+      </div>
+
+      <!-- Paste area -->
+      <div class="form-group mb-2">
+        <label class="form-label">Paste Spreadsheet Data Here</label>
+        <textarea
+          class="form-textarea"
+          id="paste-input"
+          rows="10"
+          placeholder="Select rows in your spreadsheet, copy (Cmd+C / Ctrl+C), then paste here (Cmd+V / Ctrl+V)&#x2026;"
+          style="font-family:monospace;font-size:0.8rem;resize:vertical;min-height:160px"
+        ></textarea>
+      </div>
+
+      <!-- Parse result feedback -->
+      <div id="paste-preview" style="display:none">
+        <div class="divider">PREVIEW</div>
+        <div id="paste-stats" style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.75rem"></div>
+        <div id="paste-errors" style="margin-bottom:0.5rem"></div>
+        <div id="paste-preview-list"></div>
+      </div>
+
+    </div>
+    <div class="modal-footer" style="justify-content:space-between;align-items:center">
+      <div style="display:flex;gap:0.5rem;align-items:center">
+        <button class="btn btn-ghost btn-sm" id="btn-paste-parse">⟳ Preview</button>
+        <span style="font-size:0.75rem;color:var(--text-muted)">Check before importing</span>
+      </div>
+      <div style="display:flex;gap:0.5rem">
+        <button class="btn btn-ghost" data-close="modal-paste">Cancel</button>
+        <button class="btn btn-gold" id="btn-paste-import" disabled>Import <span id="paste-import-count"></span></button>
+      </div>
     </div>
   </div>
 </div>
@@ -2105,6 +2236,234 @@ function showConfirm(msg, cb) {
 document.getElementById('btn-confirm-ok').addEventListener('click', () => {
   closeModal('modal-confirm');
   if (confirmCallback) { confirmCallback(); confirmCallback = null; }
+});
+
+/* ═══════════════════════════════════════════════════════════════
+   SPREADSHEET PASTE PARSER
+═══════════════════════════════════════════════════════════════ */
+
+// Holds the last successful parse result so Import can use it without re-parsing
+let pasteParseResult = null;
+
+// Parse a save/skill column: "3+", "3", "-", "7", "" → integer 2–7; 7 = none
+function parseSaveCol(raw, noneDefault) {
+  if (raw === undefined || raw === null) return noneDefault;
+  const s = raw.toString().trim();
+  if (!s || s === '-' || s.toLowerCase() === 'none') return noneDefault;
+  const n = parseInt(s.replace('+', ''));
+  if (isNaN(n) || n < 2 || n > 6) return noneDefault;
+  return n;
+}
+
+// Parse one tab-separated line into a typed result object
+function parsePasteLine(raw, lineNum) {
+  const cols = raw.split('\t').map(c => c.trim());
+  const type = cols[0].toUpperCase();
+
+  if (type === 'DATASHEET') {
+    // DATASHEET | Name | Models | Wounds | T | Save | Invuln | FNP
+    if (cols.length < 6) {
+      return { error: true, lineNum,
+        msg: `Row ${lineNum}: DATASHEET needs at least 6 columns (got ${cols.length})` };
+    }
+    const warnings = [];
+    const name       = cols[1] || '';
+    const modelCount = Math.max(1, parseInt(cols[2]) || 1);
+    const wounds     = Math.max(1, parseInt(cols[3]) || 1);
+    const toughness  = Math.max(1, parseInt(cols[4]) || 4);
+    const armorSave  = parseSaveCol(cols[5], 3);
+    const invulnSave = parseSaveCol(cols[6], 7);
+    const feelNoPain = parseSaveCol(cols[7], 7);
+    if (!name) warnings.push(`Row ${lineNum}: DATASHEET has no name — will import as "Unnamed"`);
+    return { type: 'DATASHEET', lineNum, warnings,
+      data: { id: uuid(), name: name || 'Unnamed', modelCount, wounds, toughness,
+               armorSave, invulnSave, feelNoPain,
+               shootingProfiles: [], meleeProfiles: [] } };
+  }
+
+  if (type === 'SHOOT') {
+    // SHOOT | Name | Range | Attacks | BS | S | AP | Damage
+    if (cols.length < 8) {
+      return { error: true, lineNum,
+        msg: `Row ${lineNum}: SHOOT needs 8 columns (got ${cols.length})` };
+    }
+    const warnings = [];
+    const name   = cols[1] || '';
+    const range  = Math.max(0, parseInt(cols[2]) || 0);
+    const atkRaw = cols[3] || '1';
+    const atk    = parseDice(atkRaw);
+    const bs     = parseSaveCol(cols[4], 4);
+    const str    = Math.max(1, parseInt(cols[5]) || 4);
+    const ap     = parseInt(cols[6]) || 0;
+    const dmgRaw = cols[7] || '1';
+    const dmg    = parseDice(dmgRaw);
+    if (!name) warnings.push(`Row ${lineNum}: SHOOT profile has no name`);
+    return { type: 'SHOOT', lineNum, warnings,
+      data: { id: uuid(), name, range,
+               attacks: atk.value, attacksDisplay: atk.display,
+               ballisticSkill: bs, strength: str, armorPenetration: ap,
+               damage: dmg.value, damageDisplay: dmg.display } };
+  }
+
+  if (type === 'MELEE') {
+    // MELEE | Name | Attacks | WS | S | AP | Damage
+    if (cols.length < 7) {
+      return { error: true, lineNum,
+        msg: `Row ${lineNum}: MELEE needs 7 columns (got ${cols.length})` };
+    }
+    const warnings = [];
+    const name   = cols[1] || '';
+    const atkRaw = cols[2] || '1';
+    const atk    = parseDice(atkRaw);
+    const ws     = parseSaveCol(cols[3], 4);
+    const str    = Math.max(1, parseInt(cols[4]) || 4);
+    const ap     = parseInt(cols[5]) || 0;
+    const dmgRaw = cols[6] || '1';
+    const dmg    = parseDice(dmgRaw);
+    if (!name) warnings.push(`Row ${lineNum}: MELEE profile has no name`);
+    return { type: 'MELEE', lineNum, warnings,
+      data: { id: uuid(), name,
+               attacks: atk.value, attacksDisplay: atk.display,
+               weaponSkill: ws, strength: str, armorPenetration: ap,
+               damage: dmg.value, damageDisplay: dmg.display } };
+  }
+
+  // Unrecognised — probably a header row the user included by accident
+  return { error: true, lineNum,
+    msg: `Row ${lineNum}: Unknown row type "${cols[0]}" — expected DATASHEET, SHOOT, or MELEE` };
+}
+
+// Top-level: text → { datasheets[], errors[], warnings[] }
+function parseSpreadsheetPaste(text) {
+  const lines    = text.split('\n').map(l => l.replace(/\r$/, '')).filter(l => l.trim());
+  const errors   = [];
+  const warnings = [];
+  const datasheets = [];
+  let currentDS  = null;
+
+  lines.forEach((line, i) => {
+    const lineNum = i + 1;
+    const result  = parsePasteLine(line, lineNum);
+    if (result.error) { errors.push(result.msg); return; }
+    if (result.warnings?.length) warnings.push(...result.warnings);
+
+    if (result.type === 'DATASHEET') {
+      currentDS = result.data;
+      datasheets.push(currentDS);
+    } else if (result.type === 'SHOOT') {
+      if (!currentDS) {
+        errors.push(`Row ${lineNum}: SHOOT profile "${result.data.name}" has no preceding DATASHEET row — skipped`);
+        return;
+      }
+      currentDS.shootingProfiles.push(result.data);
+    } else if (result.type === 'MELEE') {
+      if (!currentDS) {
+        errors.push(`Row ${lineNum}: MELEE profile "${result.data.name}" has no preceding DATASHEET row — skipped`);
+        return;
+      }
+      currentDS.meleeProfiles.push(result.data);
+    }
+  });
+
+  return { datasheets, errors, warnings };
+}
+
+// Render parse result into the modal preview section
+function renderPastePreview(result) {
+  const { datasheets, errors, warnings } = result;
+  const previewEl   = document.getElementById('paste-preview');
+  const statBarEl   = document.getElementById('paste-stats');
+  const errorsEl    = document.getElementById('paste-errors');
+  const previewList = document.getElementById('paste-preview-list');
+  const importBtn   = document.getElementById('btn-paste-import');
+  const importCount = document.getElementById('paste-import-count');
+
+  previewEl.style.display = '';
+
+  // Stat bar
+  const totalProfiles = datasheets.reduce((n, ds) =>
+    n + ds.shootingProfiles.length + ds.meleeProfiles.length, 0);
+  statBarEl.innerHTML =
+    `<span class="badge badge-gold">${datasheets.length} datasheet${datasheets.length !== 1 ? 's' : ''}</span>` +
+    `<span class="badge badge-dim">${totalProfiles} profile${totalProfiles !== 1 ? 's' : ''}</span>` +
+    (errors.length   ? `<span class="badge badge-blood">${errors.length} error${errors.length !== 1 ? 's' : ''}</span>` : '') +
+    (warnings.length ? `<span class="badge badge-teal">${warnings.length} warning${warnings.length !== 1 ? 's' : ''}</span>` : '');
+
+  // Errors + warnings
+  errorsEl.innerHTML =
+    errors.map(e   => `<div class="paste-error-row">⚠ ${e}</div>`).join('') +
+    warnings.map(w => `<div class="paste-warn-row">△ ${w}</div>`).join('');
+
+  // Datasheet preview cards
+  previewList.innerHTML = datasheets.length ? datasheets.map(ds => {
+    const shootHtml = ds.shootingProfiles.map(p =>
+      `<div class="paste-profile-line">
+        <span style="color:var(--text)">☩ ${p.name || '(unnamed)'}</span>
+        <span style="color:var(--text-muted);margin-left:0.5rem">Rng:${p.range}" A:${p.attacksDisplay} BS:${p.ballisticSkill}+ S:${p.strength} AP:${p.armorPenetration} D:${p.damageDisplay}</span>
+      </div>`).join('');
+    const meleeHtml = ds.meleeProfiles.map(p =>
+      `<div class="paste-profile-line">
+        <span style="color:var(--text)">⚔ ${p.name || '(unnamed)'}</span>
+        <span style="color:var(--text-muted);margin-left:0.5rem">A:${p.attacksDisplay} WS:${p.weaponSkill}+ S:${p.strength} AP:${p.armorPenetration} D:${p.damageDisplay}</span>
+      </div>`).join('');
+    const saveLine = `${ds.armorSave}+${ds.invulnSave < 7 ? ` / ${ds.invulnSave}++` : ''}${ds.feelNoPain < 7 ? ` / ${ds.feelNoPain}+++` : ''}`;
+    return `<div class="paste-ds-preview">
+      <div class="paste-ds-preview-header">
+        <span>${ds.name}</span>
+        <span class="badge badge-dim">${ds.modelCount}×M · ${ds.wounds}W · T${ds.toughness} · ${saveLine}</span>
+      </div>
+      ${shootHtml || meleeHtml
+        ? `<div class="paste-ds-preview-body">${shootHtml}${meleeHtml}</div>`
+        : ''}
+    </div>`;
+  }).join('')
+  : `<div style="color:var(--text-muted);font-size:0.85rem;padding:0.5rem 0">No valid datasheets found.</div>`;
+
+  // Enable/disable import button
+  importBtn.disabled = datasheets.length === 0;
+  importCount.textContent = datasheets.length > 0 ? `(${datasheets.length})` : '';
+}
+
+// ── Wire up the paste modal ──
+
+document.getElementById('btn-open-paste').addEventListener('click', () => {
+  document.getElementById('paste-input').value = '';
+  document.getElementById('paste-preview').style.display = 'none';
+  document.getElementById('btn-paste-import').disabled = true;
+  document.getElementById('paste-import-count').textContent = '';
+  pasteParseResult = null;
+  openModal('modal-paste');
+});
+
+document.getElementById('btn-paste-parse').addEventListener('click', () => {
+  const text = document.getElementById('paste-input').value;
+  if (!text.trim()) { showToast('Nothing to parse — paste some rows first.', 'error'); return; }
+  pasteParseResult = parseSpreadsheetPaste(text);
+  renderPastePreview(pasteParseResult);
+});
+
+// Auto-preview on paste event — 60 ms delay lets the textarea receive the content first
+document.getElementById('paste-input').addEventListener('paste', () => {
+  setTimeout(() => {
+    const text = document.getElementById('paste-input').value;
+    if (!text.trim()) return;
+    pasteParseResult = parseSpreadsheetPaste(text);
+    renderPastePreview(pasteParseResult);
+  }, 60);
+});
+
+document.getElementById('btn-paste-import').addEventListener('click', () => {
+  if (!pasteParseResult || !pasteParseResult.datasheets.length) return;
+  const count = pasteParseResult.datasheets.length;
+  pasteParseResult.datasheets.forEach(ds => tempUnit.datasheets.push(ds));
+  renderDatasheetsList();
+  // Auto-expand the first newly added datasheet
+  const items = document.querySelectorAll('#unit-datasheets-list .ds-item');
+  const firstNew = items[items.length - count];
+  if (firstNew) firstNew.querySelector('.ds-item-body').style.display = '';
+  closeModal('modal-paste');
+  showToast(`${count} datasheet${count !== 1 ? 's' : ''} imported.`);
+  pasteParseResult = null;
 });
 
 /* ═══════════════════════════════════════════════════════════════
