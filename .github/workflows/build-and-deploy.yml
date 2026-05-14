@@ -1,0 +1,75 @@
+name: Build & Deploy
+
+on:
+  push:
+    branches: [main]
+  repository_dispatch:
+    types: [ux-updated]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout battle-assistant
+        uses: actions/checkout@v4
+
+      - name: Fetch shared CSS from siege-perilous-ux
+        run: |
+          curl -fsSL \
+            "https://raw.githubusercontent.com/SethGochey/siege-perilous-ux/main/siege.css" \
+            -o siege.css
+
+      - name: Inject shared CSS into index.html
+        run: |
+          python3 - <<'EOF'
+          import re, pathlib
+
+          css   = pathlib.Path("siege.css").read_text()
+          html  = pathlib.Path("index.html").read_text()
+
+          marker = r'/\*\s*@siege-ux-inject\s*\*/'
+
+          if not re.search(marker, html):
+              raise SystemExit(
+                  "ERROR: injection marker /* @siege-ux-inject */ not found in index.html"
+              )
+
+          injected = (
+              "/* ── BEGIN: siege-perilous-ux shared styles "
+              "(injected at build time — do not edit here) ── */\n"
+              + css.strip()
+              + "\n/* ── END: siege-perilous-ux shared styles ── */"
+          )
+
+          result = re.sub(marker, injected, html)
+          pathlib.Path("dist/index.html").parent.mkdir(exist_ok=True)
+          pathlib.Path("dist/index.html").write_text(result)
+          print("Injection complete.")
+          EOF
+
+      - name: Copy CNAME to dist
+        run: cp CNAME dist/CNAME
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
